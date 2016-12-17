@@ -87,26 +87,6 @@ footer {
   margin-right: 0px;
 }
 
-/*.icon-navbar{
-  height: 2rem;
-  width: 2rem;
-  fill: #FFF;
-  margin: 3px 6px;
-}
-
-@media (max-width: 543px) {
-  .icon-navbar{
-    margin: 3px 0px;
-  }
-}
-
-.icon-button{
-  background-color: transparent;
-  border: none;
-  line-height: 0%;
-  padding:0px;
-}*/
-
 .icon-button{
   cursor: pointer;
   position: relative;
