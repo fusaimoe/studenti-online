@@ -158,6 +158,12 @@ footer {
   }
 }
 
+@media (max-width: 991px) {
+  .table-course{
+    display:none;
+  }
+}
+
 .card-top {
   display: inline-block;
   margin: 0px;
@@ -206,4 +212,36 @@ footer {
   -moz-transform:rotate(180deg);
   -webkit-transform:rotate(180deg);
   transform:rotate(180deg);
+}
+
+/* PLAN */
+
+.breadcrumb {
+  background-color: transparent;
+  border-radius: .0em;
+  margin-bottom: 0.75rem;
+  padding: .45rem;
+}
+
+.breadcrumb-item {
+  color:#373a3c;
+}
+
+.breadcrumb-item:hover, .breadcrumb-item:focus {
+  color:#373a3c;
+  opacity: .6;
+  text-decoration: none;
+}
+
+.breadcrumb-item.active:hover {
+  color:#818a91;
+  opacity: 1;
+  text-decoration: none;
+}
+
+label.custom-control.custom-checkbox {
+  margin-bottom: .0rem;
+  margin-top: .0rem;
+  border-top: none;
+  border-bottom: none;
 }
