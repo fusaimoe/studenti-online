@@ -37,7 +37,16 @@ h6{
 
 a, a:hover, a:active, a:focus, button, button:hover, button:active, button:focus {
    outline: 0;
+   text-decoration: none;
 }
+
+a {
+  color: #000;
+}
+a:hover{
+  color: #555;
+}
+
 
 footer {
   margin-top: 1rem;
@@ -68,8 +77,8 @@ footer {
   background-color: #C92D2D;
 }
 
-@media (max-width: 576px) {
-  .navbar-centered {
+@media (max-width: 767px) {
+  .navbar {
     margin-right: -15px;
     margin-left: -15px;
   }
@@ -96,7 +105,6 @@ footer {
   line-height: 0%;
   text-align: center;
   border: none;
-  margin: 0 10px;
   padding: 9px 0;
 }
 
@@ -105,7 +113,18 @@ footer {
 }
 
 .icon-navbar{
+  margin: 0 10px;
   color: #FFF;
+}
+
+.icon-footer{
+  margin: 0 10px;
+  color: #373a3c;
+}
+
+.icon-homepage{
+  font-size: 2em;
+  color: #C92D2D;
 }
 
 .icon-tag {
@@ -114,8 +133,40 @@ footer {
   font-size: 12px;
 }
 
-.icon-footer{
-  color: #373a3c;
+
+
+@media (min-width: 991px) {
+
+  .col-nopadding-side {
+    padding-left: 0;
+  }
+  .col-nopadding {
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+  .col-nopadding:first-child {
+    padding-left: 15px;
+    padding-right: 7px;
+  }
+  .col-nopadding:last-child {
+    padding-left: 7px;
+    padding-right: 15px;
+  }
+
+
+}
+
+.col-nopadding-home {
+  padding-right: 7px;
+  padding-left: 7px;
+}
+.col-nopadding-home:first-child {
+  padding-left: 15px;
+  padding-right: 7px;
+}
+.col-nopadding-home:last-child {
+  padding-left: 7px;
+  padding-right: 15px;
 }
 
 .icon-control{
@@ -159,8 +210,13 @@ footer {
 }
 
 @media (max-width: 991px) {
-  .resize, .table-course, .mobile-view{
+  .resize, .table-course, .mobile-view, .card-text{
     display:none;
+  }
+  /*home*/
+  .icon-homepage{
+    font-size: 1.5em;
+    color: #C92D2D;
   }
 }
 
@@ -171,6 +227,14 @@ footer {
 
 .card-content {
   margin-top: 20px;
+}
+
+.card-title, .card-text{
+  text-align: center;
+}
+
+.card-title{
+  margin-top: 10px;
 }
 
 .profile-user {
