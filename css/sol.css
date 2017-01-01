@@ -217,6 +217,16 @@ footer {
     font-size: 1.5em;
     color: #C92D2D;
   }
+
+  .card-block{
+     padding: 0.6rem;
+  }
+}
+@media (max-width: 767px) {
+  .card-title{
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
 }
 
 .card-top {
