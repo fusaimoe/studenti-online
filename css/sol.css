@@ -133,7 +133,18 @@ footer {
   font-size: 12px;
 }
 
+.icon-side {
+  margin-right: 10px;
+  font-size: 1.1em;
+  color: #C92D2D;
+  vertical-align: middle;
+}
 
+@media (max-width: 992px) {
+  .icon-side {
+    margin: 0 8px;
+  }
+}
 
 @media (min-width: 991px) {
 
@@ -152,6 +163,8 @@ footer {
     padding-left: 7px;
     padding-right: 15px;
   }
+
+
 
 }
 
@@ -209,7 +222,7 @@ footer {
 }
 
 @media (max-width: 991px) {
-  .resize, .table-course, .mobile-view, .card-text{
+  .resize, .table-course, .mobile-view{
     display:none;
   }
   /*home*/
@@ -220,12 +233,6 @@ footer {
 
   .card-block{
      padding: 0.6rem;
-  }
-}
-@media (max-width: 767px) {
-  .card-title{
-    font-size: 0.9rem;
-    margin-top: 6px;
   }
 }
 
@@ -244,6 +251,20 @@ footer {
 
 .card-title{
   margin-top: 10px;
+}
+
+.card-side{
+  font-size: 1.1rem;
+  vertical-align: middle;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+@media (max-width: 767px) {
+  .card-title{
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
 }
 
 .profile-user {
