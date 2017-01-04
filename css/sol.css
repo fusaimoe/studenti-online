@@ -2,7 +2,11 @@
  * Style tweaks
  * --------------------------------------------------
  */
-
+ html {
+     overflow: -moz-scrollbars-vertical;
+     overflow-y: scroll;
+ }
+ /**/
 html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
@@ -339,3 +343,54 @@ label.custom-control.custom-checkbox {
   border-top: none;
   border-bottom: none;
 }
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+
+ .preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+  }
+
+ .row-offcanvas {
+   position: relative;
+   -webkit-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+           transition: all .25s ease-out;
+ }
+
+ .sidebar-offcanvas {
+   position: absolute;
+ }
+
+ .row-offcanvas.left {
+   transform:translateX(50%);
+ }
+
+ .row-offcanvas.left
+ .sidebar-left {
+   position: relative;
+   left: -50%;
+ }
+
+ .row-offcanvas.left .main-offcanvas {
+   left: 150%;
+ }
+
+ .row-offcanvas.right {
+   transform:translateX(-50%);
+ }
+
+ .row-offcanvas.right
+ .sidebar-right {
+   position: relative;
+   right: -50%;
+ }
+
+ .row-offcanvas.right .main-offcanvas {
+   right: 150%;
+ }
