@@ -12,16 +12,17 @@ function rightSidebar() {
   $('#sidebar-rb').children().toggle();
   $('#sidebar-lb').children().toggleClass('icon-calendar').toggleClass('icon-arrow-left');
 }
-function toggleLeftSidebar(close){
+function leftButton(close){
   if(close){
     rightSidebar();
     return false;
   } else {
     leftSidebar();
+    history.pushState(null, "Calendar sidebar", "calendar.htm");
     return true;
   }
 }
-function toggleRightSidebar(close){
+function rightButton(close){
   if(close){
     leftSidebar();
     return false;
@@ -38,12 +39,12 @@ $(document).ready(function () {
   $('.sidebar-left').hide();
   $('.sidebar-right').hide();
   $('#sidebar-lb').click(function () {
-    close=toggleLeftSidebar(close);
+    close=leftButton(close);
   });
   $(window).on("swipeleft",function(){
-    close=toggleLeftSidebar(close);
+    close=leftButton(close);
   });
   $('#sidebar-rb').click(function () {
-    close=toggleRightSidebar(close)
+    close=rightButton(close)
   });
 });
