@@ -15,6 +15,7 @@ function rightSidebar() {
 function leftButton(close){
   if(close){
     rightSidebar();
+    history.pushState(null, "Returned to index", "index.htm");
     return false;
   } else {
     leftSidebar();
