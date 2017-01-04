@@ -40,15 +40,21 @@ $(document).ready(function () {
 
   var close = false;
 
-  $('.sidebar-left').hide();
-  $('.sidebar-right').hide();
   $('#sidebar-lb').click(function () {
     close=leftButton(close);
   });
-  $(window).on("swipeleft",function(){
-    close=leftButton(close);
-  });
+
   $('#sidebar-rb').click(function () {
     close=rightButton(close)
   });
+
+  if(close){
+    window.onbeforeunload = leftSidebar();
+    close=false;
+  }
+
+  /*$(window).on("swipeleft",function(){
+    close=leftButton(close);
+  });*/
+  
 });

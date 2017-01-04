@@ -364,6 +364,7 @@ label.custom-control.custom-checkbox {
  }
 
  .sidebar-offcanvas {
+   display:none;
    position: absolute;
  }
 
