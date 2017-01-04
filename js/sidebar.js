@@ -27,9 +27,11 @@ function leftButton(close){
 function rightButton(close){
   if(close){
     leftSidebar();
+    history.pushState(null, "Returned to index", "index.htm");
     return false;
   } else {
     rightSidebar();
+    history.pushState(null, "Notifications sidebar", "history.htm");
     return true;
   }
 }
