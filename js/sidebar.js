@@ -19,7 +19,7 @@ function leftButton(close){
   } else {
     leftSidebar();
     history.pushState(null, "Calendar sidebar", "calendar.htm");
-    console.log('ora')
+    console.log('ora');
     return true;
   }
 }
