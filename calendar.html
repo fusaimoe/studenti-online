@@ -22,22 +22,19 @@
     <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
     <link href="css/sol.css" rel="stylesheet">
-    <link href="css/calendar.css" rel="stylesheet">
+    <link href="css/monthly.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body class="preload">
+
     <nav class="navbar navbar-fixed-top navbar-dark bg-colored">
       <div class="container text-xs-center">
-        <button type="button" class="icon-button float-xs-left h-100">
-          <a href="calendar.html" aria-label="Calendar">
+        <button type="button" id="hider-calendar" class="icon-button float-xs-left h-100" aria-label="Calendar">
     			  <span class="icon-navbar icon-calendar" aria-hidden="true"></span>
-          </a>
         </button>
         <a class="navbar-brand" href="#">Alma Mater Studiorum<br/>Università di Bologna</a>
-        <button type="button" class="icon-button float-xs-right">
-          <a href="notifications.html" aria-label="Notifications History">
+        <button type="button" id="hider-history" class="icon-button float-xs-right">
             <span class="icon-navbar icon-bell" aria-hidden="true"></span>
-          </a>
         </button>
         <!--<button type="button" class="icon-button float-xs-right">
           <svg viewBox="0 0 99 99" class="icon-navbar" xmlns="http://www.w3.org/2000/svg" >
@@ -48,8 +45,201 @@
     </nav><!-- /.navbar -->
 
     <div class="container">
-      <div class="card card-block">
-        <div id="calendar"></div>
+
+      <div class="row" id="hider-left">
+        <div class="col-lg-12">
+          <h5 class="section-title hidden-lg-down">Calendario</h5>
+          <div class="card card-block">
+            <div class="monthly" id="calendar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="hider-right">
+        <div class="col-lg-12">
+          <h5 class="section-title hidden-lg-down">History</h5>
+          <div class="card card-block">
+            puppa
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="hider-main">
+        <div class="col-lg-8">
+          <h5 class="section-title hidden-lg-down">Preferiti</h5>
+
+          <div class="row">
+
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="email.html" aria-label="Email">
+                <div class="card card-block">
+                  <button type="button" class="icon-button w-100">
+                    <span class="icon-homepage icon-envelope" aria-hidden="true"></span>
+                  </button>
+                  <h5 class="card-title">Email</h5>
+                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="exams.html" aria-label="Exams">
+                <div class="card card-block">
+                  <button type="button" class="icon-button w-100">
+            			  <span class="icon-homepage icon-badge" aria-hidden="true"></span>
+                  </button>
+                  <h5 class="card-title">Esami</h5>
+                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="career.html" aria-label="Career">
+                <div class="card card-block">
+                    <button type="button" class="icon-button w-100">
+                			  <span class="icon-homepage icon-graduation" aria-hidden="true"></span>
+                    </button>
+                    <h5 class="card-title">Carriera</h5>
+                    <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="taxes.html" aria-label="Taxes">
+                <div class="card card-block">
+                  <button type="button" class="icon-button w-100">
+                    <span class="icon-homepage icon-wallet" aria-hidden="true"></span>
+                  </button>
+                  <h5 class="card-title">Tasse</h5>
+                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="lessons.html" aria-label="Lessons">
+                <div class="card card-block">
+                  <button type="button" class="icon-button w-100">
+            			  <span class="icon-homepage icon-clock" aria-hidden="true"></span>
+                  </button>
+                  <h5 class="card-title">Lezioni</h5>
+                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-xs-4 col-nopadding-home">
+              <a href="material.html" aria-label="Material">
+                <div class="card card-block">
+                    <button type="button" class="icon-button w-100">
+                			  <span class="icon-homepage icon-book-open" aria-hidden="true"></span>
+                    </button>
+                    <h5 class="card-title">Materiale</h5>
+                    <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+
+
+          <div class="alert alert-warning fade in hidden-lg-down" role="alert">
+            <button type="button" class="icon-control float-xs-right" data-dismiss="alert" aria-label="Close">
+              <span class="icon-close" aria-hidden="true"></span>
+            </button>
+            You can <strong>drag & drop</strong> elements on the side <strong>here</strong>
+          </div>
+
+          <hr class="hidden-lg-up">
+
+        </div>
+
+
+        <div class="col-lg-4 col-nopadding-side">
+          <div class="row">
+            <div class="col-lg-12">
+
+              <h5 class="section-title hidden-lg-down">Info e Carriera</h5>
+
+              <a href="contacts.html" aria-label="Contacts">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-people" aria-hidden="true"></span>
+                    <span>Contatti</span>
+                </div>
+              </a>
+              <a href="plan.html" aria-label="Plan">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-notebook" aria-hidden="true"></span>
+                    <span>Piano di Studi</span>
+                </div>
+              </a>
+              <a href="internship.html" aria-label="Internship">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-briefcase" aria-hidden="true"></span>
+                    <span>Tirocinio</span>
+                </div>
+              </a>
+              <a href="scolarship.html" aria-label="Scolarship">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-handbag" aria-hidden="true"></span>
+                    <span>Borsa di Studio</span>
+                </div>
+              </a>
+              <a href="graduation.html" aria-label="Graduation">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-eyeglass" aria-hidden="true"></span>
+                    <span>Laurea</span>
+                </div>
+              </a>
+              <a href="quit.html" aria-label="Quit">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-fire" aria-hidden="true"></span>
+                    <span>Rinuncia agli studi</span>
+                </div>
+              </a>
+              <a href="transfer.html" aria-label="Transfer">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-directions" aria-hidden="true"></span>
+                    <span>Trasferimento</span>
+                </div>
+              </a>
+              <a href="suspension.html" aria-label="Sospensione">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-cup" aria-hidden="true"></span>
+                    <span>Sospensione</span>
+                </div>
+              </a>
+              <a href="erasmus.html" aria-label="Erasmus">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-plane" aria-hidden="true"></span>
+                    <span>Erasmus</span>
+                </div>
+              </a>
+
+              <h5 class="section-title hidden-lg-down">Servizi e Mobilità</h5>
+
+              <a href="transports.html" aria-label="Transports">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-location-pin" aria-hidden="true"></span>
+                    <span>Trasporti</span>
+                </div>
+              </a>
+              <a href="affiliates.html" aria-label="Affiliates">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-credit-card" aria-hidden="true"></span>
+                    <span>Servizi Convenzionati</span>
+                </div>
+              </a>
+              <a href="showcase.html" aria-label="Showcase">
+                <div class="card card-block card-side">
+            			  <span class="icon-side icon-pin" aria-hidden="true"></span>
+                    <span>Bacheca</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
 
       <hr>
@@ -86,80 +276,29 @@
 
 
     <script src="js/offcanvas.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="js/average.js"></script>
-    <script>
-      $('.resize').click(function() {
-          $('.resizable-column').toggleClass("col-lg-4").toggleClass("col-lg-12");
-          $('.table-code').toggleClass("hidden");
-          $('.table-record').toggleClass("hidden");
-
-          if($("span").hasClass("icon-size-fullscreen")){
-            $('.icon-size-fullscreen').toggleClass('icon-size-fullscreen icon-size-actual');
-          } else if($("span").hasClass("icon-size-actual")) {
-            $('.icon-size-actual').toggleClass('icon-size-actual icon-size-fullscreen');
-          }
-      })
-    </script>
-    <script>
-    /*
-    $('[id^=collapse-]').each(function() {
-      var thisCollapsableDiv = "#" + this.id;
-
-      $(thisCollapsableDiv).on('hidden.bs.collapse', function() {
-        $(thisCollapsableDiv).prev().find('.icon-arrow-up').toggleClass('icon-arrow-up icon-arrow-down');
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/monthly.js"></script>
+    <script type="text/javascript">
+      $(window).load( function() {
+        //$("body").removeClass("preload");
+        $('#calendar').monthly();
       });
-      $(thisCollapsableDiv).on('shown.bs.collapse', function() {
-        $(thisCollapsableDiv).prev().find('.icon-arrow-down').toggleClass('icon-arrow-down icon-arrow-up');
+      $(document).ready(function () {
+        $( "#hider-left" ).hide();
+        $( "#hider-right" ).hide();
       });
-    });*/
-    $(".rotate").click(function(){
-  	   $(this).toggleClass("down");
-    })
+      $( "#hider-calendar" ).click(function() {
+        $( "#hider-left" ).slideToggle( "slow" );
+        $( "#hider-main" ).slideToggle( "slow" );
+      });
+      $( "#hider-history" ).click(function() {
+        $( "#hider-right" ).slideToggle( "slow" );
+        $( "#hider-main" ).slideToggle( "slow" );
+      });
+
     </script>
-    <script src="js/calendar.js"></script>
-    <script>
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = now.getMonth() + 1;
-        var date = now.getDate();
 
 
-        var data = [{
-            date: year + '-' + month + '-' + (date - 1),
-            value: 'hello'
-        }, {
-            date: year + '-' + month + '-' + date,
-            value: 'today'
-        }, {
-            date: new Date(year, month - 1, date + 1),
-            value: 'esame di sto cazzo'
-        }, {
-            date: '2016-10-31',
-            value: '2016-10-31'
-        }];
-
-        // inline
-        var $ca = $('#calendar').calendar({
-            //view: 'month',
-
-            startWeek: 1,
-            weekArray: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-            format: 'yyyy/mm/dd',
-            // selectedRang: [new Date(), null],
-            data: data,
-            date: now,
-            onSelected: function(view, date, data) {
-                console.log('view:' + view)
-                console.log('date:' + date)
-                console.log('data:' + (data || '无'));
-            },
-            viewChange: function(view, y, m) {
-                console.log(view, y, m)
-
-            }
-        });
-    </script>
 
 
   </body>
