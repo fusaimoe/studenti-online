@@ -26,42 +26,60 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <div class="card login-card">
-            <div class="card-block">
-              <p class="card-title">Welcome</p>
-              <p class="card-text custom-control-description text-muted">Inserisci le credenziali istituzionali di Ateneo.</p>
 
-              <form>
-                <!-- FIELDS -->
-                <div class="form-group">
-                  <div class="left-inner-addon">
-                    <i class="icon-lock"></i>
-                    <input class="form-control" placeholder="Email" type="text">
-                  </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <h3 class="login-card-title">Welcome</h3>
+              <h6 class="login-card-subtitle">Inserisci le tue credenziali</h6>
+
+              <div class="card centered-card login-card">
+                <div class="card-block">
+                  <form>
+                    <!-- FIELDS -->
+                    <div class="form-group">
+                      <div class="left-inner-addon">
+                        <i class="icon-lock"></i>
+                        <input class="form-control" placeholder="Email" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="left-inner-addon">
+                        <i class="icon-envelope"></i>
+                        <input class="form-control" placeholder="Password" type="text">
+                      </div>
+                    </div>
+
+                    <!-- CHECKBOX -->
+                    <label class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input">
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-description text-muted">Ricordami</span>
+                    </label>
+
+                    <!-- BUTTON -->
+                    <div class="form-group no-padding">
+    									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi">
+    								</div>
+                  </form>
+
+                </div> <!--Card Block -->
+              </div> <!--Card -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+
+              <div class="card centered-card grey-card">
+                <div class="card-block">
+                  <p class="card-text custom-control-description">Problemi ad accedere? <a href="">Contattaci</a></p>
                 </div>
-                <div class="form-group">
-                  <div class="left-inner-addon">
-                    <i class="icon-envelope"></i>
-                    <input class="form-control" placeholder="Password" type="text">
-                  </div>
-                </div>
+              </div>
 
-                <!-- CHECKBOX -->
-                <label class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input">
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-description text-muted">Ricordami</span>
-                </label>
+            </div>
+          </div>
 
-                <!-- BUTTON -->
-                <div class="form-group">
-									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi">
-								</div>
-                <a href="" class="custom-control-description">Hai dimenticato la password?</a>
-              </form>
-            </div> <!--Card Block -->
-          </div> <!--Card -->
-        </div> <!--Col-xs-12 -->
+        </div><!-- Col-lg-12 -->
       </div> <!-- Row -->
     </div><!-- Cointainer -->
   </body>
