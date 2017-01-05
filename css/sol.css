@@ -494,3 +494,17 @@ label.custom-control.custom-checkbox {
   font-size: 1rem;
   color: #818a91;
  }
+
+ /* INDICATORS */
+ .custom-control-input:checked ~ .color-1-indicator {
+    background-color: #28cbff;
+}
+.custom-control-input:checked ~ .color-2-indicator {
+   background-color: #9cc370;
+}
+.custom-control-input:checked ~ .color-3-indicator {
+   background-color: #ffb128;
+}
+.custom-control-input:checked ~ .color-4-indicator {
+   background-color: #236789;
+}
