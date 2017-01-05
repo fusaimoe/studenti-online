@@ -7,7 +7,6 @@ function toggleSidebar(button) {
   $("#sidebar-"+button+"-button").toggleClass('icon-button-disabled');
   $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);
   $("#sidebar-"+opposite+"-button").children().toggleClass("icon-"+icon).toggleClass("icon-arrow-"+opposite);
-  if(isMobile()) toggleSwipe();
 }
 
 function clickedButton(close, buttonId){
@@ -36,24 +35,6 @@ function isMobile() {
   catch(e){ return false; }
 }
 
-function toggleSwipe() {
-  if(checkSidebar("left")) {
-    $("body").swipe( {
-      swipeRight:function(event, direction, distance, duration, fingerCount, fingerData) {
-        $("#sidebar-right-button").trigger( "click" );
-      }
-    });
-  } else if(checkSidebar("right")) {
-    $("body").swipe( {
-      swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
-        $("#sidebar-left-button").trigger( "click" );
-      }
-    });
-  } else {
-    $("body").swipe("destroy");
-  }
-}
-
 function checkSidebar(sidebar) {
   return $("."+sidebar).length;
 }
@@ -62,20 +43,30 @@ $(document).ready(function () {
 
   var close = false;
 
-  if(isMobile()){
-
-  }
-
   $('#sidebar-left-button').click(function () {
     close = clickedButton(close, $(this).attr('id'));
-
   });
 
   $('#sidebar-right-button').click(function () {
     close = clickedButton(close, $(this).attr('id'));
   });
 
+  if (isMobile()) {
 
+    $(window).swipe({
+      swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
+        if(!checkSidebar("right")){
+          close = clickedButton(close, "right");
+        }
+      },
+      swipeRight:function(event, direction, distance, duration, fingerCount, fingerData) {
+        if(!checkSidebar("left")){
+          close = clickedButton(close, "left");
+        }
+      }
+    });
+
+  }
 
 
 });
