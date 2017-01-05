@@ -213,7 +213,7 @@ footer {
   margin-right: -8px;
 }
 
-@media (max-width: 543px) {
+@media (max-width: 991px) {
   .icon-button{
     margin: 0;
   }
@@ -223,9 +223,13 @@ footer {
     border-left: none;
     border-right: none;
   }
-  .list-group-item:first-child {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+
+  .card .list-group:first-child .list-group-item:first-child {
+    border-top: none;
+  }
+
+  .card .list-group:last-child .list-group-item:last-child {
+      border-bottom: none;
   }
 
 }
@@ -444,8 +448,6 @@ label.custom-control.custom-checkbox {
 }
 
 .grey-card {
-  margin-left: auto;
-  margin-right: auto;
   background-color: transparent;
 }
 
@@ -490,7 +492,7 @@ label.custom-control.custom-checkbox {
 
 @media screen and (min-width: 991px) {
   .centered-card {
-     max-width: 45%;
+     max-width: 40%;
    }
 }
 
