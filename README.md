@@ -1,6 +1,6 @@
 # studenti-online
 
-Bootstrap 4 based redesign of Università di Bologna "Studenti Online" web app.
+Bootstrap 4 based redesign of Università di Bologna "Studenti Online" web app. <a href="https://fusaimoe.github.io/studenti-online/">Demo</a>
 
 <hr>
 
