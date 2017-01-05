@@ -1,67 +1,37 @@
-function leftSidebar() {
-  $('.sidebar-left').toggle();
-  $('.row-offcanvas').toggleClass('left');
+function toggleSidebar(button) {
+  var opposite = getOpposite(button);
+  var icon = getIcon(opposite);
+  $(".sidebar-"+button).toggle();
+  $('.row-offcanvas').toggleClass(button);
   $('.main-offcanvas').toggle();
-  $('#sidebar-lb').children().visibilityToggle();
-  $('#sidebar-lb').toggleClass('icon-button-disabled');
-  if ($('#sidebar-lb').is(':disabled')) {
-    $('#sidebar-lb').prop('disabled',false)
-  } else {
-    $('#sidebar-lb').prop('disabled',true);
-  }; // This causes Bug 685657 on Firefox though, after refresh it will stay disabled
-  $('#sidebar-rb').children().toggleClass('icon-bell').toggleClass('icon-arrow-right');
+  $("#sidebar-"+button+"-button").children().visibilityToggle();
+  $("#sidebar-"+button+"-button").toggleClass('icon-button-disabled');
+  $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);  // This causes Bug 685657 on Firefox though, after refresh it will stay disabled
+  $("#sidebar-"+opposite+"-button").children().toggleClass("icon-"+icon).toggleClass("icon-arrow-"+opposite);
 }
 
-function rightSidebar() {
-  $('.sidebar-right').toggle();
-  $('.row-offcanvas').toggleClass('right');
-  $('.main-offcanvas').toggle();
-  $('#sidebar-rb').children().visibilityToggle();
-  $('#sidebar-rb').toggleClass('icon-button-disabled');
-  if ($('#sidebar-rb').is(':disabled')) {
-    $('#sidebar-rb').prop('disabled',false);
-  } else {
-    $('#sidebar-rb').prop('disabled',true);
-  }; // This causes Bug 685657 on Firefox though, after refresh it will stay disabled
-  $('#sidebar-lb').children().toggleClass('icon-calendar').toggleClass('icon-arrow-left');
-}
+function clickedButton(close, buttonStr){
+  var button = (buttonStr.indexOf("left") >= 0) ? "left" : "right";
+  var opposite = getOpposite(button);
 
-function leftButton(close){
   if(close){
-    rightSidebar();
+    toggleSidebar(opposite);
     return false;
   } else {
-    leftSidebar();
+    toggleSidebar(button);
     return true;
   }
 }
 
-function rightButton(close){
-  if(close){
-    leftSidebar();
-    return false;
-  } else {
-    rightSidebar();
-    return true;
-  }
+function getOpposite(button) {
+  return opposite = (button=="left") ? "right" : "left";
 }
 
-$(document).ready(function () {
+function getIcon(opposite) {
+  return icon = (opposite=="left") ? "calendar" : "bell";
+}
 
-  var close = false;
-
-  $('#sidebar-lb').click(function () {
-    close=leftButton(close);
-  });
-
-  $('#sidebar-rb').click(function () {
-    close=rightButton(close)
-  });
-
-  /*$(window).on("swipeleft",function(){
-    close=leftButton(close);
-  });*/
-
+function initVisibility(){
   jQuery.fn.visible = function() {
     return this.css('visibility', 'visible');
   };
@@ -75,5 +45,24 @@ $(document).ready(function () {
         return (visibility == 'visible') ? 'hidden' : 'visible';
     });
   };
+}
+
+$(document).ready(function () {
+
+  var close = false;
+
+  initVisibility();
+
+  $('#sidebar-left-button').click(function () {
+    var buttonStr = $(this).attr('id');
+    close = clickedButton(close, buttonStr);
+  });
+
+  $('#sidebar-right-button').click(function () {
+    var buttonStr = $(this).attr('id');
+    close = clickedButton(close, buttonStr);
+  });
+
+
 
 });
