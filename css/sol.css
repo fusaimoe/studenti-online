@@ -112,6 +112,10 @@ footer {
   padding: 9px 0;
 }
 
+.icon-button-disabled{
+  cursor:default;
+}
+
 .icon-button:hover{
   opacity: .8;
 }
