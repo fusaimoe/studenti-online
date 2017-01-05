@@ -116,6 +116,7 @@ footer {
 
 .icon-button-disabled{
   cursor:default;
+  visibility: hidden;
 }
 
 .icon-button:hover{

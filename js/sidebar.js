@@ -4,7 +4,6 @@ function toggleSidebar(button) {
   $(".sidebar-"+button).toggle();
   $('.row-offcanvas').toggleClass(button);
   $('.main-offcanvas').toggle();
-  $("#sidebar-"+button+"-button").children().visibilityToggle();
   $("#sidebar-"+button+"-button").toggleClass('icon-button-disabled');
   $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);
   $("#sidebar-"+opposite+"-button").children().toggleClass("icon-"+icon).toggleClass("icon-arrow-"+opposite);
@@ -31,27 +30,9 @@ function getIcon(opposite) {
   return icon = (opposite=="left") ? "calendar" : "bell";
 }
 
-function initVisibility(){
-  jQuery.fn.visible = function() {
-    return this.css('visibility', 'visible');
-  };
-
-  jQuery.fn.invisible = function() {
-    return this.css('visibility', 'hidden');
-  };
-
-  jQuery.fn.visibilityToggle = function() {
-    return this.css('visibility', function(i, visibility) {
-        return (visibility == 'visible') ? 'hidden' : 'visible';
-    });
-  };
-}
-
 $(document).ready(function () {
 
   var close = false;
-
-  initVisibility();
 
   $('#sidebar-left-button').click(function () {
     close = clickedButton(close, $(this).attr('id'));
