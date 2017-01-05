@@ -24,7 +24,6 @@
     <link href="css/sol.css" rel="stylesheet">
     <link href="css/monthly.css" rel="stylesheet">
 
-
   </head>
 
   <body class="preload">
@@ -293,7 +292,11 @@
     <script type="text/javascript">
         $(window).load( function() {
             $("body").removeClass("preload");
-            $('#mycalendar').monthly();
+            $('#mycalendar').monthly({
+              weekStart: 'Mon',
+              mode: 'event',
+
+            });
         });
     </script>
 

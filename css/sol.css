@@ -304,14 +304,15 @@ footer {
 
 .rotate{
   display:inline-block;
-  -moz-transition: transform 0.2s linear;
   -webkit-transition: transform 0.2s linear;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
 }
 
 .rotate.down{
   display:inline-block;
-  -moz-transform:rotate(180deg);
   -webkit-transform:rotate(180deg);
   transform:rotate(180deg);
 }
@@ -363,7 +364,6 @@ label.custom-control.custom-checkbox {
  .row-offcanvas {
    position: relative;
    -webkit-transition: all .25s ease-out;
-        -o-transition: all .25s ease-out;
            transition: all .25s ease-out;
  }
 
@@ -373,7 +373,8 @@ label.custom-control.custom-checkbox {
  }
 
  .row-offcanvas.left {
-   transform:translateX(50%);
+   -webkit-transform:translateX(50%);
+           transform:translateX(50%);
  }
 
  .row-offcanvas.left
@@ -387,7 +388,8 @@ label.custom-control.custom-checkbox {
  }
 
  .row-offcanvas.right {
-   transform:translateX(-50%);
+   -webkit-transform:translateX(-50%);
+           transform:translateX(-50%);
  }
 
  .row-offcanvas.right
