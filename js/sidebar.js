@@ -6,12 +6,12 @@ function toggleSidebar(button) {
   $('.main-offcanvas').toggle();
   $("#sidebar-"+button+"-button").children().visibilityToggle();
   $("#sidebar-"+button+"-button").toggleClass('icon-button-disabled');
-  $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);  // This causes Bug 685657 on Firefox though, after refresh it will stay disabled
+  $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);
   $("#sidebar-"+opposite+"-button").children().toggleClass("icon-"+icon).toggleClass("icon-arrow-"+opposite);
 }
 
-function clickedButton(close, buttonStr){
-  var button = (buttonStr.indexOf("left") >= 0) ? "left" : "right";
+function clickedButton(close, buttonId){
+  var button = (buttonId.indexOf("left") >= 0) ? "left" : "right";
   var opposite = getOpposite(button);
 
   if(close){
@@ -54,13 +54,11 @@ $(document).ready(function () {
   initVisibility();
 
   $('#sidebar-left-button').click(function () {
-    var buttonStr = $(this).attr('id');
-    close = clickedButton(close, buttonStr);
+    close = clickedButton(close, $(this).attr('id'));
   });
 
   $('#sidebar-right-button').click(function () {
-    var buttonStr = $(this).attr('id');
-    close = clickedButton(close, buttonStr);
+    close = clickedButton(close, $(this).attr('id'));
   });
 
 });

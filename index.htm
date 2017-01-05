@@ -21,8 +21,8 @@
     <link href="fonts/proxima-nova.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-    <link href="css/sol.css" rel="stylesheet">
     <link href="css/monthly.css" rel="stylesheet">
+    <link href="css/sol.css" rel="stylesheet">
 
   </head>
 
@@ -30,11 +30,11 @@
 
     <nav class="navbar navbar-fixed-top navbar-dark bg-colored">
       <div class="container text-xs-center">
-        <button type="button" class="icon-button float-xs-left h-100" aria-label="Calendar" id="sidebar-left-button">
+        <button type="button" class="icon-button float-xs-left h-100" aria-label="Calendar" autocomplete = "off" id="sidebar-left-button">
   			  <span class="icon-navbar icon-calendar" aria-hidden="true"></span>
         </button>
         <a class="navbar-brand" href="index.htm">Alma Mater Studiorum<br/>Università di Bologna</a>
-        <button type="button" class="icon-button float-xs-right" aria-label="History" id="sidebar-right-button">
+        <button type="button" class="icon-button float-xs-right" aria-label="History" autocomplete = "off" id="sidebar-right-button">
           <span class="icon-navbar icon-bell" aria-hidden="true"></span>
         </button>
         <!--<button type="button" class="icon-button float-xs-right">
@@ -49,10 +49,38 @@
 
       <div class="row row-offcanvas">
 
-        <div class="col-lg-12 sidebar-offcanvas sidebar-left">
+        <div class="col-lg-8 sidebar-offcanvas sidebar-left">
           <h5 class="section-title hidden-lg-down">Calendario</h5>
           <div class="card card-block">
             <div class="monthly" id="mycalendar"></div>
+          </div>
+        </div><!--/span-->
+        <div class="col-lg-4 sidebar-offcanvas col-nopadding-side sidebar-left">
+          <h5 class="section-title hidden-lg-down">Legenda</h5>
+          <div class="card card-block">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Esami</span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Lezioni</span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Eventi</span>
+                </label>
+              </li>
+            </ul>
           </div>
         </div><!--/span-->
 
@@ -82,7 +110,7 @@
           <div class="row">
 
             <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="email.htm" aria-label="Email">
+              <a class="popover-dismiss" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
                 <div class="card card-block">
                   <button type="button" class="icon-button w-100">
                     <span class="icon-homepage icon-envelope" aria-hidden="true"></span>
@@ -295,8 +323,15 @@
             $('#mycalendar').monthly({
               weekStart: 'Mon',
               mode: 'event',
-
+              xmlUrl: 'events.xml'
             });
+            $('.popover-dismiss').popover({
+              trigger: 'focus'
+            });
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+            });
+
         });
     </script>
 
