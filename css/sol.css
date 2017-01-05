@@ -434,3 +434,55 @@ label.custom-control.custom-checkbox {
   border-radius: 6px;
   text-shadow: none;
 }
+
+/* LOGIN */
+
+.login-card {
+  top: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 5px 5px 7px #c3c3c3;
+}
+
+.login-card .card-block {
+  padding: 7%;
+}
+
+.login-card .card-text {
+  margin-bottom:2rem !important;
+}
+
+.login-card .card-title {
+  font-size: 2rem;
+}
+
+.btn-login {
+  margin-top: 40px;
+  margin-bottom: 0px;
+  min-height: 45px;
+}
+
+.custom-control-description {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 991px) {
+  .login-card {
+     max-width: 45%;
+     padding: 2%;
+   }
+}
+
+/* FORM ICONS */
+
+ .left-inner-addon input {
+  padding-left: 35px;
+ }
+
+ .left-inner-addon i {
+  position: absolute;
+  padding: 11px 12px;
+  pointer-events: none;
+  font-size: 1rem;
+  color: #818a91;
+ }
