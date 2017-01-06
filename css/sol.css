@@ -523,3 +523,42 @@ label.custom-control.custom-checkbox {
 .custom-control-input:checked ~ .color-4-indicator {
    background-color: #236789;
 }
+
+/* HISTORY */
+
+.history .list-group-item {
+  padding: .75rem 0.65rem;
+  border-left: none;
+  border-right: none;
+  overflow: hidden;
+  display: table;
+  min-width: 100%;
+}
+
+.history .list-group-item .align-tag {
+  display: table-cell;
+  vertical-align: middle;
+  float:none;
+  width: 30px;
+}
+
+.history li.list-group-item:first-child {
+  border-top: none;
+}
+
+.history li.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.custom-tag {
+  padding-left: 9px;
+  padding-top: 9px;
+  padding-bottom: 8px;
+  margin-left: 2px;
+  margin-right: 9px;
+}
+
+.history .unread{
+  background-color: #fcf8e3;
+  border-color: #faf2cc;
+}

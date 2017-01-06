@@ -81,18 +81,35 @@
         <div class="col-lg-12 sidebar-offcanvas sidebar-right">
           <h5 class="section-title hidden-lg-down">Notifiche</h5>
           <div class="card card-block">
-            <ul class="list-group">
-              <li class="list-group-item">
-                <span class="tag tag-default tag-pill float-xs-right">14</span>
-                Cras justo odio
+            <ul class="list-group history">
+              <li class="list-group-item unread">
+                <div class="align-tag">
+                  <span class="tag tag-primary tag-pill custom-tag"><span class="icon-badge" aria-hidden="true"></span></span>
+                </div>
+                <span>
+                  <strong>Tecnlogie Web</strong> - Scadenza prenotazione del 16/01/2017</br>
+                  <span class="text-muted">2m ago · Prenotazione Esami</span>
+                </span>
               </li>
               <li class="list-group-item">
-                <span class="tag tag-default tag-pill float-xs-right">2</span>
-                Dapibus ac facilisis in
+                <div class="align-tag">
+                  <span class="tag tag-danger tag-pill custom-tag"><span class="icon-wallet" aria-hidden="true"></span></span>
+                </div>
+                <span>
+                  <strong>Scadenza Pagamento</strong> - Scadenza pagamento tasse del 15/01/2017</br>
+                  <span class="text-muted">Yesterday 10:00 · Tasse</span>
+                </span>
               </li>
               <li class="list-group-item">
-                <span class="tag tag-default tag-pill float-xs-right">1</span>
-                Morbi leo risus
+                <div class="align-tag">
+                  <span class="tag tag-warning tag-pill custom-tag">
+                    <span class="icon-plane" aria-hidden="true"></span>
+                  </span>
+                </div>
+                <span>
+                  <strong>Erasmus 2017/2018</strong> - Usciti bandi erasmus 2017/2018</br>
+                  <span class="text-muted">A week ago · Erasmus</span>
+                </span>
               </li>
             </ul>
           </div>
@@ -308,21 +325,27 @@
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(window).on('load', function() {
+      $( ".unread" ).click(function() {
+        $(this).removeClass("unread");
+      });
+    </script>
 
-            $("body").removeClass("preload");
+    <script type="text/javascript">
+      $(window).on('load', function() {
 
-            $('#mycalendar').monthly({
-              weekStart: 'Mon',
-              mode: 'event',
-              xmlUrl: 'events.xml'
-            });
+          $("body").removeClass("preload");
 
-            $('[data-toggle="popover"]').popover({
-              trigger: 'focus'
-            });
+          $('#mycalendar').monthly({
+            weekStart: 'Mon',
+            mode: 'event',
+            xmlUrl: 'events.xml'
+          });
 
-        });
+          $('[data-toggle="popover"]').popover({
+            trigger: 'focus'
+          });
+
+      });
     </script>
 
   </body>
