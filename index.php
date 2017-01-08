@@ -93,37 +93,40 @@ if(login_check($mysqli) == false) {
         <div class="col-lg-12 sidebar-offcanvas sidebar-right">
           <h5 class="section-title hidden-lg-down">Notifiche</h5>
           <div class="card card-block">
-            <ul class="list-group history">
-              <li class="list-group-item unread">
-                <div class="align-tag">
-                  <span class="tag tag-primary tag-pill custom-tag"><span class="icon-badge" aria-hidden="true"></span></span>
-                </div>
-                <span>
-                  <strong>Tecnlogie Web</strong> - Scadenza prenotazione del 16/01/2017</br>
-                  <span class="text-muted">2m ago · Prenotazione Esami</span>
-                </span>
-              </li>
-              <li class="list-group-item">
-                <div class="align-tag">
-                  <span class="tag tag-danger tag-pill custom-tag"><span class="icon-wallet" aria-hidden="true"></span></span>
-                </div>
-                <span>
-                  <strong>Scadenza Pagamento</strong> - Scadenza pagamento tasse del 15/01/2017</br>
-                  <span class="text-muted">Yesterday 10:00 · Tasse</span>
-                </span>
-              </li>
-              <li class="list-group-item">
-                <div class="align-tag">
-                  <span class="tag tag-warning tag-pill custom-tag">
-                    <span class="icon-plane" aria-hidden="true"></span>
-                  </span>
-                </div>
-                <span>
-                  <strong>Erasmus 2017/2018</strong> - Usciti bandi erasmus 2017/2018</br>
-                  <span class="text-muted">A week ago · Erasmus</span>
-                </span>
-              </li>
-            </ul>
+            <?php
+
+            $sql = "SELECT id, member_id, pub_date, category, subject, description FROM notifications WHERE (member_id = '" . $_SESSION['user_id'] ."')";
+            $result = $mysqli->query($sql);
+
+              if ($result->num_rows > 0) {
+                echo '<ul class="list-group history">';
+
+                while($row = $result->fetch_assoc()) {
+
+                  $subject = $row['subject'];
+                  $description = $row['description'];
+                  $category = $row['category'];
+                  $pub_date = $row['subject'];
+
+                  echo '
+                  <li class="list-group-item unread">
+                    <div class="align-tag">
+                      <span class="tag tag-primary tag-pill custom-tag"><span class="icon-badge" aria-hidden="true"></span></span>
+                    </div>
+                    <span>
+                      <strong>' . $subject . '</strong> - ' . $description . '</br>
+                      <span class="text-muted">' . $pub_date . ' · ' . $category . '</span>
+                    </span>
+                  </li>
+                  ';
+
+                }
+
+                echo '</ul>';
+              }
+
+            ?>
+
           </div>
         </div><!--/span-->
 
