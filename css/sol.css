@@ -562,3 +562,21 @@ label.custom-control.custom-checkbox {
   background-color: #fcf8e3;
   border-color: #faf2cc;
 }
+
+/* DENIED ACCESS */
+
+.big-ghost-icon {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  display: table;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.grey-button, .grey-button:active, .grey-button:focus {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  background-color: transparent;
+}

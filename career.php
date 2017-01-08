@@ -27,13 +27,13 @@
     <nav class="navbar navbar-fixed-top navbar-dark bg-colored">
       <div class="container text-xs-center">
         <button type="button" class="icon-button float-xs-left h-100">
-          <a href="calendar.html" aria-label="Calendar">
+          <a href="calendar.php" aria-label="Calendar">
     			  <span class="icon-navbar icon-calendar" aria-hidden="true"></span>
           </a>
         </button>
         <a class="navbar-brand" href="index.htm">Alma Mater Studiorum<br/>Università di Bologna</a>
         <button type="button" class="icon-button float-xs-right">
-          <a href="notifications.html" aria-label="Notifications History">
+          <a href="notifications.php" aria-label="Notifications History">
             <span class="icon-navbar icon-bell" aria-hidden="true"></span>
           </a>
         </button>
@@ -87,7 +87,7 @@
                   </li>
                   <li class="list-group-item">
                     Piano di Studi
-                      <a  class= "tag tag-default tag-pill float-xs-right" href="plan.html" aria-label="Edit">
+                      <a  class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
                         Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
                       </a>
                   </li>
@@ -371,17 +371,17 @@
 
       <footer class="text-xs-center">
         <button type="button" class="icon-button float-xs-left">
-          <a href="search.html" aria-label="Search">
+          <a href="search.php" aria-label="Search">
     			  <span class="icon-footer icon-magnifier" aria-hidden="true"></span>
           </a>
         </button>
         <button type="button" class="icon-button">
-          <a href="logout.html" aria-label="Logout">
+          <a href="logout.php" aria-label="Logout">
             <span class="icon-footer icon-logout" aria-hidden="true"></span>
           </a>
         </button>
         <button type="button" class="icon-button float-xs-right">
-          <a href="settings.html" aria-label="Settings">
+          <a href="settings.php" aria-label="Settings">
             <span class="icon-footer icon-settings" aria-hidden="true"></span>
           </a>
         </button>

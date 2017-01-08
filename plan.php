@@ -27,13 +27,13 @@
     <nav class="navbar navbar-fixed-top navbar-dark bg-colored">
       <div class="container text-xs-center">
         <button type="button" class="icon-button float-xs-left h-100">
-          <a href="calendar.html" aria-label="Calendar">
+          <a href="calendar.php" aria-label="Calendar">
     			  <span class="icon-navbar icon-calendar" aria-hidden="true"></span>
           </a>
         </button>
         <a class="navbar-brand" href="#">Alma Mater Studiorum<br/>Università di Bologna</a>
         <button type="button" class="icon-button float-xs-right">
-          <a href="notifications.html" aria-label="Notifications History">
+          <a href="notifications.php" aria-label="Notifications History">
             <span class="icon-navbar icon-bell" aria-hidden="true"></span>
           </a>
         </button>
@@ -47,7 +47,7 @@
 
     <div class="container">
       <nav class="breadcrumb">
-          <a class="breadcrumb-item" href="index.html">Libretto Online</a>
+          <a class="breadcrumb-item" href="index.php">Libretto Online</a>
           <span class="breadcrumb-item active">Piano di Studi</span>
       </nav>
 
@@ -337,17 +337,17 @@
 
       <footer class="text-xs-center">
         <button type="button" class="icon-button float-xs-left">
-          <a href="search.html" aria-label="Search">
+          <a href="search.php" aria-label="Search">
     			  <span class="icon-footer icon-magnifier" aria-hidden="true"></span>
           </a>
         </button>
         <button type="button" class="icon-button">
-          <a href="logout.html" aria-label="Logout">
+          <a href="logout.php" aria-label="Logout">
             <span class="icon-footer icon-logout" aria-hidden="true"></span>
           </a>
         </button>
         <button type="button" class="icon-button float-xs-right">
-          <a href="settings.html" aria-label="Settings">
+          <a href="settings.php" aria-label="Settings">
             <span class="icon-footer icon-settings" aria-hidden="true"></span>
           </a>
         </button>

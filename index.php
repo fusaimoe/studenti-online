@@ -1,3 +1,15 @@
+<?php
+
+include 'php/db_connect.php';
+include 'php/functions.php';
+sec_session_start();
+
+if(login_check($mysqli) == false) {
+  header('Location: access_denied.htm');
+} else {
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,7 +39,7 @@
         <button type="button" class="icon-button float-xs-left h-100" aria-label="Calendar" autocomplete = "off" id="sidebar-left-button">
   			  <span class="icon-navbar icon-calendar" aria-hidden="true"></span>
         </button>
-        <a class="navbar-brand" href="index.htm">Alma Mater Studiorum<br/>Università di Bologna</a>
+        <a class="navbar-brand" href="index.php">Alma Mater Studiorum<br/>Università di Bologna</a>
         <button type="button" class="icon-button float-xs-right" aria-label="History" autocomplete = "off" id="sidebar-right-button">
           <span class="icon-navbar icon-bell" aria-hidden="true"></span>
         </button>
@@ -143,7 +155,7 @@
               </a>
             </div>
             <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="career.htm" aria-label="Career">
+              <a href="career.php" aria-label="Career">
                 <div class="card card-block">
                     <button type="button" class="icon-button w-100">
                 			  <span class="icon-homepage icon-graduation" aria-hidden="true"></span>
@@ -217,7 +229,7 @@
                     <span>Contatti</span>
                 </div>
               </a>
-              <a href="plan.htm" aria-label="Plan">
+              <a href="plan.php" aria-label="Plan">
                 <div class="card card-block card-side">
             			  <span class="icon-side icon-notebook" aria-hidden="true"></span>
                     <span>Piano di Studi</span>
@@ -298,17 +310,17 @@
 
       <footer class="text-xs-center">
         <button type="button" class="icon-button float-xs-left">
-          <a href="search.htm" aria-label="Search">
+          <a href="search.php" aria-label="Search">
     			  <span class="icon-footer icon-magnifier" aria-hidden="true"></span>
           </a>
         </button>
-        <button type="button" class="icon-button">
-          <a href="logout.htm" aria-label="Logout">
+        <button onclick="window.location='php/process_logout.php'" type="button" class="icon-button">
+          <a aria-label="Logout">
             <span class="icon-footer icon-logout" aria-hidden="true"></span>
           </a>
         </button>
         <button type="button" class="icon-button float-xs-right">
-          <a href="settings.htm" aria-label="Settings">
+          <a href="settings.php" aria-label="Settings">
             <span class="icon-footer icon-settings" aria-hidden="true"></span>
           </a>
         </button>
@@ -344,8 +356,12 @@
           $('[data-toggle="popover"]').popover({
             trigger: 'focus'
           });
-
       });
     </script>
+
+
   </body>
 </html>
+
+
+<?php } ?>

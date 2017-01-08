@@ -34,18 +34,18 @@
 
               <div class="card centered-card login-card">
                 <div class="card-block">
-                  <form>
+                  <form action="php/process_login.php" method="post" name="login_form">
                     <!-- FIELDS -->
                     <div class="form-group">
                       <div class="left-inner-addon">
-                        <i class="icon-lock"></i>
-                        <input class="form-control" placeholder="Email" type="text">
+                        <i class="icon-envelope"></i>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" type="text">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
-                        <i class="icon-envelope"></i>
-                        <input class="form-control" placeholder="Password" type="text">
+                        <i class="icon-lock"></i>
+                        <input type="password" name="p" id="password" class="form-control" placeholder="Password" type="text">
                       </div>
                     </div>
 
@@ -58,7 +58,7 @@
 
                     <!-- BUTTON -->
                     <div class="form-group no-padding">
-    									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi">
+    									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi" onclick="formhash(this.form, this.form.password);">
     								</div>
                   </form>
 
@@ -72,7 +72,7 @@
 
               <div class="card centered-card grey-card">
                 <div class="card-block">
-                  <p class="card-text custom-control-description">Problemi ad accedere? <a href="">Contattaci</a></p>
+                  <p class="card-text custom-control-description">Non hai un account? <a href="register.php">Registrati</a></p>
                 </div>
               </div>
 
@@ -82,5 +82,17 @@
         </div><!-- Col-lg-12 -->
       </div> <!-- Row -->
     </div><!-- Cointainer -->
+    <?php
+      if(isset($_GET['error'])) {
+         echo 'Error Logging In!';
+      }
+    ?>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="sha512.js"></script>
+    <script type="text/javascript" src="forms.js"></script>
   </body>
 </html>
