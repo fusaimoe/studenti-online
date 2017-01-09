@@ -1,3 +1,12 @@
+<?php
+
+  include 'php/db_connect.php';
+  include 'php/functions.php';
+
+  sec_session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,11 +39,29 @@
           <div class="row">
             <div class="col-xs-12">
               <h3 class="login-card-title">Welcome</h3>
-              <h6 class="login-card-subtitle">Inserisci le tue credenziali</h6>
+              <?php
+
+                if(isset($_POST['email'], $_POST['p'])) {
+                   $email = $_POST['email'];
+                   $password = $_POST['p']; // Recupero la password non criptata.
+
+                   if(login($email, $password, $mysqli) == true) {
+                      // Login eseguito
+                      header('Location: ../index.php');
+                   } else {
+                      // Login fallito
+                      echo '<h6 class="login-card-subtitle">Credenziali non corrette</h6>';
+                   }
+                } else {
+                   // Le variabili corrette non sono state inviate a questa pagina dal metodo POST.
+                   echo '<h6 class="login-card-subtitle">Inserisci le tue credenziali</h6>';
+                }
+
+              ?>
 
               <div class="card centered-card login-card">
                 <div class="card-block">
-                  <form action="php/process_login.php" method="post" name="login_form">
+                  <form action="login.php" method="post" name="login_form">
                     <!-- FIELDS -->
                     <div class="form-group">
                       <div class="left-inner-addon">
@@ -58,7 +85,7 @@
 
                     <!-- BUTTON -->
                     <div class="form-group no-padding">
-    									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi" onclick="formhash(this.form, this.form.password);">
+    									<input type="submit" name="register-submit" tabindex="4" class="form-control btn-primary btn btn-login" value="Accedi">
     								</div>
                   </form>
 
@@ -82,11 +109,6 @@
         </div><!-- Col-lg-12 -->
       </div> <!-- Row -->
     </div><!-- Cointainer -->
-    <?php
-      if(isset($_GET['error'])) {
-         echo 'Error Logging In!';
-      }
-    ?>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
