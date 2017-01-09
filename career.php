@@ -1,12 +1,35 @@
 <?php
 
-include 'php/db_connect.php';
-include 'php/functions.php';
-sec_session_start();
+  include 'php/db_connect.php';
+  include 'php/functions.php';
+  sec_session_start();
 
-if(login_check($mysqli) == false) {
-  header('Location: login.php');
-} else {
+  if(login_check($mysqli) == false) {
+    header('Location: login.php');
+  } else {
+
+  $sql = "SELECT name, surname FROM members WHERE (id = '" . $_SESSION['user_id'] ."')";
+  $result = $mysqli->query($sql);
+
+    if ($result->num_rows == 1) {
+      $row = $result->fetch_assoc();
+      $name = $row['name'];
+      $surname = $row['surname'];
+
+    }
+
+  $sql = "SELECT c.name AS name, c.location AS location, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
+  $result = $mysqli->query($sql);
+
+    if ($result->num_rows == 1) {
+      $row = $result->fetch_assoc();
+      $courseName = $row['name'];
+      $courseLocation = $row['location'];
+      $matriculationCode = $row['matriculationCode'];
+      $matriculationYear = $row['matriculationYear'];
+      $currentYear = $row['currentYear'];
+      $state = ($row['active']) ? "attivo" : "non attivo";
+    }
 
 ?>
 
@@ -16,23 +39,21 @@ if(login_check($mysqli) == false) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
-    <title>Studenti Online - Libretto Online</title>
+    <title>Studenti Online - Home</title>
 
     <meta name="theme-color" content="#9B1C1C">
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shotrcut icon" href="img/icon.png">
+    <link rel="apple-touch-icon" href="img/icon.png" type="image/png">
 
     <!-- Custom styles for this template -->
-    <link href="fonts/proxima-nova.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-    <link href="css/sol.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel:400,700">
+    <link rel="stylesheet" href="fonts/proxima-nova.css">
+    <link rel="stylesheet" href="css/monthly.css">
+    <link rel="stylesheet" href="css/sol.css">
   </head>
 
   <body class="preload">
@@ -63,57 +84,25 @@ if(login_check($mysqli) == false) {
                   <div class="col-lg-4">
                     <div class="profile-user">
                       <img src="img/user.jpg" alt="Profile Image" class="rounded-circle profile-picture">
-                      <?php
-
-                        $sql = "SELECT name, surname FROM members WHERE (id = '" . $_SESSION['user_id'] ."')";
-                        $result = $mysqli->query($sql);
-
-                          if ($result->num_rows == 1) {
-                            $row = $result->fetch_assoc();
-                            $name = $row['name'];
-                            $surname = $row['surname'];
-
-                          }
-
-                        $sql = "SELECT c.name AS name, c.location AS location, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
-                        $result = $mysqli->query($sql);
-
-                          if ($result->num_rows == 1) {
-                            $row = $result->fetch_assoc();
-                            $courseName = $row['name'];
-                            $courseLocation = $row['location'];
-                            $matriculationCode = $row['matriculationCode'];
-                            $matriculationYear = $row['matriculationYear'];
-                            $currentYear = $row['currentYear'];
-                            $state = ($row['active']) ? "active" : "pause";
-                          }
-
-                          echo '
-                          <h4>' . $name . ' '. $surname . '</h4>
-                          <h6 class="text-muted">' . $matriculationCode . '</h6>
-                          <p>' . $courseName .
-                          'Sede di ' . $courseLocation . '</p>
-
-                          ';
-
-                      ?>
-
-
+                      <h4><?php echo $name . ' '. $surname; ?></h4>
+                      <h6 class="text-muted"><?php echo $matriculationCode; ?></h6>
+                      <p><?php echo $courseName; ?></br>
+                          Sede di <?php echo $courseLocation; ?></p>
                     </div>
                   </div>
                   <div class="col-lg-8 padding-0">
                     <ul class="list-group">
                       <li class="list-group-item">
                         Immatricolazione
-                        <span class="tag tag-default tag-pill float-xs-right">2016</span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $matriculationYear; ?></span>
                       </li>
                       <li class="list-group-item">
                         Anno di corso
-                        <span class="tag tag-default tag-pill float-xs-right">2 / 3 - In corso</span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $currentYear; ?> - In corso</span>
                       </li>
                       <li class="list-group-item">
                         Stato
-                        <span class="tag tag-default tag-pill float-xs-right profile-active">Attiva</span>
+                        <span class="tag tag-default tag-pill float-xs-right profile-active"><?php echo $state; ?></span>
                       </li>
                       <li class="list-group-item">
                         Curriculum
