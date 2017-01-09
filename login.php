@@ -47,7 +47,7 @@
 
                    if(login($email, $password, $mysqli) == true) {
                       // Login eseguito
-                      header('Location: ../index.php');
+                      header('Location: index.php');
                    } else {
                       // Login fallito
                       echo '<h6 class="login-card-subtitle">Credenziali non corrette</h6>';

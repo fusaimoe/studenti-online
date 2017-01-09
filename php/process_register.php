@@ -12,23 +12,25 @@
   $password = hash('sha512', $password.$random_salt);
   // Crea una password usando la chiave appena creata.
 
-  $username = $_POST['username'];
   $email = $_POST['email'];
+  $name = $_POST['name'];
+  $surname = $_POST['surname'];
 
-  if($stmt = $mysqli->prepare("SELECT username FROM members WHERE email = '$email'")){
+  if($stmt = $mysqli->prepare("SELECT name FROM members WHERE email = '$email'")){
     $stmt->execute(); //Execute the prepared query.
     $stmt->store_result();
     $stmt->fetch();
     $row = $stmt->num_rows;
 
     if($stmt->num_rows <= 0){
-      if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, salt) VALUES (?, ?, ?, ?)")) {
-         $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
+      if ($insert_stmt = $mysqli->prepare("INSERT INTO members (email, password, salt, name, surname) VALUES (?, ?, ?, ?, ?)")) {
+         $insert_stmt->bind_param('sssss', $email, $password, $random_salt, $name, $surname);
          // Esegui la query ottenuta.
          $insert_stmt->execute();
       }
+
       header('Location: ../login.php');
-    }
+     }
   }
 
 ?>

@@ -39,7 +39,13 @@
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-user"></i>
-                        <input name="username" id="username" class="form-control" placeholder="Username" type="text">
+                        <input name="name" id="name" class="form-control" placeholder="Nome" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="left-inner-addon">
+                        <i class="icon-user"></i>
+                        <input name="surname" id="surname" class="form-control" placeholder="Cognome" type="text">
                       </div>
                     </div>
                     <div class="form-group">
