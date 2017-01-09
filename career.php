@@ -1,28 +1,22 @@
 <?php
-
   include 'php/db_connect.php';
   include 'php/functions.php';
   sec_session_start();
-
   if(login_check($mysqli) == false) {
     header('Location: login.php');
   } else {
-
   $sql = "SELECT name, surname FROM members WHERE (id = '" . $_SESSION['user_id'] ."')";
   $result = $mysqli->query($sql);
-
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
       $name = $row['name'];
       $surname = $row['surname'];
-
     }
-
-  $sql = "SELECT c.name AS name, c.location AS location, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
+  $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
   $result = $mysqli->query($sql);
-
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
+      $courseId = $row['id'];
       $courseName = $row['name'];
       $courseLocation = $row['location'];
       $matriculationCode = $row['matriculationCode'];
@@ -30,7 +24,6 @@
       $currentYear = $row['currentYear'];
       $state = ($row['active']) ? "attivo" : "non attivo";
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -129,6 +122,7 @@
           <h5 class="section-title">Dettaglio Carriera</h5>
           <div class="row">
 
+
             <div class="col-lg-12 resizable-column">
               <div class="card">
                 <div class="card-block">
@@ -142,61 +136,54 @@
                     </button>
                   </div>
                   <div class="collapse in" id="collapse-year1">
-                    <table class="table table-striped card-content">
-                      <thead>
-                        <tr>
-                          <th class="table-code mobile-view" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Crediti</th>
-                          <th class="table-result" id="result">Esito</th>
-                          <th class="table-record mobile-view" id="record">Data verb.</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Architetture degli elaboratori</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">28/08/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Analisi matematica</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">10/02/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">11929</td>
-                          <td class="table-subject" headers="subject">Algoritmi e strutture dati</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">15/07/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">58414</td>
-                          <td class="table-subject" headers="subject">Algebra e geometria</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">-</td>
-                          <td class="table-record mobile-view" headers="record">-</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">26338</td>
-                          <td class="table-subject" headers="subject">Idoneità lingua inglese B1</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">✓</td>
-                          <td class="table-record mobile-view" headers="record">15/01/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00819</td>
-                          <td class="table-subject" headers="subject">Programmazione</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">18/06/2016</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <?php
+                      $sql = "SELECT e.id, e.subject, e.credits, r.result, r.reportDate
+                              FROM exams AS e
+                              INNER JOIN exam_results AS r ON r.exam_id = e.id
+                              WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "';
+                              ";
+                      $result = $mysqli->query($sql);
+
+                      if ($result->num_rows > 0) {
+
+                        echo '<table class="table table-striped card-content">
+                          <thead>
+                            <tr>
+                              <th class="table-code mobile-view" id="code">Cod.</th>
+                              <th class="table-subject" id="subject">Materia</th>
+                              <th class="table-credits" id="credits">Crediti</th>
+                              <th class="table-result" id="result">Esito</th>
+                              <th class="table-record mobile-view" id="record">Data verb.</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                        ';
+
+                        while($row = $result->fetch_assoc()) {
+                          $examId = $row['id'];
+                          $examSubject = $row['subject'];
+                          $examCredits = $row['credits'];
+                          $examResult = $row['result'];
+                          $reportDate = $row['reportDate'];
+
+                          echo '
+                                <tr>
+                                  <td class="table-code mobile-view" headers="code">' . $examId . '</td>
+                                  <td class="table-subject" headers="subject">' . $examSubject . '</td>
+                                  <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
+                                  <td class="table-result" headers="result">'. $examResult . '</td>
+                                  <td class="table-record mobile-view" headers="record">'. $reportDate .'</td>
+                                </tr>
+                          ';
+                        }
+
+                        echo '
+                          </tbody>
+                          </table>
+                        ';
+                      }
+
+                    ?>
                   </div>
                 </div>
               </div>
@@ -226,48 +213,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Architetture degli elaboratori</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">28/08/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Analisi matematica</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">10/02/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">11929</td>
-                          <td class="table-subject" headers="subject">Algoritmi e strutture dati</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">15/07/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">58414</td>
-                          <td class="table-subject" headers="subject">Algebra e geometria</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">-</td>
-                          <td class="table-record mobile-view" headers="record">-</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">26338</td>
-                          <td class="table-subject" headers="subject">Idoneità lingua inglese B1</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">✓</td>
-                          <td class="table-record mobile-view" headers="record">15/01/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00819</td>
-                          <td class="table-subject" headers="subject">Programmazione</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">18/06/2016</td>
-                        </tr>
+
                       </tbody>
                     </table>
                   </div>
@@ -411,6 +357,7 @@
     <script src="js/monthly.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
     <script src="js/average.js"></script>
+    <script src="js/career.js"></script>
 
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>

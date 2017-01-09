@@ -8,11 +8,11 @@ $('.resize').click(function() {
     } else if($("span").hasClass("icon-size-actual")) {
       $('.icon-size-actual').toggleClass('icon-size-actual icon-size-fullscreen');
     }
-})
+});
 
 $(".rotate").click(function(){
    $(this).toggleClass("down");
-})
+});
 
 /*
 $('[id^=collapse-]').each(function() {
