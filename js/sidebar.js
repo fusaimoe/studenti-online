@@ -39,25 +39,9 @@ function checkSidebar(sidebar) {
   return $("."+sidebar).length;
 }
 
-$(window).on('load', function() {
-
-  $("body").removeClass("preload");
-
-  $('#mycalendar').monthly({
-    weekStart: 'Mon',
-    mode: 'event',
-    xmlUrl: 'events.xml'
-  });
-
-}
-
 $(document).ready(function () {
 
   var close = false;
-
-  $( ".notification-unread" ).click(function() {
-    $(this).removeClass("notification-unread");
-  });
 
   $('#sidebar-left-button').click(function () {
     close = clickedButton(close, $(this).attr('id'));
@@ -68,7 +52,6 @@ $(document).ready(function () {
   });
 
   if (isMobile()) {
-
     $(window).swipe({
       swipeLeft:function(event, direction, distance, duration, fingerCount, fingerData) {
         if(!checkSidebar("right")){
@@ -81,8 +64,22 @@ $(document).ready(function () {
         }
       }
     });
-
   }
 
+});
+
+$(window).on('load', function() {
+
+  $("body").removeClass("preload");
+
+  $('#mycalendar').monthly({
+    weekStart: 'Mon',
+    mode: 'event',
+    xmlUrl: 'events.xml'
+  });
+
+  $( ".notification-unread" ).click(function() {
+    $(this).removeClass("notification-unread");
+  });
 
 });

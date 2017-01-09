@@ -235,11 +235,11 @@ if(login_check($mysqli) == false) {
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-      $(window).on('load', function() {
-          $('[data-toggle="popover"]').popover({
-            trigger: 'focus'
-          });
+
+      $('[data-toggle="popover"]').popover({
+        trigger: 'focus'
       });
+      
     </script>
 
 
