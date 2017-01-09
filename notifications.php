@@ -16,12 +16,14 @@
           $category = $row['category'];
           $pub_date = $row['subject'];
 
+          $categoryCss = str_replace(' ', '', strtolower($category));
+
           echo '
           <li class="list-group-item list-group-notification notification-unread">
 
             <div class="tag-align">
-              <span class="tag tag-custom bg-color-' . $category . '">
-                <span class="icon-custom-' . $category . '" aria-hidden="true"></span>
+              <span class="tag tag-custom bg-color-' . $categoryCss . '">
+                <span class="icon-custom-' . $categoryCss . '" aria-hidden="true"></span>
               </span>
             </div>
             <span>

@@ -236,15 +236,6 @@ if(login_check($mysqli) == false) {
 
     <script type="text/javascript">
       $(window).on('load', function() {
-
-          $("body").removeClass("preload");
-
-          $('#mycalendar').monthly({
-            weekStart: 'Mon',
-            mode: 'event',
-            xmlUrl: 'events.xml'
-          });
-
           $('[data-toggle="popover"]').popover({
             trigger: 'focus'
           });

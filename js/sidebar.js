@@ -39,6 +39,18 @@ function checkSidebar(sidebar) {
   return $("."+sidebar).length;
 }
 
+$(window).on('load', function() {
+
+  $("body").removeClass("preload");
+
+  $('#mycalendar').monthly({
+    weekStart: 'Mon',
+    mode: 'event',
+    xmlUrl: 'events.xml'
+  });
+
+}
+
 $(document).ready(function () {
 
   var close = false;

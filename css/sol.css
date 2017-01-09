@@ -498,17 +498,35 @@ label.custom-control.custom-checkbox {
 
 /* FORM ICONS */
 
- .left-inner-addon input {
+.left-inner-addon input {
   padding-left: 35px;
- }
+}
 
- .left-inner-addon i {
+.left-inner-addon i {
   position: absolute;
   padding: 11px 12px;
   pointer-events: none;
   font-size: 1rem;
   color: #818a91;
- }
+}
+
+/* DENIED ACCESS */
+
+.big-ghost-icon {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  display: table;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.grey-button, .grey-button:active, .grey-button:focus {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  background-color: transparent;
+}
 
 /* HISTORY */
 
@@ -547,19 +565,31 @@ label.custom-control.custom-checkbox {
 
 /* ICONS AND COLORS */
 
-.bg-color-taxes, .custom-control-input:checked ~ .bg-control-taxes {
+.bg-color-tasse, .custom-control-input:checked ~ .bg-control-tasse {
   background-color: #f0ad4e;
 }
 
-.bg-color-exams, .custom-control-input:checked ~ .bg-control-exams {
-  background-color: #0275d8;
-}
-
-.bg-color-events, .custom-control-input:checked ~ .bg-control-events {
+.bg-color-esami, .custom-control-input:checked ~ .bg-control-esami {
   background-color: #5bc0de;
 }
 
-.icon-custom-taxes, .icon-custom-exams, .icon-custom-events {
+.bg-color-prenotazioneesami, .custom-control-input:checked ~ .bg-control-prenotazioneesami {
+  background-color: #0275d8;
+}
+
+.bg-color-eventi, .custom-control-input:checked ~ .bg-control-eventi {
+  background-color: #5cb85c;
+}
+
+.bg-color-bandi, .custom-control-input:checked ~ .bg-control-bandi {
+  background-color: #f7f7f7;
+}
+
+.bg-color-email, .custom-control-input:checked ~ .bg-control-email {
+  background-color: #d9534f;
+}
+
+.icon-custom-tasse, .icon-custom-esami, .icon-custom-prenotazioneesami, .icon-custom-eventi, .icon-custom-bandi, .icon-custom-email {
   font-family: 'simple-line-icons';
   speak: none;
   font-style: normal;
@@ -571,24 +601,22 @@ label.custom-control.custom-checkbox {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-custom-exams::before {
+.icon-custom-esami::before, .icon-custom-prenotazioneesami::before {
     content: "\e028";
 }
 
-/* DENIED ACCESS */
-
-.big-ghost-icon {
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 30px;
-  display: table;
-  margin-bottom: 20px;
-  margin-top: 20px;
+.icon-custom-tasse::before {
+    content: "\e02a";
 }
 
-.grey-button, .grey-button:active, .grey-button:focus {
-  margin-left: auto;
-  margin-right: auto;
-  display: table;
-  background-color: transparent;
+.icon-custom-eventi::before {
+    content: "\e619";
+}
+
+.icon-custom-bandi::before {
+    content: "\e616";
+}
+
+.icon-custom-email::before {
+    content: "\e086";
 }
