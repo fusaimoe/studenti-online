@@ -510,57 +510,69 @@ label.custom-control.custom-checkbox {
   color: #818a91;
  }
 
- /* INDICATORS */
- .custom-control-input:checked ~ .color-1-indicator {
-    background-color: #28cbff;
-}
-.custom-control-input:checked ~ .color-2-indicator {
-   background-color: #9cc370;
-}
-.custom-control-input:checked ~ .color-3-indicator {
-   background-color: #ffb128;
-}
-.custom-control-input:checked ~ .color-4-indicator {
-   background-color: #236789;
-}
-
 /* HISTORY */
 
-.history .list-group-item {
-  padding: .75rem 0.65rem;
+.list-group-notification {
+  padding: .75rem;
   border-left: none;
   border-right: none;
-  overflow: hidden;
   display: table;
   min-width: 100%;
 }
 
-.history .list-group-item .align-tag {
-  display: table-cell;
-  vertical-align: middle;
-  float:none;
-  width: 30px;
-}
-
-.history li.list-group-item:first-child {
+.list-group-notification:first-child {
   border-top: none;
 }
 
-.history li.list-group-item:last-child {
+.list-group-notification:last-child {
   border-bottom: none;
 }
 
-.custom-tag {
-  padding-left: 9px;
-  padding-top: 9px;
-  padding-bottom: 7px;
-  margin-left: 2px;
-  margin-right: 9px;
-}
-
-.history .unread{
+.notification-unread {
   background-color: #fcf8e3;
   border-color: #faf2cc;
+}
+
+.tag-align {
+  display: table-cell;
+  vertical-align: middle;
+  width: 0;
+}
+
+.tag-custom {
+  margin-right: .75rem;
+  padding: .7em;
+  border-radius: 100%;
+}
+
+/* ICONS AND COLORS */
+
+.bg-color-taxes, .custom-control-input:checked ~ .bg-control-taxes {
+  background-color: #f0ad4e;
+}
+
+.bg-color-exams, .custom-control-input:checked ~ .bg-control-exams {
+  background-color: #0275d8;
+}
+
+.bg-color-events, .custom-control-input:checked ~ .bg-control-events {
+  background-color: #5bc0de;
+}
+
+.icon-custom-taxes, .icon-custom-exams, .icon-custom-events {
+  font-family: 'simple-line-icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-custom-exams::before {
+    content: "\e028";
 }
 
 /* DENIED ACCESS */

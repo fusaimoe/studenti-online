@@ -43,6 +43,10 @@ $(document).ready(function () {
 
   var close = false;
 
+  $( ".notification-unread" ).click(function() {
+    $(this).removeClass("notification-unread");
+  });
+
   $('#sidebar-left-button').click(function () {
     close = clickedButton(close, $(this).attr('id'));
   });
