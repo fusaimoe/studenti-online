@@ -64,7 +64,7 @@ if(login_check($mysqli) == false) {
               <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
                 <div class="card card-block">
                   <button type="button" class="icon-button w-100">
-                    <span class="icon-homepage icon-badge" aria-hidden="true"></span>
+                    <span class="icon-homepage icon-badge notification-badge" data-badge="15" aria-hidden="true"></span>
                   </button>
                   <h5 class="card-title">Esami</h5>
                   <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
@@ -239,7 +239,7 @@ if(login_check($mysqli) == false) {
       $('[data-toggle="popover"]').popover({
         trigger: 'focus'
       });
-      
+
     </script>
 
 

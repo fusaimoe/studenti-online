@@ -563,7 +563,28 @@ label.custom-control.custom-checkbox {
   border-radius: 100%;
 }
 
-/* ICONS AND COLORS */
+.icon-homepage{
+  position: relative;
+}
+
+.notification-badge[data-badge]:after {
+   content:attr(data-badge);
+   position:absolute;
+   padding: 4px;
+   border-radius: 50%;
+   text-align: center;
+   font-family: 'proxima-nova', serif;
+   font-size: .7rem;
+   color: white;
+}
+
+.notification-badge[data-badge]:after {
+   background-color: #27aae1;
+   right: -15%;
+   bottom: -15%;
+}
+
+/* ICONS AND COLORS - TO BE DEPRECATED */
 
 .bg-color-tasse, .custom-control-input:checked ~ .bg-control-tasse {
   background-color: #f0ad4e;
