@@ -12,11 +12,12 @@
       $name = $row['name'];
       $surname = $row['surname'];
     }
-  $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
+  $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, c.duration AS duration, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
   $result = $mysqli->query($sql);
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
       $courseId = $row['id'];
+      $courseDuration = $row['duration'];
       $courseName = $row['name'];
       $courseLocation = $row['location'];
       $matriculationCode = $row['matriculationCode'];
@@ -32,21 +33,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
 
-    <title>Studenti Online - Home</title>
+    <title>Studenti Online - Libretto Online</title>
 
     <meta name="theme-color" content="#9B1C1C">
-    <link rel="shotrcut icon" href="img/icon.png">
-    <link rel="apple-touch-icon" href="img/icon.png" type="image/png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="fonts/proxima-nova.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel:400,700">
-    <link rel="stylesheet" href="fonts/proxima-nova.css">
+    <link href="css/sol.css" rel="stylesheet">
     <link rel="stylesheet" href="css/monthly.css">
-    <link rel="stylesheet" href="css/sol.css">
   </head>
 
   <body class="preload">
@@ -119,26 +123,30 @@
           </div><!--/row anni-->
 
           <hr>
+
           <h5 class="section-title">Dettaglio Carriera</h5>
           <div class="row">
 
+          <?php
+          for($i=1;$i<=$courseDuration;$i++){
+            echo '
 
             <div class="col-lg-12 resizable-column">
               <div class="card">
                 <div class="card-block">
-                  <p class="card-top">Primo anno</p>
+                  <p class="card-top">'.$i.' anno</p>
                   <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-year1" aria-expanded="false" aria-controls="collapse-year1">
+                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-year'.$i.'" aria-expanded="false" aria-controls="collapse-year'.$i.'">
                       <span class="icon-arrow-up" aria-hidden="true"></span>
                     </button>
                     <button type="button" class="icon-control resize">
                       <span class="icon-size-fullscreen" aria-hidden="true"></span>
                     </button>
                   </div>
-                  <div class="collapse in" id="collapse-year1">
-                  <?php
-                    //Intestazione della tabella
-                    echo '<table class="table table-striped card-content">
+                  <div class="collapse in" id="collapse-year'.$i.'">
+
+
+                  <table class="table table-striped card-content">
                       <thead>
                         <tr>
                           <th class="table-code mobile-view" id="code">Cod.</th>
@@ -155,7 +163,7 @@
                     $sql = "SELECT e.id, e.subject, e.credits, r.result, r.record_date
                             FROM exams AS e
                             INNER JOIN recorded_exams AS r ON r.exam_id = e.id
-                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "';
+                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "' & e.year_of_course='".$i."';
                             ";
                     $result = $mysqli->query($sql);
 
@@ -183,7 +191,7 @@
                     //Risultato seconda query esami restanti
                     $sql = "SELECT p.id, p.subject, p.credits
                             FROM exams p
-                            WHERE p.course_id = '". $courseId . "' AND p.year_of_course = '1' AND p.id NOT IN (
+                            WHERE p.course_id = '". $courseId . "' AND p.year_of_course = '".$i."' AND p.id NOT IN (
                             SELECT e.id
                             FROM exams AS e
                             INNER JOIN recorded_exams AS r ON r.exam_id = e.id
@@ -202,8 +210,8 @@
                                 <td class="table-code mobile-view" headers="code">' . $examId . '</td>
                                 <td class="table-subject" headers="subject">' . $examSubject . '</td>
                                 <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
-                                <td class="table-result" headers="result"></td>
-                                <td class="table-record mobile-view" headers="record"></td>
+                                <td class="table-result" headers="result">-</td>
+                                <td class="table-record mobile-view" headers="record">-</td>
                               </tr>';
                       }
                     }
@@ -212,122 +220,17 @@
                     echo '
                       </tbody>
                       </table>
-                    ';
-                  ?>
                   </div>
                 </div>
               </div>
-            </div><!--/col lg 4-->
-
-            <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Secondo anno</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-year2" aria-expanded="false" aria-controls="collapse-year2">
-                      <span class="icon-arrow-down" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="icon-control resize">
-                      <span class="icon-size-fullscreen" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <div class="collapse" id="collapse-year2">
-                    <table class="table table-striped card-content">
-                      <thead>
-                        <tr>
-                          <th class="table-code mobile-view" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Crediti</th>
-                          <th class="table-result" id="result">Esito</th>
-                          <th class="table-record mobile-view" id="record">Data verb.</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div><!--/col lg 4-->
-
-            <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Terzo anno</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-year3" aria-expanded="false" aria-controls="collapse-year3">
-                      <span class="icon-arrow-down" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="icon-control resize">
-                      <span class="icon-size-fullscreen" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <div class="collapse" id="collapse-year3">
-                    <table class="table table-striped card-content">
-                      <thead>
-                        <tr>
-                          <th class="table-code mobile-view" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Crediti</th>
-                          <th class="table-result" id="result">Esito</th>
-                          <th class="table-record mobile-view" id="record">Data verb.</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Architetture degli elaboratori</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">28/08/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Analisi matematica</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">10/02/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">11929</td>
-                          <td class="table-subject" headers="subject">Algoritmi e strutture dati</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">28</td>
-                          <td class="table-record mobile-view" headers="record">15/07/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">58414</td>
-                          <td class="table-subject" headers="subject">Algebra e geometria</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">-</td>
-                          <td class="table-record mobile-view" headers="record">-</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">26338</td>
-                          <td class="table-subject" headers="subject">Idoneità lingua inglese B1</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-result" headers="result">✓</td>
-                          <td class="table-record mobile-view" headers="record">15/01/2016</td>
-                        </tr>
-                        <tr>
-                          <td class="table-code mobile-view" headers="code">00819</td>
-                          <td class="table-subject" headers="subject">Programmazione</td>
-                          <td class="table-credits text-muted" headers="credits">12</td>
-                          <td class="table-result" headers="result">27</td>
-                          <td class="table-record mobile-view" headers="record">18/06/2016</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div><!--/col lg 4-->
+            </div><!--/col lg 12-->';
+          }
+          ?>
 
           </div><!--/row anni-->
 
           <div class="row">
-            <div class="col-lg-6 col-nopadding">
+            <div class="col-lg-6">
               <div class="card">
                 <div class="card-block">
                   <p class="card-top">Grafico Voti</p>
@@ -340,7 +243,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-nopadding">
+            <div class="col-lg-6">
               <div class="card">
                 <div class="card-block">
                   <p class="card-top">Grafico Media Ponderata</p>
@@ -365,33 +268,36 @@
               </div>
             </div>
           </div>
+        </div>
+
       </div>
-    </div>
 
-    <hr>
+      <hr>
 
-    <?php include 'footer.php'; ?>
+      <?php include 'footer.php'; ?>
 
     </div><!--/.container-->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
+
+    <script src="js/offcanvas.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/average.js"></script>
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
+    <script src="js/career.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
-    <script src="js/average.js"></script>
-    <script src="js/career.js"></script>
-
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
 
     <script type="text/javascript">
         $(window).load( function() {
