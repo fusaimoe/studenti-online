@@ -136,54 +136,84 @@
                     </button>
                   </div>
                   <div class="collapse in" id="collapse-year1">
-                    <?php
-                      $sql = "SELECT e.id, e.subject, e.credits, r.result, r.reportDate
-                              FROM exams AS e
-                              INNER JOIN exam_results AS r ON r.exam_id = e.id
-                              WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "';
-                              ";
-                      $result = $mysqli->query($sql);
+                  <?php
+                    //Intestazione della tabella
+                    echo '<table class="table table-striped card-content">
+                      <thead>
+                        <tr>
+                          <th class="table-code mobile-view" id="code">Cod.</th>
+                          <th class="table-subject" id="subject">Materia</th>
+                          <th class="table-credits" id="credits">Crediti</th>
+                          <th class="table-result" id="result">Esito</th>
+                          <th class="table-record mobile-view" id="record">Data verb.</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    ';
 
-                      if ($result->num_rows > 0) {
+                    //Risultato prima query esami sostenuti
+                    $sql = "SELECT e.id, e.subject, e.credits, r.result, r.record_date
+                            FROM exams AS e
+                            INNER JOIN recorded_exams AS r ON r.exam_id = e.id
+                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "';
+                            ";
+                    $result = $mysqli->query($sql);
 
-                        echo '<table class="table table-striped card-content">
-                          <thead>
-                            <tr>
-                              <th class="table-code mobile-view" id="code">Cod.</th>
-                              <th class="table-subject" id="subject">Materia</th>
-                              <th class="table-credits" id="credits">Crediti</th>
-                              <th class="table-result" id="result">Esito</th>
-                              <th class="table-record mobile-view" id="record">Data verb.</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                        ';
+                    if ($result->num_rows > 0) {
 
-                        while($row = $result->fetch_assoc()) {
-                          $examId = $row['id'];
-                          $examSubject = $row['subject'];
-                          $examCredits = $row['credits'];
-                          $examResult = $row['result'];
-                          $reportDate = $row['reportDate'];
-
-                          echo '
-                                <tr>
-                                  <td class="table-code mobile-view" headers="code">' . $examId . '</td>
-                                  <td class="table-subject" headers="subject">' . $examSubject . '</td>
-                                  <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
-                                  <td class="table-result" headers="result">'. $examResult . '</td>
-                                  <td class="table-record mobile-view" headers="record">'. $reportDate .'</td>
-                                </tr>
-                          ';
-                        }
+                      while($row = $result->fetch_assoc()) {
+                        $examId = $row['id'];
+                        $examSubject = $row['subject'];
+                        $examCredits = $row['credits'];
+                        $examResult = $row['result'];
+                        $recordDate = $row['record_date'];
 
                         echo '
-                          </tbody>
-                          </table>
+                              <tr>
+                                <td class="table-code mobile-view" headers="code">' . $examId . '</td>
+                                <td class="table-subject" headers="subject">' . $examSubject . '</td>
+                                <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
+                                <td class="table-result" headers="result">'. $examResult . '</td>
+                                <td class="table-record mobile-view" headers="record">'. $recordDate .'</td>
+                              </tr>
                         ';
                       }
+                    }
 
-                    ?>
+                    //Risultato seconda query esami restanti
+                    $sql = "SELECT p.id, p.subject, p.credits
+                            FROM exams p
+                            WHERE p.course_id = '". $courseId . "' AND p.year_of_course = '1' AND p.id NOT IN (
+                            SELECT e.id
+                            FROM exams AS e
+                            INNER JOIN recorded_exams AS r ON r.exam_id = e.id
+                            )";
+
+                    $result = $mysqli->query($sql);
+
+                    if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                        $examId = $row['id'];
+                        $examSubject = $row['subject'];
+                        $examCredits = $row['credits'];
+
+                        echo '
+                              <tr>
+                                <td class="table-code mobile-view" headers="code">' . $examId . '</td>
+                                <td class="table-subject" headers="subject">' . $examSubject . '</td>
+                                <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
+                                <td class="table-result" headers="result"></td>
+                                <td class="table-record mobile-view" headers="record"></td>
+                              </tr>';
+                      }
+                    }
+
+                    //Footer della tabella
+                    echo '
+                      </tbody>
+                      </table>
+                    ';
+                  ?>
                   </div>
                 </div>
               </div>
