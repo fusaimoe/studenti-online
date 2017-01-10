@@ -14,7 +14,7 @@
           $subject = $row['subject'];
           $description = $row['description'];
           $category = $row['category'];
-          $pub_date = $row['subject'];
+          $pub_date = $row['pub_date'];
 
           $categoryCss = str_replace(' ', '', strtolower($category));
 

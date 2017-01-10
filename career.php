@@ -94,13 +94,12 @@
                 <div class="card-block">
                   <div class="col-lg-4">
                     <div class="profile-user">
-                      <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture img-thumbnail">
+                      <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture">
                       <h4><?php echo $name . ' ' . $surname; ?></h4>
                       <h6 class="text-muted"><?php echo $matriculationCode; ?></h6>
                       <p><?php echo $courseName; ?></br>
                           Sede di <?php echo $courseLocation; ?></p>
                           <form action="php/upload.php" method="post" enctype="multipart/form-data">
-                              Select image to upload:
                               <input type="file" name="fileToUpload" id="fileToUpload">
                               <input type="submit" value="Upload Image" name="submit">
                           </form>
