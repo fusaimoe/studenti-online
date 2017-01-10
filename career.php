@@ -8,7 +8,7 @@
 
   } else {
 
-    $sql = "SELECT name, surname
+    $sql = "SELECT name, surname, photo
             FROM members
             WHERE (id = '" . $_SESSION['user_id'] ."')";
     $result = $mysqli->query($sql);
@@ -17,6 +17,7 @@
       $row = $result->fetch_assoc();
       $name = $row['name'];
       $surname = $row['surname'];
+      $photo = $row['photo'];
     }
 
     $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, c.duration AS duration, c.total_credits AS total_credits, m.matriculationYear, m.matriculationCode, m.active, m.currentYear, m.curriculum, m.editable
@@ -93,11 +94,16 @@
                 <div class="card-block">
                   <div class="col-lg-4">
                     <div class="profile-user">
-                      <img src="img/user.jpg" alt="Profile Image" class="rounded-circle profile-picture">
-                      <h4><?php echo $name . ' '. $surname; ?></h4>
+                      <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture img-thumbnail">
+                      <h4><?php echo $name . ' ' . $surname; ?></h4>
                       <h6 class="text-muted"><?php echo $matriculationCode; ?></h6>
                       <p><?php echo $courseName; ?></br>
                           Sede di <?php echo $courseLocation; ?></p>
+                          <form action="php/upload.php" method="post" enctype="multipart/form-data">
+                              Select image to upload:
+                              <input type="file" name="fileToUpload" id="fileToUpload">
+                              <input type="submit" value="Upload Image" name="submit">
+                          </form>
                     </div>
                   </div>
                   <div class="col-lg-8 padding-0">
