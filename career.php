@@ -2,26 +2,39 @@
   include 'php/db_connect.php';
   include 'php/functions.php';
   sec_session_start();
+
   if(login_check($mysqli) == false) {
     header('Location: login.php');
+
   } else {
-  $sql = "SELECT name, surname FROM members WHERE (id = '" . $_SESSION['user_id'] ."')";
-  $result = $mysqli->query($sql);
+
+    $sql = "SELECT name, surname
+            FROM members
+            WHERE (id = '" . $_SESSION['user_id'] ."')";
+    $result = $mysqli->query($sql);
+
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
       $name = $row['name'];
       $surname = $row['surname'];
     }
-  $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, c.duration AS duration, m.matriculationYear, m.matriculationCode, m.active, m.currentYear FROM courses c, matriculations m WHERE c.id = m.course_id & m.student_id = '" . $_SESSION['user_id'] ."'";
-  $result = $mysqli->query($sql);
+
+    $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, c.duration AS duration, c.total_credits AS total_credits, m.matriculationYear, m.matriculationCode, m.active, m.currentYear, m.curriculum, m.editable
+            FROM courses c, matriculations m
+            WHERE c.id = m.course_id AND m.student_id = '" . $_SESSION['user_id'] ."'";
+    $result = $mysqli->query($sql);
+
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
       $courseId = $row['id'];
       $courseDuration = $row['duration'];
+      $totalCredits = $row['total_credits'];
       $courseName = $row['name'];
       $courseLocation = $row['location'];
+      $editablePlan = $row['editable'];
       $matriculationCode = $row['matriculationCode'];
       $matriculationYear = $row['matriculationYear'];
+      $curriculum = $row['curriculum'];
       $currentYear = $row['currentYear'];
       $state = ($row['active']) ? "attivo" : "non attivo";
     }
@@ -103,17 +116,27 @@
                       </li>
                       <li class="list-group-item">
                         Curriculum
-                        <span class="tag tag-default tag-pill float-xs-right">Ingegneria Informatica</span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $curriculum; ?></span>
                       </li>
                       <li class="list-group-item">
                         Piano di Studi
-                          <a  class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
-                            Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
-                          </a>
+                          <?php
+                            if($editablePlan){
+                              echo '
+                                    <a  class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
+                                      Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
+                                    </a>
+                              ';
+                            }else{
+                              echo '
+                                    <span class="tag tag-default tag-pill float-xs-right">Non modificabile</span>
+                              ';
+                            }
+                          ?>
                       </li>
                       <li class="list-group-item">
                         Media voti
-                        <span class="tag tag-default tag-pill float-xs-right">27.5</span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php get_avg($mysqli); ?></span>
                       </li>
                     </ul>
                   </div>
@@ -134,7 +157,7 @@
             <div class="col-lg-12 resizable-column">
               <div class="card">
                 <div class="card-block">
-                  <p class="card-top">'.$i.' anno</p>
+                  <p class="card-top">'.$i.'° anno</p>
                   <div class="float-xs-right">
                     <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-year'.$i.'" aria-expanded="false" aria-controls="collapse-year'.$i.'">
                       <span class="icon-arrow-up" aria-hidden="true"></span>
@@ -160,10 +183,10 @@
                     ';
 
                     //Risultato prima query esami sostenuti
-                    $sql = "SELECT e.id, e.subject, e.credits, r.result, r.record_date
+                    $sql = "SELECT e.id, e.subject, e.credits, r.result, r.record_date, r.honour
                             FROM exams AS e
                             INNER JOIN recorded_exams AS r ON r.exam_id = e.id
-                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' & e.course_id = '". $courseId . "' & e.year_of_course='".$i."';
+                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' AND e.course_id = '". $courseId . "' AND e.year_of_course='".$i."';
                             ";
                     $result = $mysqli->query($sql);
 
@@ -174,6 +197,7 @@
                         $examSubject = $row['subject'];
                         $examCredits = $row['credits'];
                         $examResult = $row['result'];
+                        $honour = $row['honour'];
                         $recordDate = $row['record_date'];
 
                         echo '
@@ -181,7 +205,9 @@
                                 <td class="table-code mobile-view" headers="code">' . $examId . '</td>
                                 <td class="table-subject" headers="subject">' . $examSubject . '</td>
                                 <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
-                                <td class="table-result" headers="result">'. $examResult . '</td>
+                                <td class="table-result" headers="result">'. $examResult;
+                        echo ($honour) ? 'L' : '';
+                        echo   '</td>
                                 <td class="table-record mobile-view" headers="record">'. $recordDate .'</td>
                               </tr>
                         ';
@@ -192,9 +218,10 @@
                     $sql = "SELECT p.id, p.subject, p.credits
                             FROM exams p
                             WHERE p.course_id = '". $courseId . "' AND p.year_of_course = '".$i."' AND p.id NOT IN (
-                            SELECT e.id
-                            FROM exams AS e
-                            INNER JOIN recorded_exams AS r ON r.exam_id = e.id
+                              SELECT e.id
+                              FROM exams e, recorded_exams r
+                              WHERE r.exam_id = e.id
+                              AND r.student_id = '" . $_SESSION['user_id'] ."'
                             )";
 
                     $result = $mysqli->query($sql);
@@ -263,7 +290,7 @@
               <div class="card">
                 <div class="card-block">
                   Crediti sostenuti
-                  <span class="tag tag-default tag-pill float-xs-right">54 / 180</span>
+                  <span class="tag tag-default tag-pill float-xs-right"><?php get_credits($mysqli); echo ' /  ' . $totalCredits; ?></span>
                 </div>
               </div>
             </div>
@@ -309,4 +336,56 @@
   </body>
 </html>
 
-<?php } ?>
+<?php }
+
+
+function get_avg($mysqli) {
+
+  $total=0;
+  $totalM=0;
+
+  $result = get_exam_info($mysqli);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $examResult = $row['result'];
+      $honour = $row['honour'];
+      $credits = $row['credits'];
+
+      $totalM+=($credits/3);
+      $total+=(($credits/3)*$examResult);
+
+    }
+    echo round($total/$totalM,2);
+  }else{
+    echo '0';
+  }
+}
+
+function get_credits($mysqli) {
+
+  $totalCredits=0;
+
+  $result = get_exam_info($mysqli);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $credits = $row['credits'];
+
+      $totalCredits+=$credits;
+    }
+    echo $totalCredits;
+  }else{
+    echo '0';
+  }
+}
+
+function get_exam_info($mysqli){
+  //Risultato prima query esami sostenuti
+  $sql = "SELECT r.result, r.honour, e.credits
+          FROM exams e, recorded_exams r
+          WHERE e.id=r.exam_id AND r.student_id ='" . $_SESSION['user_id'] ."'";
+  return $mysqli->query($sql);
+
+}
+?>
