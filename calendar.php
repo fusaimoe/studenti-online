@@ -13,7 +13,7 @@ updateCalendar($mysqli);
   <h5 class="section-title hidden-lg-down">Legenda</h5>
   <div class="card card-block">
       <?php
-        $sql = "SELECT DISTINCT c.name, c.color from categories c, calendar_events e where c.name=e.category_name";
+        $sql = "SELECT DISTINCT c.name, c.color FROM categories c, calendar_events e WHERE c.name=e.category_name ";
         $result = $mysqli->query($sql);
         if ($result->num_rows > 0) {
           echo '<ul class="list-group">';
@@ -46,7 +46,8 @@ updateCalendar($mysqli);
 
 function updateCalendar($mysqli){
   $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
-          WHERE e.category_name=c.name";
+          WHERE e.category_name=c.name
+          AND e.student_id='" . $_SESSION['student_id'] ."'";
   $result = $mysqli->query($sql);
 
   $xml = new XMLWriter();

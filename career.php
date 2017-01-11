@@ -99,12 +99,17 @@
                     <div class="profile-user">
                       <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture">
                       <h4><?php echo $student_name . ' ' . $student_surname; ?></h4>
-                      <h6 class="text-muted"><?php echo $student_id; ?></h6>
+                      <h6 class="text-muted">0000<?php echo $student_id; ?></h6>
                       <p><?php echo $course_name; ?></br>
                           Sede di <?php echo $course_location; ?></p>
                           <form action="php/upload.php" method="post" enctype="multipart/form-data">
-                              <input type="file" name="fileToUpload" id="fileToUpload">
-                              <input type="submit" value="Upload Image" name="submit">
+                              <label for="fileToUpload">
+                                <span class="icon-button icon-footer icon-folder" aria-hidden="true"></span>
+                              </label>
+                              <input type="file" name="fileToUpload" id="fileToUpload" style="display:none">
+                              <button class="icon-button" type="submit" name="submit">
+                                <span class="icon-footer icon-cloud-upload" aria-hidden="true"></span>
+                              </button>
                           </form>
                     </div>
                   </div>
