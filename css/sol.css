@@ -162,18 +162,6 @@ footer {
   .col-nopadding-side {
     padding-left: 0;
   }
-  .col-nopadding {
-    padding-right: 7px;
-    padding-left: 7px;
-  }
-  .col-nopadding:first-child {
-    padding-left: 15px;
-    padding-right: 7px;
-  }
-  .col-nopadding:last-child {
-    padding-left: 7px;
-    padding-right: 15px;
-  }
 
 }
 
@@ -181,11 +169,11 @@ footer {
   padding-right: 7px;
   padding-left: 7px;
 }
-.col-nopadding-home:first-child {
+.col-nopadding-home-left {
   padding-left: 15px;
   padding-right: 7px;
 }
-.col-nopadding-home:last-child {
+.col-nopadding-home-right {
   padding-left: 7px;
   padding-right: 15px;
 }

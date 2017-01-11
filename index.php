@@ -7,6 +7,8 @@ sec_session_start();
 if(login_check($mysqli) == false) {
   header('Location: login.php');
 } else {
+  //Prendo le informazioni sullo studente loggato
+  $student_id = $_SESSION['student_id'];
 
 ?>
 
@@ -45,79 +47,61 @@ if(login_check($mysqli) == false) {
         <?php include 'notifications.php'; ?>
 
         <div class="col-lg-8 main-offcanvas">
-          <h5 class="section-title section-title hidden-lg-down">Preferiti</h5>
+          <h5 class="section-title section-title hidden-md-down">Preferiti</h5>
 
           <div class="row">
 
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
-                <div class="card card-block">
-                  <button type="button" class="icon-button w-100">
-                    <span class="icon-homepage icon-envelope" aria-hidden="true"></span>
-                  </button>
-                  <h5 class="card-title">Email</h5>
-                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
-                <div class="card card-block">
-                  <button type="button" class="icon-button w-100">
-                    <span class="icon-homepage icon-badge notification-badge" data-badge="15" aria-hidden="true"></span>
-                  </button>
-                  <h5 class="card-title">Esami</h5>
-                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="career.php" aria-label="Career">
-                <div class="card card-block">
-                    <button type="button" class="icon-button w-100">
-                        <span class="icon-homepage icon-graduation" aria-hidden="true"></span>
-                    </button>
-                    <h5 class="card-title">Carriera</h5>
-                    <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
-                </div>
-              </a>
-            </div>
-          </div>
+            <?php
+            //Favorites
+            $sql = "SELECT c.name, c.URL, c.icon, c.description, sc.favorite
+                    FROM categories c, student_categories sc
+                    WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '1' AND c.name = sc.category_name";
+            $result = $mysqli->query($sql);
 
-          <div class="row">
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
-                <div class="card card-block">
-                  <button type="button" class="icon-button w-100">
-                    <span class="icon-homepage icon-wallet" aria-hidden="true"></span>
-                  </button>
-                  <h5 class="card-title">Tasse</h5>
-                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
+            if ($result->num_rows > 0) {
+
+              $i = 0;
+
+              while($row = $result->fetch_assoc()) {
+                $name = $row['name'];
+                $url = $row['URL'];
+                $icon = $row['icon'];
+                $description = $row['description'];
+
+                switch ($i) {
+                  case 0:
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home-left">';
+                    break;
+                  case 1:
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home">';
+                    break;
+                  case 2:
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home-right">';
+                    break;
+                }
+                echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">';
+                echo '
+                    <div class="card card-block">
+                      <button type="button" class="icon-button w-100">
+                        <span class="icon-homepage icon-'. $icon .'" aria-hidden="true"></span>
+                      </button>
+                      <h5 class="card-title">'. $name .'</h5>
+                      <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </div>
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
-                <div class="card card-block">
-                  <button type="button" class="icon-button w-100">
-                    <span class="icon-homepage icon-clock" aria-hidden="true"></span>
-                  </button>
-                  <h5 class="card-title">Lezioni</h5>
-                  <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-4 col-xs-4 col-nopadding-home">
-              <a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">
-                <div class="card card-block">
-                    <button type="button" class="icon-button w-100">
-                        <span class="icon-homepage icon-book-open" aria-hidden="true"></span>
-                    </button>
-                    <h5 class="card-title">Materiale</h5>
-                    <p class="card-text text-muted hidden-xs-down">Some quick example text to build on the card title.</p>
-                </div>
-              </a>
-            </div>
+                ';
+
+                $i++;
+                if($i>=3){
+                  echo '</div>
+                  <div class="row">';
+                  $i=0;
+                }
+              }
+            }
+            ?>
+
           </div>
 
           <div class="alert alert-warning fade in hidden-lg-down" role="alert">
@@ -137,83 +121,65 @@ if(login_check($mysqli) == false) {
 
               <h5 class="section-title">Info e Carriera</h5>
 
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-people" aria-hidden="true"></span>
-                    <span>Contatti</span>
-                </div>
-              </a>
-              <a href="plan.php" aria-label="Plan">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-notebook" aria-hidden="true"></span>
-                    <span>Piano di Studi</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-briefcase" aria-hidden="true"></span>
-                    <span>Tirocinio</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-handbag" aria-hidden="true"></span>
-                    <span>Borsa di Studio</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-eyeglass" aria-hidden="true"></span>
-                    <span>Laurea</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-fire" aria-hidden="true"></span>
-                    <span>Rinuncia agli studi</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-directions" aria-hidden="true"></span>
-                    <span>Trasferimento</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-cup" aria-hidden="true"></span>
-                    <span>Sospensione</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-plane" aria-hidden="true"></span>
-                    <span>Erasmus</span>
-                </div>
-              </a>
+              <?php
+              //Info e Carriera
+              $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
+                      FROM categories c, student_categories sc
+                      WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='Info e Carriera'";
+              $result = $mysqli->query($sql);
 
-              <hr class="hidden-lg-up">
+              if ($result->num_rows > 0) {
+
+                $i = 0;
+
+                while($row = $result->fetch_assoc()) {
+                  $name = $row['name'];
+                  $url = $row['URL'];
+                  $icon = $row['icon'];
+
+                  echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
+
+                  echo '
+                    <div class="card card-block card-side">
+                        <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
+                        <span>'. $name .'</span>
+                    </div>
+                  </a>
+                  ';
+                }
+              }
+              ?>
 
               <h5 class="section-title">Servizi e Mobilità</h5>
 
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-location-pin" aria-hidden="true"></span>
-                    <span>Trasporti</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-credit-card" aria-hidden="true"></span>
-                    <span>Servizi Convenzionati</span>
-                </div>
-              </a>
-              <a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">
-                <div class="card card-block card-side">
-                    <span class="icon-side icon-pin" aria-hidden="true"></span>
-                    <span>Bacheca</span>
-                </div>
-              </a>
+              <?php
+              //Servizi e Mobilita
+              $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
+                      FROM categories c, student_categories sc
+                      WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='Servizi e Mobilita'";
+              $result = $mysqli->query($sql);
+
+              if ($result->num_rows > 0) {
+
+                $i = 0;
+
+                while($row = $result->fetch_assoc()) {
+                  $name = $row['name'];
+                  $url = $row['URL'];
+                  $icon = $row['icon'];
+
+                  echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
+
+                  echo '
+                    <div class="card card-block card-side">
+                        <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
+                        <span>'. $name .'</span>
+                    </div>
+                  </a>
+                  ';
+                }
+              }
+              ?>
 
             </div>
           </div>
