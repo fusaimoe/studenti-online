@@ -3,7 +3,7 @@
   <div class="card card-block">
     <?php
 
-    $sql = "SELECT id, member_id, pub_date, category, subject, description FROM notifications WHERE (member_id = '" . $_SESSION['user_id'] ."')";
+    $sql = "SELECT id, student_id, pub_date, category_name, subject, description FROM notifications WHERE (student_id = '" . $_SESSION['student_id'] ."')";
     $result = $mysqli->query($sql);
 
       if ($result->num_rows > 0) {
@@ -13,10 +13,10 @@
 
           $subject = $row['subject'];
           $description = $row['description'];
-          $category = $row['category'];
+          $category_name = $row['category_name'];
           $pub_date = $row['pub_date'];
 
-          $categoryCss = str_replace(' ', '', strtolower($category));
+          $categoryCss = str_replace(' ', '', strtolower($category_name));
 
           echo '
           <li class="list-group-item list-group-notification notification-unread">
@@ -28,7 +28,7 @@
             </div>
             <span>
               <strong>' . $subject . '</strong> - ' . $description . '</br>
-              <span class="text-muted">' . $pub_date . ' · ' . $category . '</span>
+              <span class="text-muted">' . $pub_date . ' · ' . $category_name . '</span>
             </span>
 
           </li>

@@ -42,7 +42,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        $sql="UPDATE members SET photo = 'uploads/" . $_FILES["fileToUpload"]["name"] . "' WHERE id='" . $_SESSION['user_id'] . "'";
+        $sql="UPDATE students SET photo = 'uploads/" . $_FILES["fileToUpload"]["name"] . "' WHERE id='" . $_SESSION['student_id'] . "'";
         if ($mysqli->query($sql) === TRUE) {
           header('Location: ../career.php');
         } else {

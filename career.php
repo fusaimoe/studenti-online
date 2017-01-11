@@ -8,37 +8,40 @@
 
   } else {
 
-    $sql = "SELECT name, surname, photo
-            FROM members
-            WHERE (id = '" . $_SESSION['user_id'] ."')";
+    //Prendo le informazioni sullo studente loggato
+    $student_id = $_SESSION['student_id'];
+    $sql = "SELECT name, surname, photo, matriculation_year, course_id, active, curriculum
+            FROM students
+            WHERE (student_id = '" . $student_id ."')";
     $result = $mysqli->query($sql);
 
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
-      $name = $row['name'];
-      $surname = $row['surname'];
+      $student_name = $row['name'];
+      $student_surname = $row['surname'];
       $photo = $row['photo'];
+      $matriculation_year = $row['matriculation_year'];
+      $current_year = date("Y")-$matriculation_year;
+      $course_id = $row['course_id'];
+      $state = ($row['active']) ? "attivo" : "non attivo";
+      $curriculum = $row['curriculum'];
     }
 
-    $sql = "SELECT c.name AS name, c.location AS location, c.id AS id, c.duration AS duration, c.total_credits AS total_credits, m.matriculationYear, m.matriculationCode, m.active, m.currentYear, m.curriculum, m.editable
-            FROM courses c, matriculations m
-            WHERE c.id = m.course_id AND m.student_id = '" . $_SESSION['user_id'] ."'";
+    //Prendo le informazioni sul corso che frequenta
+    $sql = "SELECT name, location, duration, total_credits
+            FROM courses
+            WHERE id = '" . $course_id ."'";
     $result = $mysqli->query($sql);
 
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
-      $courseId = $row['id'];
-      $courseDuration = $row['duration'];
-      $totalCredits = $row['total_credits'];
-      $courseName = $row['name'];
-      $courseLocation = $row['location'];
-      $editablePlan = $row['editable'];
-      $matriculationCode = $row['matriculationCode'];
-      $matriculationYear = $row['matriculationYear'];
-      $curriculum = $row['curriculum'];
-      $currentYear = $row['currentYear'];
-      $state = ($row['active']) ? "attivo" : "non attivo";
+      $course_duration = $row['duration'];
+      $total_credits = $row['total_credits'];
+      $course_name = $row['name'];
+      $course_location = $row['location'];
     }
+
+    $editable_plan=false;
 ?>
 
 <!DOCTYPE html>
@@ -95,10 +98,10 @@
                   <div class="col-lg-4">
                     <div class="profile-user">
                       <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture">
-                      <h4><?php echo $name . ' ' . $surname; ?></h4>
-                      <h6 class="text-muted"><?php echo $matriculationCode; ?></h6>
-                      <p><?php echo $courseName; ?></br>
-                          Sede di <?php echo $courseLocation; ?></p>
+                      <h4><?php echo $student_name . ' ' . $student_surname; ?></h4>
+                      <h6 class="text-muted"><?php echo $student_id; ?></h6>
+                      <p><?php echo $course_name; ?></br>
+                          Sede di <?php echo $course_location; ?></p>
                           <form action="php/upload.php" method="post" enctype="multipart/form-data">
                               <input type="file" name="fileToUpload" id="fileToUpload">
                               <input type="submit" value="Upload Image" name="submit">
@@ -109,11 +112,11 @@
                     <ul class="list-group">
                       <li class="list-group-item">
                         Immatricolazione
-                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $matriculationYear; ?></span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $matriculation_year; ?></span>
                       </li>
                       <li class="list-group-item">
                         Anno di corso
-                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $currentYear; ?> - In corso</span>
+                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $current_year . '/3 - '; echo ($current_year>$course_duration) ? 'Fuori corso' : 'In Corso';?></span>
                       </li>
                       <li class="list-group-item">
                         Stato
@@ -126,7 +129,7 @@
                       <li class="list-group-item">
                         Piano di Studi
                           <?php
-                            if($editablePlan){
+                            if($editable_plan){
                               echo '
                                     <a  class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
                                       Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
@@ -156,7 +159,7 @@
           <div class="row">
 
           <?php
-          for($i=1;$i<=$courseDuration;$i++){
+          for($i=1;$i<=$course_duration;$i++){
             echo '
 
             <div class="col-lg-12 resizable-column">
@@ -187,64 +190,35 @@
                       <tbody>
                     ';
 
-                    //Risultato prima query esami sostenuti
-                    $sql = "SELECT e.id, e.subject, e.credits, r.result, r.record_date, r.honour
+                    //Risultato query di esami_studente
+                    $sql = "SELECT e.id, e.subject, e.credits, e.optional, r.result, r.record_date, r.honour
                             FROM exams AS e
-                            INNER JOIN recorded_exams AS r ON r.exam_id = e.id
-                            WHERE r.student_id = '" . $_SESSION['user_id'] ."' AND e.course_id = '". $courseId . "' AND e.year_of_course='".$i."';
+                            INNER JOIN student_exams AS r ON r.exam_id = e.id
+                            WHERE r.student_id = '" . $student_id ."' AND e.optional='0' AND e.year_of_course='".$i."';
                             ";
                     $result = $mysqli->query($sql);
 
                     if ($result->num_rows > 0) {
 
                       while($row = $result->fetch_assoc()) {
-                        $examId = $row['id'];
-                        $examSubject = $row['subject'];
-                        $examCredits = $row['credits'];
-                        $examResult = $row['result'];
+                        $exam_id = $row['id'];
+                        $exam_subject = $row['subject'];
+                        $exam_credits = $row['credits'];
+                        $exam_result = ($row['result']==NULL) ? '-' : $row['result'];
                         $honour = $row['honour'];
-                        $recordDate = $row['record_date'];
+                        $record_date = $row['record_date'];
 
                         echo '
                               <tr>
-                                <td class="table-code mobile-view" headers="code">' . $examId . '</td>
-                                <td class="table-subject" headers="subject">' . $examSubject . '</td>
-                                <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
-                                <td class="table-result" headers="result">'. $examResult;
+                                <td class="table-code mobile-view" headers="code">' . $exam_id . '</td>
+                                <td class="table-subject" headers="subject">' . $exam_subject . '</td>
+                                <td class="table-credits text-muted" headers="credits">'. $exam_credits .'</td>
+                                <td class="table-result" headers="result">'. $exam_result;
                         echo ($honour) ? 'L' : '';
                         echo   '</td>
-                                <td class="table-record mobile-view" headers="record">'. $recordDate .'</td>
+                                <td class="table-record mobile-view" headers="record">'. $record_date .'</td>
                               </tr>
                         ';
-                      }
-                    }
-
-                    //Risultato seconda query esami restanti
-                    $sql = "SELECT p.id, p.subject, p.credits
-                            FROM exams p
-                            WHERE p.course_id = '". $courseId . "' AND p.year_of_course = '".$i."' AND p.id NOT IN (
-                              SELECT e.id
-                              FROM exams e, recorded_exams r
-                              WHERE r.exam_id = e.id
-                              AND r.student_id = '" . $_SESSION['user_id'] ."'
-                            )";
-
-                    $result = $mysqli->query($sql);
-
-                    if ($result->num_rows > 0) {
-                      while($row = $result->fetch_assoc()) {
-                        $examId = $row['id'];
-                        $examSubject = $row['subject'];
-                        $examCredits = $row['credits'];
-
-                        echo '
-                              <tr>
-                                <td class="table-code mobile-view" headers="code">' . $examId . '</td>
-                                <td class="table-subject" headers="subject">' . $examSubject . '</td>
-                                <td class="table-credits text-muted" headers="credits">'. $examCredits .'</td>
-                                <td class="table-result" headers="result">-</td>
-                                <td class="table-record mobile-view" headers="record">-</td>
-                              </tr>';
                       }
                     }
 
@@ -295,7 +269,7 @@
               <div class="card">
                 <div class="card-block">
                   Crediti sostenuti
-                  <span class="tag tag-default tag-pill float-xs-right"><?php get_credits($mysqli); echo ' /  ' . $totalCredits; ?></span>
+                  <span class="tag tag-default tag-pill float-xs-right"><?php get_credits($mysqli); echo ' /  ' . $total_credits; ?></span>
                 </div>
               </div>
             </div>
@@ -388,8 +362,10 @@ function get_credits($mysqli) {
 function get_exam_info($mysqli){
   //Risultato prima query esami sostenuti
   $sql = "SELECT r.result, r.honour, e.credits
-          FROM exams e, recorded_exams r
-          WHERE e.id=r.exam_id AND r.student_id ='" . $_SESSION['user_id'] ."'";
+          FROM exams e, student_exams r
+          WHERE e.id=r.exam_id
+          AND r.result IS NOT NULL
+          AND r.student_id ='" . $_SESSION['student_id'] ."'";
   return $mysqli->query($sql);
 
 }

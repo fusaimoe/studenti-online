@@ -80,84 +80,41 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Computer Graphics</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Programmazione Sistemi Embedded</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">11929</td>
-                          <td class="table-subject" headers="subject">Fondamenti di elaborazione di immagini</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">58414</td>
-                          <td class="table-subject" headers="subject">High Performance Computing</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">26338</td>
-                          <td class="table-subject" headers="subject">Programmazione di Sistemi Mobile</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">70227</td>
-                          <td class="table-subject" headers="subject">Sistemi Multimediali</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
+                        <?php
+                          //Risultato query di esami_studente
+                          $sql = "SELECT e.id, e.subject, e.credits
+                                  FROM exams e, courses c, students s
+                                  WHERE s.student_id='" . $_SESSION['student_id'] ."'
+                                  AND c.id=s.course_id
+                                  AND c.id=e.course_id
+                                  AND e.optional='1'";
+
+                          $result = $mysqli->query($sql);
+
+                          if ($result->num_rows > 0) {
+
+                            while($row = $result->fetch_assoc()) {
+                              $exam_id = $row['id'];
+                              $exam_subject = $row['subject'];
+                              $exam_credits = $row['credits'];
+
+                              echo '
+                                  <tr>
+                                    <td class="table-check" headers="check">
+                                      <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description"></p></span>
+                                      </label>
+                                    </td>
+                                    <td class="table-code" headers="code">' . $exam_id . '</td>
+                                    <td class="table-subject" headers="subject">' . $exam_subject . '</td>
+                                    <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
+                                    <td class="table-course" headers="course">INF</td>
+                                  </tr>';
+                            }
+                          }
+                        ?>
                       </tbody>
                     </table>
                   </div>
@@ -166,7 +123,7 @@
             </div><!--/col lg 12-->
           </div><!--/row-->
 
-          <div class="row">
+<!--          <div class="row">
             <div class="col-lg-12 resizable-column">
               <div class="card">
                 <div class="card-block">
@@ -219,8 +176,8 @@
                   </div>
                 </div>
               </div>
-            </div><!--/col lg 12-->
-          </div><!--/row-->
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-lg-12 resizable-column">
@@ -327,8 +284,8 @@
                   </div>
                 </div>
               </div>
-            </div><!--/col lg 12-->
-          </div><!--/row-->
+            </div>/col lg 12
+          </div>-->
           <div class="row">
             <div class="col-lg-12 resizable-column">
               <div class="float-xs-right">

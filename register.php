@@ -1,3 +1,8 @@
+<?php
+  include 'php/db_connect.php';
+  include 'php/functions.php';
+  sec_session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,9 +60,37 @@
                       </div>
                     </div>
                     <div class="form-group">
+                      <select type="select" name="course_id" id="course" class="form-control" placeholder="Corso" type="text">
+                        <?php
+                          $sql = "SELECT name, id FROM courses";
+                          $result = $mysqli->query($sql);
+                          if ($result->num_rows > 0) {
+
+                            while($row = $result->fetch_assoc()) {
+                              $name = $row['name'];
+                              $id = $row['id'];
+                              echo '<option value="'. $id .'">'. $name .'</option>';
+                            }
+                          }
+                        ?>
+                      <select>
+                    </div>
+                    <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-lock"></i>
-                        <input type="password" name="p" id="password" class="form-control" placeholder="Password" type="text">
+                        <input type="number" name="student_id" id="student_id" class="form-control" placeholder="Matricola" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="left-inner-addon">
+                        <i class="icon-lock"></i>
+                        <input type="number" name="matriculation_year" id="matriculation_year" class="form-control" placeholder="Anno di immatricolazione" min="2000" max=<?php echo date("Y"); ?>>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="left-inner-addon">
+                        <i class="icon-lock"></i>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" type="text">
                       </div>
                     </div>
 

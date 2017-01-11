@@ -41,9 +41,9 @@
               <h3 class="login-card-title">Welcome</h3>
               <?php
 
-                if(isset($_POST['email'], $_POST['p'])) {
+                if(isset($_POST['email'], $_POST['password'])) {
                    $email = $_POST['email'];
-                   $password = $_POST['p']; // Recupero la password non criptata.
+                   $password = $_POST['password']; // Recupero la password non criptata.
 
                    if(login($email, $password, $mysqli) == true) {
                       // Login eseguito
@@ -72,7 +72,7 @@
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-lock"></i>
-                        <input type="password" name="p" id="password" class="form-control" placeholder="Password" type="text">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" type="text">
                       </div>
                     </div>
 
