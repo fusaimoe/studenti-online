@@ -97,20 +97,17 @@
                 <div class="card-block">
                   <div class="col-lg-4">
                     <div class="profile-user">
-                      <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle profile-picture">
+                      <label for="fileToUpload" class="profile-picture">
+                        <img src="<?php echo $photo; ?>" alt="Profile Image" class="rounded-circle">
+                        <form action="php/upload.php" method="post" enctype="multipart/form-data">
+                          <input type="file" name="fileToUpload" id="fileToUpload" onchange="this.form.submit()" style="display:none">
+                            <span class="icon-button icon-navbar icon-camera" aria-hidden="true"></span>
+                        </form>
+                      </label>
                       <h4><?php echo $student_name . ' ' . $student_surname; ?></h4>
                       <h6 class="text-muted">0000<?php echo $student_id; ?></h6>
                       <p><?php echo $course_name; ?></br>
                           Sede di <?php echo $course_location; ?></p>
-                          <form action="php/upload.php" method="post" enctype="multipart/form-data">
-                              <label for="fileToUpload">
-                                <span class="icon-button icon-footer icon-folder" aria-hidden="true"></span>
-                              </label>
-                              <input type="file" name="fileToUpload" id="fileToUpload" style="display:none">
-                              <button class="icon-button" type="submit" name="submit">
-                                <span class="icon-footer icon-cloud-upload" aria-hidden="true"></span>
-                              </button>
-                          </form>
                     </div>
                   </div>
                   <div class="col-lg-8 padding-0">

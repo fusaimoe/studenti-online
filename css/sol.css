@@ -289,13 +289,54 @@ footer {
 }
 
 .profile-picture {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  -webkit-transition: opacity .25s ease-in-out;
+  transition: opacity .25s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.profile-picture:hover {
+  opacity: .5;
+}
+
+.profile-picture img {
   width: 150px;
   height: 150px;
-  margin-bottom: 20px;
+}
+
+.profile-picture:hover form {
+    opacity: 1;
+    top: 0;
+}
+
+.profile-picture:hover span {
+    top: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+
+.profile-picture form {
+    display: block;
+    position: absolute;
+    top: -100%;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
 }
 
 @media screen and (max-width: 767px) {
   .profile-picture {
+    margin: 10px;
+  }
+  .profile-picture img {
     width: 100px;
     height: 100px;
   }
