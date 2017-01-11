@@ -119,64 +119,47 @@ if(login_check($mysqli) == false) {
           <div class="row">
             <div class="col-lg-12">
 
-              <h5 class="section-title">Info e Carriera</h5>
-
               <?php
-              //Info e Carriera
-              $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
+              //Section title
+              $sectionsql = "SELECT DISTINCT c.section_name
                       FROM categories c, student_categories sc
-                      WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='Info e Carriera'";
-              $result = $mysqli->query($sql);
+                      WHERE (sc.student_id = '" . $student_id ."') AND c.name = sc.category_name
+                      ORDER BY c.section_name";
+              $sectionresult = $mysqli->query($sectionsql);
 
-              if ($result->num_rows > 0) {
+              if ($sectionresult->num_rows > 0) {
 
-                $i = 0;
+                while($sectionrow = $sectionresult->fetch_assoc()) {
 
-                while($row = $result->fetch_assoc()) {
-                  $name = $row['name'];
-                  $url = $row['URL'];
-                  $icon = $row['icon'];
+                  $section = $sectionrow['section_name'];
 
-                  echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
+                  echo '<h5 class="section-title">' . $section . '</h5>';
 
-                  echo '
-                    <div class="card card-block card-side">
-                        <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
-                        <span>'. $name .'</span>
-                    </div>
-                  </a>
-                  ';
-                }
-              }
-              ?>
+                  //All the cards
 
-              <h5 class="section-title">Servizi e Mobilità</h5>
+                  $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
+                          FROM categories c, student_categories sc
+                          WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='" . $section ."'";
+                  $result = $mysqli->query($sql);
 
-              <?php
-              //Servizi e Mobilita
-              $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
-                      FROM categories c, student_categories sc
-                      WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='Servizi e Mobilita'";
-              $result = $mysqli->query($sql);
+                  if ($result->num_rows > 0) {
 
-              if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                      $name = $row['name'];
+                      $url = $row['URL'];
+                      $icon = $row['icon'];
 
-                $i = 0;
+                      echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
 
-                while($row = $result->fetch_assoc()) {
-                  $name = $row['name'];
-                  $url = $row['URL'];
-                  $icon = $row['icon'];
-
-                  echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
-
-                  echo '
-                    <div class="card card-block card-side">
-                        <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
-                        <span>'. $name .'</span>
-                    </div>
-                  </a>
-                  ';
+                      echo '
+                        <div class="card card-block card-side">
+                            <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
+                            <span>'. $name .'</span>
+                        </div>
+                      </a>
+                      ';
+                    }
+                  }
                 }
               }
               ?>
