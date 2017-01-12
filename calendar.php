@@ -22,7 +22,7 @@ include 'php/update_calendar.php';
             echo '
                 <li class="list-group-item">
                   <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
+                    <input type="checkbox" class="custom-control-input" name="'. $name .'">
                     <style type="text/css" scoped>
                       .custom-control-input:checked ~ .custom-control-indicator {
                         background-color: '. $color .';

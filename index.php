@@ -189,6 +189,7 @@ if(login_check($mysqli) == false) {
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
     <script src="js/favorite.js" type="text/javascript"></script>
+    <script src="js/calendar.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
