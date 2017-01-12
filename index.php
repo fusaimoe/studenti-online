@@ -91,7 +91,7 @@ if(login_check($mysqli) == false) {
                       <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
                     </div>
                   </a>
-                  <span class="addremove-badge" aria-hidden="true" onclick="removeFavorite(' . $name . ')">-</span>
+                  <span class="addremove-badge" aria-hidden="true" onclick="removeFavorite(\'' . $name . '\')">-</span>
                 </div>
                 ';
 
@@ -162,7 +162,7 @@ if(login_check($mysqli) == false) {
                             <span>'. $name .'</span>
                           </div>
                         </a>
-                        <span class="addremove-badge" aria-hidden="true" onclick="addFavorite(' . $name . ')">+</span>
+                        <span class="addremove-badge" aria-hidden="true" onclick="addFavorite(\'' . $name . '\')">+</span>
                       </div>
                       ';
                     }
@@ -204,10 +204,10 @@ if(login_check($mysqli) == false) {
       });
 
       function removeFavorite(section) {
-        alert("Remove");
+        alert("Remove "+section);
       }
       function addFavorite(section) {
-        alert("Add");
+        alert("Add "+section);
       }
 
     </script>
