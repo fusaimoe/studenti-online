@@ -10,4 +10,16 @@
       $mysqli->query($insert_query);
     }
   }
+
+  $sql = "SELECT type FROM plan_modifications";
+  $result = $mysqli->query($sql);
+
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $type = $row['type'];
+      $boolean = 0;
+      $insert_query = "INSERT INTO student_plan_modifications(plan_modification_type, student_id, done) VALUES ('" . $type ."', '" . $student_id ."','" . $boolean ."')";
+      $mysqli->query($insert_query);
+    }
+  }
 ?>

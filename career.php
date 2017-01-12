@@ -41,7 +41,22 @@
       $course_location = $row['location'];
     }
 
-    $editable_plan=false;
+    //Prendo le informazioni sul piano di studi
+    $sql = "SELECT plan_modification_type, done
+            FROM student_plan_modifications
+            WHERE student_id = '" . $student_id ."'";
+    $result = $mysqli->query($sql);
+
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        if($row['plan_modification_type']=="Curriculum"){
+          $editable_curriculum=($row['done']) ? 0 : 1;
+        }else{
+          $editable_plan=($row['done']) ? 0 : 1;
+        }
+      }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -126,7 +141,19 @@
                       </li>
                       <li class="list-group-item">
                         Curriculum
-                        <span class="tag tag-default tag-pill float-xs-right"><?php echo $curriculum; ?></span>
+                        <?php
+                          if($editable_curriculum){
+                            echo '
+                                  <a  class= "tag tag-default tag-pill float-xs-right" href="curriculum.php" aria-label="Edit">
+                                    Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
+                                  </a>
+                            ';
+                          }else{
+                            echo '
+                                  <span class="tag tag-default tag-pill float-xs-right">'. $curriculum.'</span>
+                            ';
+                          }
+                        ?>
                       </li>
                       <li class="list-group-item">
                         Piano di Studi

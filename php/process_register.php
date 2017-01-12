@@ -31,7 +31,6 @@
          // Esegui la query ottenuta.
          $insert_stmt->execute();
       }
-
      }
 
     include 'student_categories.php';
