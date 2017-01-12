@@ -47,7 +47,7 @@ a, a:hover, a:active, a:focus, button, button:hover, button:active, button:focus
 }
 
 a {
-  color: #000;
+  color: #373a3c;
 }
 a:hover{
   color: #555;
@@ -259,6 +259,10 @@ footer {
   vertical-align: middle;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
+}
+
+.card-side-container{
+  position: relative;
 }
 
 @media (max-width: 767px) {
@@ -596,77 +600,42 @@ label.custom-control.custom-checkbox {
   position: relative;
 }
 
-.notification-badge[data-badge]:after {
-   content:attr(data-badge);
-   position:absolute;
-   padding: 4px;
-   border-radius: 50%;
-   text-align: center;
-   font-family: 'proxima-nova', serif;
-   font-size: .7rem;
-   color: white;
+.notification-badge[data-badge]:after, .addremove-badge {
+  position:absolute;
+  border-radius: 50%;
+  text-align: center;
+  font-family: 'proxima-nova', serif;
 }
 
 .notification-badge[data-badge]:after {
-   background-color: #27aae1;
-   right: -15%;
-   bottom: -15%;
+  content:attr(data-badge);
+  color: #fff;
+  background-color: #27aae1;
+  font-size: .7rem;
+  right: -8px; bottom: -8px;
+  line-height: 20px; width: 20px; height: 20px;
 }
 
-/* ICONS AND COLORS - TO BE DEPRECATED */
-
-.bg-color-tasse, .custom-control-input:checked ~ .bg-control-tasse {
-  background-color: #f0ad4e;
+.addremove-badge {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  font-size: 1rem;
+  border: 1px solid #faf2cc;
+  cursor: pointer;
+  right: 6px; bottom: 6px;
+  line-height: 24px; width: 24px; height: 24px;
+  display: none;
 }
 
-.bg-color-esami, .custom-control-input:checked ~ .bg-control-esami {
-  background-color: #5bc0de;
+.card-side-container .addremove-badge{
+  right: -6px; bottom: -6px;
 }
 
-.bg-color-prenotazioneesami, .custom-control-input:checked ~ .bg-control-prenotazioneesami {
-  background-color: #0275d8;
+.display-badge {
+  display: inline !important;
 }
 
-.bg-color-eventi, .custom-control-input:checked ~ .bg-control-eventi {
-  background-color: #5cb85c;
-}
-
-.bg-color-bandi, .custom-control-input:checked ~ .bg-control-bandi {
-  background-color: #f7f7f7;
-}
-
-.bg-color-email, .custom-control-input:checked ~ .bg-control-email {
-  background-color: #d9534f;
-}
-
-.icon-custom-tasse, .icon-custom-esami, .icon-custom-prenotazioneesami, .icon-custom-eventi, .icon-custom-bandi, .icon-custom-email {
-  font-family: 'simple-line-icons';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-custom-esami::before, .icon-custom-prenotazioneesami::before {
-    content: "\e028";
-}
-
-.icon-custom-tasse::before {
-    content: "\e02a";
-}
-
-.icon-custom-eventi::before {
-    content: "\e619";
-}
-
-.icon-custom-bandi::before {
-    content: "\e616";
-}
-
-.icon-custom-email::before {
-    content: "\e086";
+.toggle-link {
+  pointer-events: none;
+  cursor: default;
 }

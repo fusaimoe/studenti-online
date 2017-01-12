@@ -79,16 +79,19 @@ if(login_check($mysqli) == false) {
                     echo '<div class="col-lg-4 col-xs-4 col-nopadding-home-right">';
                     break;
                 }
-                echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment">';
+                echo ($url!=null) ? '<a href="' . $url . '" class="toggable-link">' : '<a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment" class="toggable-link">';
+
                 echo '
                     <div class="card card-block">
+
                       <button type="button" class="icon-button w-100">
-                        <span class="icon-homepage icon-'. $icon .'" aria-hidden="true"></span>
+                        <span class="icon-homepage icon-'. $icon .' notification-badge" data-badge="15" aria-hidden="true"></span>
                       </button>
-                      <h5 class="card-title">'. $name .'</h5>
+                      <h5 class="card-title">'. $name .' </h5>
                       <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
                     </div>
                   </a>
+                  <span class="addremove-badge" aria-hidden="true" onclick="removeFavorite(' . $name . ')">-</span>
                 </div>
                 ';
 
@@ -104,11 +107,11 @@ if(login_check($mysqli) == false) {
 
           </div>
 
-          <div class="alert alert-warning fade in hidden-lg-down" role="alert">
+          <div class="alert alert-warning fade in hidden-lg-down" role="alert" style="display: none">
             <button type="button" class="icon-control float-xs-right" data-dismiss="alert" aria-label="Close">
               <span class="icon-close" aria-hidden="true"></span>
             </button>
-            You can <strong>drag & drop</strong> elements on the side <strong>here</strong>
+            You can set any category as a favorite by <strong>pressing +</strong> or you can remove it by <strong>pressing -</strong>
           </div>
 
           <hr class="hidden-lg-up">
@@ -149,14 +152,18 @@ if(login_check($mysqli) == false) {
                       $url = $row['URL'];
                       $icon = $row['icon'];
 
-                      echo ($url!=null) ? '<a href="' . $url . '">' : '<a href="#" data-toggle="popover" data-placement="left" data-content="Service not available at the moment">';
+                      echo '<div class="card-side-container">';
+
+                      echo ($url!=null) ? '<a href="' . $url . '" class="toggable-link">' : '<a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment" class="toggable-link">';
 
                       echo '
-                        <div class="card card-block card-side">
+                          <div class="card card-block card-side">
                             <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
                             <span>'. $name .'</span>
-                        </div>
-                      </a>
+                          </div>
+                        </a>
+                        <span class="addremove-badge" aria-hidden="true" onclick="addFavorite(' . $name . ')">+</span>
+                      </div>
                       ';
                     }
                   }
@@ -188,6 +195,20 @@ if(login_check($mysqli) == false) {
       $('[data-toggle="popover"]').popover({
         trigger: 'focus'
       });
+
+      $('#settings').click(function () {
+        $(".addremove-badge").toggleClass("display-badge");
+        $(".toggable-link").toggleClass("toggle-link");
+        $(".alert").toggle();
+
+      });
+
+      function removeFavorite(section) {
+        alert("Remove");
+      }
+      function addFavorite(section) {
+        alert("Add");
+      }
 
     </script>
 
