@@ -30,13 +30,16 @@
               <strong>' . $subject . '</strong> - ' . $description . '</br>
               <span class="text-muted">' . $pub_date . ' · ' . $category_name . '</span>
             </span>
-
-          </li>
-          ';
+          </div>
+          <span>
+            <strong>' . $subject . '</strong> - ' . $description . '</br>
+            <span class="text-muted">' . $pub_date . ' · ' . $category_name . '</span>
+          </span>
+        </li>';
 
         }
-
         echo '</ul>';
+
       } else {
         echo 'no notifications'; //TODO do it better
       }
