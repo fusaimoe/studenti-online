@@ -69,54 +69,58 @@
                     </button>
                   </div>
                   <div class="collapse in" id="collapse-first">
-                    <table class="table table-striped card-content group1">
-                      <thead>
-                        <tr>
-                          <th class="table-check" id="check"></th>
-                          <th class="table-code" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Cred</th>
-                          <th class="table-course" id="course">Corso</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                          //Risultato query di esami_studente
-                          $sql = "SELECT e.id, e.subject, e.credits
-                                  FROM exams e, courses c, students s
-                                  WHERE s.student_id='" . $_SESSION['student_id'] ."'
-                                  AND c.id=s.course_id
-                                  AND c.id=e.course_id
-                                  AND e.optional='1'";
+                    <form id="planForm" method="post" action="confirm.php">
+                      <table class="table table-striped card-content group1">
+                        <thead>
+                          <tr>
+                            <th class="table-check" id="check"></th>
+                            <th class="table-code" id="code">Cod.</th>
+                            <th class="table-subject" id="subject">Materia</th>
+                            <th class="table-credits" id="credits">Cred</th>
+                            <th class="table-course" id="course">Corso</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                            //Risultato query di esami_studente
+                            $sql = "SELECT e.id, e.subject, e.credits
+                                    FROM exams e, courses c, students s
+                                    WHERE s.student_id='" . $_SESSION['student_id'] ."'
+                                    AND c.id=s.course_id
+                                    AND c.id=e.course_id
+                                    AND e.optional='1'";
 
-                          $result = $mysqli->query($sql);
+                            $result = $mysqli->query($sql);
 
-                          if ($result->num_rows > 0) {
+                            if ($result->num_rows > 0) {
 
-                            while($row = $result->fetch_assoc()) {
-                              $exam_id = $row['id'];
-                              $exam_subject = $row['subject'];
-                              $exam_credits = $row['credits'];
+                              while($row = $result->fetch_assoc()) {
+                                $exam_id = $row['id'];
+                                $exam_subject = $row['subject'];
+                                $exam_credits = $row['credits'];
 
-                              echo '
-                                  <tr>
-                                    <td class="table-check" headers="check">
-                                      <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description"></p></span>
-                                      </label>
-                                    </td>
-                                    <td class="table-code" headers="code">' . $exam_id . '</td>
-                                    <td class="table-subject" headers="subject">' . $exam_subject . '</td>
-                                    <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
-                                    <td class="table-course" headers="course">INF</td>
-                                  </tr>';
+                                echo '
+                                  <div class="form-group">
+                                    <tr>
+                                      <td class="table-check" headers="check">
+                                        <label class="custom-control custom-checkbox">
+                                          <input type="checkbox" name="exam" class="custom-control-input">
+                                          <span class="custom-control-indicator"></span>
+                                          <span class="custom-control-description"></p></span>
+                                        </label>
+                                      </td>
+                                      <td class="table-code" headers="code">' . $exam_id . '</td>
+                                      <td class="table-subject" headers="subject">' . $exam_subject . '</td>
+                                      <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
+                                      <td class="table-course" headers="course">INF</td>
+                                    </tr>
+                                  </div>';
+                              }
                             }
-                          }
-                        ?>
-                      </tbody>
-                    </table>
+                          ?>
+                        </tbody>
+                      </table>
+                    </form>
                   </div>
                 </div>
               </div>

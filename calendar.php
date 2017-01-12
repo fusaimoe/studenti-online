@@ -23,13 +23,12 @@ include 'php/update_calendar.php';
                 <li class="list-group-item">
                   <label class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input">
-                    <span class="custom-control-indicator">
-                      <style type="text/css" scoped>
-                        .custom-control-input:checked {
-                          background-color: '. $color .';
-                        }
-                      </style>
-                    </span>
+                    <style type="text/css" scoped>
+                      .custom-control-input:checked ~ .custom-control-indicator {
+                        background-color: '. $color .';
+                      }
+                    </style>
+                    <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">'. $name .'</span>
                   </label>
                 </li>

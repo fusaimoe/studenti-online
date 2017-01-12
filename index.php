@@ -91,7 +91,7 @@ if(login_check($mysqli) == false) {
                       <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
                     </div>
                   </a>
-                  <span class="addremove-badge" aria-hidden="true" onclick="removeFavorite(\'' . $name . '\')">-</span>
+                  <a href="php/favorite.php?name=' . urlencode($name) . '&student=' .  $student_id . '&add=0" class="addremove-badge" aria-hidden="true">-</a>
                 </div>
                 ';
 
@@ -162,7 +162,7 @@ if(login_check($mysqli) == false) {
                             <span>'. $name .'</span>
                           </div>
                         </a>
-                        <span class="addremove-badge" aria-hidden="true" onclick="addFavorite(\'' . $name . '\')">+</span>
+                        <a href="php/favorite.php?name=' . urlencode($name) . '&student=' .  $student_id . '&add=1" class="addremove-badge" aria-hidden="true">+</a>
                       </div>
                       ';
                     }
@@ -188,28 +188,13 @@ if(login_check($mysqli) == false) {
 
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
+    <script src="js/favorite.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-
       $('[data-toggle="popover"]').popover({
         trigger: 'focus'
       });
-
-      $('#settings').click(function () {
-        $(".addremove-badge").toggleClass("display-badge");
-        $(".toggable-link").toggleClass("toggle-link");
-        $(".alert").toggle();
-
-      });
-
-      function removeFavorite(section) {
-        alert("Remove "+section);
-      }
-      function addFavorite(section) {
-        alert("Add "+section);
-      }
-
     </script>
 
 

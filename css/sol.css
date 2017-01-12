@@ -440,6 +440,13 @@ label.custom-control.custom-checkbox {
   right: 150%;
 }
 
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+}
+
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -622,13 +629,15 @@ label.custom-control.custom-checkbox {
   font-size: 1rem;
   border: 1px solid #faf2cc;
   cursor: pointer;
-  right: 6px; bottom: 6px;
-  line-height: 24px; width: 24px; height: 24px;
+  right: 6px; top: -6px;
+  line-height: 18px; /*bad, just to align the minus sign into the circle, should be 24px*/
+  width: 24px; height: 24px;
   display: none;
 }
 
 .card-side-container .addremove-badge{
-  right: -6px; bottom: -6px;
+  line-height: 22px;
+  right: -6px; top: -6px;
 }
 
 .display-badge {
