@@ -16,7 +16,7 @@
   $name = $_POST['name'];
   $surname = $_POST['surname'];
   $matriculation_year = $_POST['matriculation_year'];
-  $course_id = 1;
+  $course_id = intval($_POST['course_id']);
   $email = $_POST['email'];
 
   if($stmt = $mysqli->prepare("SELECT name FROM students WHERE email = '$email'")){
