@@ -5,7 +5,8 @@
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $exam_id = $row['id'];
-      $insert_query = "INSERT INTO student_exams(exam_id, student_id, record_date, result, honour) VALUES ('" . $exam_id ."', '" . $student_id ."', 'NULL', 'NULL', 'NULL')";
+      $boolean = 0;
+      $insert_query = "INSERT INTO student_exams(exam_id, student_id, record_date, result, honour) VALUES ('" . $exam_id ."', '" . $student_id ."', NULL, NULL, '" . $boolean ."')";
       $mysqli->query($insert_query);
     }
   }

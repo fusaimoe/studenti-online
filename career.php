@@ -24,7 +24,7 @@
       $current_year = date("Y")-$matriculation_year;
       $course_id = $row['course_id'];
       $state = ($row['active']) ? "attivo" : "non attivo";
-      $curriculum = $row['curriculum'];
+      $curriculum = ($row['curriculum']==NULL) ? 'Nessun curriculum' : $row['curriculum'];
     }
 
     //Prendo le informazioni sul corso che frequenta
@@ -208,7 +208,7 @@
                         $exam_credits = $row['credits'];
                         $exam_result = ($row['result']==NULL) ? '-' : $row['result'];
                         $honour = $row['honour'];
-                        $record_date = $row['record_date'];
+                        $record_date = ($row['record_date']==NULL) ? '-' : $row['record_date'];
 
                         echo '
                               <tr>
