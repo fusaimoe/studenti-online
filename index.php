@@ -48,32 +48,6 @@ if(login_check($mysqli) == false) {
 
         <div class="col-lg-8 main-offcanvas">
 
-        <?php
-
-        //Check the unread notifications
-        $sql = "SELECT subject, description
-                FROM notifications
-                WHERE student_id = '" . $_SESSION['student_id'] ."' AND read_flag='0'";
-
-        $result = $mysqli->query($sql);
-
-        if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {
-            $not_subject = $row['subject'];
-            $not_description = $row['description'];
-
-            echo '
-            <div class="alert alert-warning fade in hidden-lg-down" role="alert">
-              <button type="button" class="icon-control float-xs-right" data-dismiss="alert" aria-label="Close">
-                <span class="icon-close" aria-hidden="true"></span>
-              </button>
-              <strong>' . $not_subject . ' - </strong>' . $not_description .'
-            </div>
-            ';
-          }
-        }
-        ?>
-
           <h5 class="section-title section-title hidden-md-down">Preferiti</h5>
 
           <div class="row">
