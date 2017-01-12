@@ -1,7 +1,9 @@
 <?php
 
+  $categories = $_POST['categories'];
+
   $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
-          WHERE e.category_name=c.name
+          WHERE e.category_name=c.name AND e.category_name IN (' . implode(',', array_map('intval', $categories)) . ')
           AND e.student_id='" . $_SESSION['student_id'] ."'";
   $result = $mysqli->query($sql);
 

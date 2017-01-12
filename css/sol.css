@@ -644,6 +644,10 @@ label.custom-control.custom-checkbox {
   display: inline !important;
 }
 
+.col-nopadding-home-left .addremove-badge, .col-nopadding-home .addremove-badge {
+  right: -1px;
+}
+
 .toggle-link {
   pointer-events: none;
   cursor: default;
