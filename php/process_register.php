@@ -33,6 +33,9 @@
       }
 
      }
+
+    include 'student_categories.php';
+    include 'student_exams.php';
     header('Location: ../login.php');
   }
 
