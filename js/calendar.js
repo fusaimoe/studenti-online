@@ -6,15 +6,22 @@ $(':checkbox').change(function(){
     selected.push($(this).attr('name'));
   });
 
-  console.log(selected);
+  //console.log(selected);
 
   $.ajax({
-    url: 'php/update_calendar.php',
-    type: 'POST',
+    type: "POST",
+    url: "php/update_calendar.php",
     data: { categories: selected },
-    success: function()
-    {
-        alert('Email Sent');
+    success: function(data){
+
+      newid= new Date().getTime();
+      $('.monthly').empty().replaceWith('<div class="monthly" id="cal' + newid + '"></div>');
+        $('#cal' + newid).monthly({
+          weekStart: 'Mon',
+          mode: 'event',
+          xmlUrl: 'events.xml'
+        });
+
     }
   });
 
