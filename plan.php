@@ -60,245 +60,79 @@
           <h5 class="section-title">Seleziona Corsi</h5>
           <div class="row">
             <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Seleziona 6 CFU tra i consigliati</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate " data-toggle="collapse" href="#collapse-first" aria-expanded="false" aria-controls="collapse-first">
-                      <span class="icon-arrow-up" aria-hidden="true"></span>
-                    </button>
+              <form id="exams" method="get" action="confirm.php">
+                <div class="form-group">
+                  <div class="card">
+                    <div class="card-block">
+                      <p class="card-top">Seleziona 6 CFU tra i consigliati</p>
+                      <div class="float-xs-right">
+                        <button type="button" class="icon-control rotate " data-toggle="collapse" href="#collapse-first" aria-expanded="false" aria-controls="collapse-first">
+                          <span class="icon-arrow-up" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                      <div class="collapse in" id="collapse-first">
+                          <table class="table table-striped card-content group1">
+                            <thead>
+                              <tr>
+                                <th class="table-check" id="check"></th>
+                                <th class="table-code" id="code">Cod.</th>
+                                <th class="table-subject" id="subject">Materia</th>
+                                <th class="table-credits" id="credits">Cred</th>
+                                <th class="table-course" id="course">Corso</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                                //Risultato query di esami_studente
+                                $sql = "SELECT e.id, e.subject, e.credits
+                                        FROM exams e, courses c, students s
+                                        WHERE s.student_id='" . $_SESSION['student_id'] ."'
+                                        AND c.id=s.course_id
+                                        AND c.id=e.course_id
+                                        AND e.optional='1'";
+
+                                $result = $mysqli->query($sql);
+
+                                if ($result->num_rows > 0) {
+
+                                  while($row = $result->fetch_assoc()) {
+                                    $exam_id = $row['id'];
+                                    $exam_subject = $row['subject'];
+                                    $exam_credits = $row['credits'];
+
+                                    echo '
+                                        <tr>
+                                          <td class="table-check" headers="check">
+                                            <label class="custom-control custom-checkbox">
+                                              <input type="checkbox" name="exam[]" data-credits="'. $exam_credits .'" value="'. $exam_id .'" class="custom-control-input"/>
+                                              <span class="custom-control-indicator"></span>
+                                              <span class="custom-control-description"></p></span>
+                                            </label>
+                                          </td>
+                                          <td class="table-code" headers="code">' . $exam_id . '</td>
+                                          <td class="table-subject" headers="subject">' . $exam_subject . '</td>
+                                          <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
+                                          <td class="table-course" headers="course">INF</td>
+                                        </tr>';
+                                  }
+                                }
+                              ?>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
                   </div>
-                  <div class="collapse in" id="collapse-first">
-                    <form id="planForm" method="post" action="confirm.php">
-                      <table class="table table-striped card-content group1">
-                        <thead>
-                          <tr>
-                            <th class="table-check" id="check"></th>
-                            <th class="table-code" id="code">Cod.</th>
-                            <th class="table-subject" id="subject">Materia</th>
-                            <th class="table-credits" id="credits">Cred</th>
-                            <th class="table-course" id="course">Corso</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                            //Risultato query di esami_studente
-                            $sql = "SELECT e.id, e.subject, e.credits
-                                    FROM exams e, courses c, students s
-                                    WHERE s.student_id='" . $_SESSION['student_id'] ."'
-                                    AND c.id=s.course_id
-                                    AND c.id=e.course_id
-                                    AND e.optional='1'";
-
-                            $result = $mysqli->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                              while($row = $result->fetch_assoc()) {
-                                $exam_id = $row['id'];
-                                $exam_subject = $row['subject'];
-                                $exam_credits = $row['credits'];
-
-                                echo '
-                                  <div class="form-group">
-                                    <tr>
-                                      <td class="table-check" headers="check">
-                                        <label class="custom-control custom-checkbox">
-                                          <input type="checkbox" name="exam" class="custom-control-input">
-                                          <span class="custom-control-indicator"></span>
-                                          <span class="custom-control-description"></p></span>
-                                        </label>
-                                      </td>
-                                      <td class="table-code" headers="code">' . $exam_id . '</td>
-                                      <td class="table-subject" headers="subject">' . $exam_subject . '</td>
-                                      <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
-                                      <td class="table-course" headers="course">INF</td>
-                                    </tr>
-                                  </div>';
-                              }
-                            }
-                          ?>
-                        </tbody>
-                      </table>
-                    </form>
+                  <div class="row">
+                    <div class="col-lg-12 resizable-column">
+                      <div class="float-xs-right">
+                        <input id="submit" type="submit" class="btn btn-primary" value="Avanti"></input>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div><!--/col lg 12-->
           </div><!--/row-->
-
-<!--          <div class="row">
-            <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Seleziona uno dei seguenti insegnamenti</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-second" aria-expanded="false" aria-controls="collapse-second">
-                      <span class="icon-arrow-down" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <div class="collapse" id="collapse-second">
-                    <table class="table table-striped card-content group1">
-                      <thead>
-                        <tr>
-                          <th class="table-check" id="check"></th>
-                          <th class="table-code" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Cred</th>
-                          <th class="table-course" id="course">Corso</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Informatica e Diritto</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Programmazione Sistemi Embedded</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Seleziona 12 CFU a scelta</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate" data-toggle="collapse" href="#collapse-third" aria-expanded="false" aria-controls="collapse-third">
-                      <span class="icon-arrow-down" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <div class="collapse" id="collapse-third">
-                    <table class="table table-striped card-content">
-                      <thead>
-                        <tr>
-                          <th class="table-check" id="check"></th>
-                          <th class="table-code" id="code">Cod.</th>
-                          <th class="table-subject" id="subject">Materia</th>
-                          <th class="table-credits" id="credits">Cred</th>
-                          <th class="table-course" id="course">Corso</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" for="disabledSelect" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">69731</td>
-                          <td class="table-subject" headers="subject">Informatica e Diritto</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">00013</td>
-                          <td class="table-subject" headers="subject">Programmazione Sistemi Embedded</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">11929</td>
-                          <td class="table-subject" headers="subject">Fondamenti di elaborazione di immagini</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">58414</td>
-                          <td class="table-subject" headers="subject">High Performance Computing</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">26338</td>
-                          <td class="table-subject" headers="subject">Programmazione di Sistemi Mobile</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">ING-INF</td>
-                        </tr>
-                        <tr>
-                          <td class="table-check" headers="check">
-                            <label class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <span class="custom-control-indicator"></span>
-                              <span class="custom-control-description"></p></span>
-                            </label>
-                          </td>
-                          <td class="table-code" headers="code">70227</td>
-                          <td class="table-subject" headers="subject">Sistemi Multimediali</td>
-                          <td class="table-credits text-muted" headers="credits">6</td>
-                          <td class="table-course" headers="course">INF</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>/col lg 12
-          </div>-->
-          <div class="row">
-            <div class="col-lg-12 resizable-column">
-              <div class="float-xs-right">
-                <button type="button" class="btn btn-primary">Avanti</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <hr>
@@ -331,7 +165,30 @@
         $(window).load( function() {
             $("body").removeClass("preload");
             $('#mycalendar').monthly();
+            document.getElementById("submit").disabled = true;
         });
+    </script>
+    <script type="text/javascript">
+
+      $(':checkbox').change(function(){
+        var selected = [];
+
+        $(':checkbox:checked').each(function() {
+          selected.push($(this).attr('data-credits'));
+        });
+
+        var total = 0;
+        for (i = 0; i < selected.length; ++i) {
+             total += parseInt(selected[i]); // add each element in an array to total
+        }
+
+        if(total>6 || total==0){
+          alert(total);
+          document.getElementById("submit").disabled = true
+        } else{
+          document.getElementById("submit").disabled = false;
+        }
+      });
     </script>
   </body>
 </html>

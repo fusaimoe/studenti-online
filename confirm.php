@@ -21,7 +21,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Studenti Online - Piano Di Studi</title>
+    <title>Studenti Online - Confirmation</title>
 
     <meta name="theme-color" content="#9B1C1C">
 
@@ -57,84 +57,56 @@
 
           <hr>
 
-          <h5 class="section-title">Seleziona Corsi</h5>
+          <h5 class="section-title">Conferma la tua scelta</h5>
           <div class="row">
             <div class="col-lg-12 resizable-column">
-              <div class="card">
-                <div class="card-block">
-                  <p class="card-top">Seleziona 6 CFU tra i consigliati</p>
-                  <div class="float-xs-right">
-                    <button type="button" class="icon-control rotate " data-toggle="collapse" href="#collapse-first" aria-expanded="false" aria-controls="collapse-first">
-                      <span class="icon-arrow-up" aria-hidden="true"></span>
-                    </button>
-                  </div>
-                  <div class="collapse in" id="collapse-first">
-                    <form id="planForm" method="post" action="confirm.php">
-                      <table class="table table-striped card-content group1">
-                        <thead>
-                          <tr>
-                            <th class="table-check" id="check"></th>
-                            <th class="table-code" id="code">Cod.</th>
-                            <th class="table-subject" id="subject">Materia</th>
-                            <th class="table-credits" id="credits">Cred</th>
-                            <th class="table-course" id="course">Corso</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+              <form id="exams" method="post" action="confirm.php">
+                <div class="form-group">
+                  <div class="card">
+                    <div class="card-block">
+                      <div>
                           <?php
-                            //Risultato query di esami_studente
-                            $sql = "SELECT e.id, e.subject, e.credits
-                                    FROM exams e, courses c, students s
-                                    WHERE s.student_id='" . $_SESSION['student_id'] ."'
-                                    AND c.id=s.course_id
-                                    AND c.id=e.course_id
-                                    AND e.optional='1'";
+                            echo '<ul class="list-group">';
+                            $checked=$_GET['exam'];
 
-                            $result = $mysqli->query($sql);
+                            for($i=0;$i<count($checked);$i++){
 
-                            if ($result->num_rows > 0) {
+                              $sql="SELECT id, subject, credits
+                                    FROM exams
+                                    WHERE id='" . $checked[$i] ."'";
 
-                              while($row = $result->fetch_assoc()) {
-                                $exam_id = $row['id'];
-                                $exam_subject = $row['subject'];
-                                $exam_credits = $row['credits'];
+                              $result = $mysqli->query($sql);
+
+                              if ($result->num_rows == 1) {
+                                $row = $result->fetch_assoc();
+
+                                $exam_id =  $row['id'];
+                                $subject =  $row['subject'];
+                                $credits =  $row['credits'];
 
                                 echo '
-                                  <div class="form-group">
-                                    <tr>
-                                      <td class="table-check" headers="check">
-                                        <label class="custom-control custom-checkbox">
-                                          <input type="checkbox" name="exam" class="custom-control-input">
-                                          <span class="custom-control-indicator"></span>
-                                          <span class="custom-control-description"></p></span>
-                                        </label>
-                                      </td>
-                                      <td class="table-code" headers="code">' . $exam_id . '</td>
-                                      <td class="table-subject" headers="subject">' . $exam_subject . '</td>
-                                      <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
-                                      <td class="table-course" headers="course">INF</td>
-                                    </tr>
-                                  </div>';
+                                    <li class="list-group-item list-group-no-border"><strong>
+                                      '. $subject .'</strong> ( #'. $exam_id .' ) - '. $credits .' crediti
+                                    </li>';
                               }
                             }
+                            echo '</ul>';
                           ?>
-                        </tbody>
-                      </table>
-                    </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12 resizable-column">
+                        <div class="float-xs-right">
+                          <input type="submit" class="btn btn-primary" value="Avanti"></input>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div><!--/col lg 12-->
-          </div><!--/row-->
-          <div class="row">
-            <div class="col-lg-12 resizable-column">
-              <div class="float-xs-right">
-                <button type="button" class="btn btn-primary">Avanti</button>
-              </div>
-            </div>
+                </form>
+              </div><!--/col lg 12-->
+            </div><!--/row-->
           </div>
-        </div>
-
       </div>
 
       <hr>
