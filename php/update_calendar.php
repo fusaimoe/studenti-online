@@ -1,10 +1,29 @@
 <?php
 
+  /*
   $categories = $_POST['categories'];
 
+  $in = join(',', array_fill(0, count($categories), '?'));
+  */
+
   $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
-          WHERE e.category_name=c.name AND e.category_name IN (' . implode(',', array_map('intval', $categories)) . ')
+          WHERE e.category_name=c.name /* AND e.category_name IN ($in) */
           AND e.student_id='" . $_SESSION['student_id'] ."'";
+
+  /* //WATTTTTTTTTT?
+  $select = <<<SQL
+    SELECT *
+    FROM galleries
+    WHERE id IN ($in);
+  SQL;
+  */
+
+  /*
+  $statement = $mysqli->prepare($select);
+  $statement->bind_param(str_repeat('s', count($categories)), ...$categories);
+  $statement->execute();
+  $result = $statement->get_result();
+  */
   $result = $mysqli->query($sql);
 
   $xml = new XMLWriter();
