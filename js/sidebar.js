@@ -7,6 +7,8 @@ function toggleSidebar(button) {
   $("#sidebar-"+button+"-button").toggleClass('icon-button-disabled');
   $("#sidebar-"+button+"-button").is(':disabled') ? $("#sidebar-"+button+"-button").prop('disabled',false) : $("#sidebar-"+button+"-button").prop('disabled',true);
   $("#sidebar-"+opposite+"-button").children().toggleClass("icon-"+icon).toggleClass("icon-arrow-"+opposite);
+
+  checkSidebar(button)||checkSidebar(opposite) ? $("#settings").prop('disabled',true) : $("#settings").prop('disabled',false);
 }
 
 function clickedButton(close, buttonId){

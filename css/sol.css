@@ -46,6 +46,10 @@ a, a:hover, a:active, a:focus, button, button:hover, button:active, button:focus
    text-decoration: none;
 }
 
+button:disabled {
+    cursor:default;
+}
+
 a {
   color: #373a3c;
 }
@@ -115,7 +119,6 @@ footer {
 }
 
 .icon-button-disabled{
-  cursor:default;
   visibility: hidden;
 }
 
@@ -657,15 +660,12 @@ label.custom-control.custom-checkbox {
 .list-group-no-border {
   border-left:none;
   border-right:none;
-
 }
 
 .list-group:first-child .list-group-item:first-child {
   border-top:none;
-
 }
 
 .list-group:last-child .list-group-item:last-child {
   border-bottom:none;
-
 }
