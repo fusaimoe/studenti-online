@@ -12,18 +12,19 @@ $(':checkbox').change(function(){
     url: "../php/update_calendar_ajax.php",
     data: { categories: selected },
     success: function(response){
-
-      //alert(response);
-
-      newid= new Date().getTime();
-      $('.monthly').empty().replaceWith('<div class="monthly" id="cal' + newid + '"></div>');
-        $('#cal' + newid).monthly({
-          weekStart: 'Mon',
-          mode: 'event',
-          xmlUrl: 'events.xml'
-        });
-
+      //alert(response);//debugging purpose
+      calendarReload();
     }
   });
 
 });
+
+function calendarReload(){
+  newid = new Date().getTime();
+  $('.monthly').empty().replaceWith('<div class="monthly" id="cal' + newid + '"></div>');
+  $('#cal' + newid).monthly({
+    weekStart: 'Mon',
+    mode: 'event',
+    xmlUrl: 'events.xml'
+  });
+}
