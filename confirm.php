@@ -60,90 +60,89 @@
           <h5 class="section-title">Conferma la tua scelta</h5>
           <div class="row">
             <div class="col-lg-12 resizable-column">
-              <form id="exams" method="post" action="php/change_plans.php">
-                <div class="form-group">
-                  <div class="card">
-                    <div class="card-block">
-                      <div>
-                          <?php
-                            echo '<ul class="list-group">';
-                            if(isset($_POST['exam'])){
+              <div class="card">
+                <div class="card-block">
+                  <div>
+                      <?php
+                        echo '<ul class="list-group">';
+                        if(isset($_POST['exam'])){
+                          $confirmation_type='exam';
 
-                              $checked=$_POST['exam'];
-                              for($i=0;$i<count($checked);$i++){
+                          $checked=$_POST['exam'];
+                          for($i=0;$i<count($checked);$i++){
 
-                                $sql="SELECT id, subject, credits
-                                      FROM exams
-                                      WHERE id='" . $checked[$i] ."'";
+                            $sql="SELECT id, subject, credits
+                                  FROM exams
+                                  WHERE id='" . $checked[$i] ."'";
 
-                                $result = $mysqli->query($sql);
+                            $result = $mysqli->query($sql);
 
-                                if ($result->num_rows == 1) {
-                                  $row = $result->fetch_assoc();
+                            if ($result->num_rows == 1) {
+                              $row = $result->fetch_assoc();
 
-                                  $exam_id =  $row['id'];
-                                  $subject =  $row['subject'];
-                                  $credits =  $row['credits'];
+                              $exam_id =  $row['id'];
+                              $subject =  $row['subject'];
+                              $credits =  $row['credits'];
 
-                                  echo '
-                                      <li class="list-group-item list-group-no-border"><strong>
-                                        '. $subject .'</strong> ( #'. $exam_id .' ) - '. $credits .' crediti
-                                      </li>';
-                                }
-                              }
-                            }else if(isset($_POST['curriculum'])){
-
-                              $checked=$_POST['curriculum'];
-                              $sql="SELECT cur.name AS curriculum, c.id, c.name AS course, cur.description AS description
-                                    FROM curriculum cur, courses c
-                                    WHERE cur.name='" . $checked[0] ."'
-                                    AND c.id=cur.course_id";
-
-                              $result = $mysqli->query($sql);
-                              if($result->num_rows == 1){
-                                $row = $result->fetch_assoc();
-
-                                $curriculum =  $row['curriculum'];
-                                $course =  $row['course'];
-                                $description =  $row['description'];
-
-                                echo '
-                                    <span>
-                                      Curriculum:</br>
-                                    </span>
-                                    <span>
-                                      <strong>'. $curriculum .'</strong>
-                                    </span>
-                                    <hr>
-                                    <span>
-                                      Corso:</br>
-                                    </span>
-                                    <span class="text-muted">
-                                      '. $course .'
-                                    </span>
-                                    <hr>
-                                    <span>
-                                      Descrizione:</br>
-                                    </span>
-                                    <span class="text-muted">
-                                      '. $description .'
-                                    </span>';
-                              }
+                              echo '
+                                  <li class="list-group-item list-group-no-border"><strong>
+                                    '. $subject .'</strong> ( #'. $exam_id .' ) - '. $credits .' crediti
+                                  </li>';
                             }
-                            echo '</ul>';
-                          ?>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12 resizable-column">
-                        <div class="float-xs-right">
-                          <input type="submit" class="btn btn-primary" value="Conferma"></input>
-                        </div>
-                      </div>
+                          }
+                        }else if(isset($_POST['curriculum'])){
+                          $confirmation_type='curriculum';
+
+                          $checked=$_POST['curriculum'];
+                          $sql="SELECT cur.name AS curriculum, c.id, c.name AS course, cur.description AS description
+                                FROM curriculum cur, courses c
+                                WHERE cur.name='" . $checked[0] ."'
+                                AND c.id=cur.course_id";
+
+                          $result = $mysqli->query($sql);
+                          if($result->num_rows == 1){
+                            $row = $result->fetch_assoc();
+
+                            $curriculum =  $row['curriculum'];
+                            $course =  $row['course'];
+                            $description =  $row['description'];
+
+                            echo '
+                                <span>
+                                  Curriculum:</br>
+                                </span>
+                                <span>
+                                  <strong>'. $curriculum .'</strong>
+                                </span>
+                                <hr>
+                                <span>
+                                  Corso:</br>
+                                </span>
+                                <span class="text-muted">
+                                  '. $course .'
+                                </span>
+                                <hr>
+                                <span>
+                                  Descrizione:</br>
+                                </span>
+                                <span class="text-muted">
+                                  '. $description .'
+                                </span>';
+                          }
+                        }
+                        echo '</ul>';
+
+                      ?>
                     </div>
                   </div>
-                </form>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 resizable-column">
+                    <div class="float-xs-right">
+                      <button type="submit" class="btn btn-primary" onclick="sendPost()">Conferma</button>
+                    </div>
+                  </div>
+                </div>
               </div><!--/col lg 12-->
             </div><!--/row-->
           </div>
@@ -181,6 +180,18 @@
             $('#mycalendar').monthly();
         });
     </script>
+    <script>
+      function sendPost() {
+        var array=<?php echo json_encode($checked); ?>;
+        $.ajax({
+          type: "POST",
+          url: "php/update_plan.php",
+          data: { <?php echo $confirmation_type; ?>: array },
+          success: function(response){ alert("success" + response); }
+        });
+      }
+    </script>
+
   </body>
 </html>
 
