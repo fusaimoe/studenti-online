@@ -238,7 +238,7 @@
                     $sql = "SELECT e.id, e.subject, e.credits, e.optional, r.result, r.record_date, r.honour
                             FROM exams AS e
                             INNER JOIN student_exams AS r ON r.exam_id = e.id
-                            WHERE r.student_id = '" . $student_id ."' AND e.optional='0' AND e.year_of_course='".$i."';
+                            WHERE r.student_id = '" . $student_id ."' AND e.year_of_course='".$i."';
                             ";
                     $result = $mysqli->query($sql);
 
