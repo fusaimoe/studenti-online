@@ -187,7 +187,9 @@
           type: "POST",
           url: "php/update_plan.php",
           data: { <?php echo $confirmation_type; ?>: array },
-          success: function(response){ alert("success" + response); }
+          success: function(response){
+            location.href = "index.php";
+          }
         });
       }
     </script>

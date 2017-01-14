@@ -8,6 +8,18 @@
 
   } else {
 
+      $sql="SELECT done FROM student_plan_modifications WHERE student_id='" . $_SESSION['student_id'] ."' AND plan_modification_type='Piano di Studi'";
+      $result = $mysqli->query($sql);
+
+      if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $done = $row['done'];
+      }
+
+      if($done){
+          header('Location: access_denied.htm');
+      } else{
+
 ?>
 
 <!DOCTYPE html>
@@ -194,4 +206,5 @@
   </body>
 </html>
 
-<?php }?>
+<?php }
+}?>
