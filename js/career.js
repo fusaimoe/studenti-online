@@ -25,3 +25,19 @@ $('[id^=collapse-]').each(function() {
     $(thisCollapsableDiv).prev().find('.icon-arrow-down').toggleClass('icon-arrow-down icon-arrow-up');
   });
 });*/
+
+$('[data-notification-id]').on('close.bs.alert', function () {
+
+  var pressed = $(this).data("notification-id");
+
+  //console.log(pressed);//debugging purpose
+
+  $.ajax({
+    type: "POST",
+    url: "../php/notification_dismiss.php",
+    data: { dismiss: pressed },
+    success: function(response){
+      //alert(response);//debugging purpose
+    }
+  });
+})

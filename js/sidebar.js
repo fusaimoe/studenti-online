@@ -66,16 +66,6 @@ $(document).ready(function () {
     });
   }
 
-  if(getUrlParameter('sidebar')=='left') {
-    $('.row-offcanvas').toggleClass('notransition');
-    $('#sidebar-left-button').click();
-    $('.row-offcanvas').toggleClass('notransition');
-  } else if(getUrlParameter('sidebar')=='right') {
-    $('.row-offcanvas').toggleClass('notransition');
-    $('#sidebar-right-button').click();
-    $('.row-offcanvas').toggleClass('notransition');
-  }
-
 });
 
 $(window).on('load', function() {
