@@ -21,7 +21,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Studenti Online - Piano Di Studi</title>
+    <title>Studenti Online - Curriculum</title>
 
     <meta name="theme-color" content="#9B1C1C">
 
@@ -52,19 +52,19 @@
 
           <nav class="breadcrumb">
               <a class="breadcrumb-item" href="index.php">Libretto Online</a>
-              <span class="breadcrumb-item active">Piano di Studi</span>
+              <span class="breadcrumb-item active">Curriculum</span>
           </nav>
 
           <hr>
 
-          <h5 class="section-title">Seleziona Corsi</h5>
+          <h5 class="section-title">Seleziona Curriculum</h5>
           <div class="row">
             <div class="col-lg-12 resizable-column">
               <form id="exams" method="post" action="confirm.php">
                 <div class="form-group">
                   <div class="card">
                     <div class="card-block">
-                      <p class="card-top">Seleziona 6 CFU tra i consigliati</p>
+                      <p class="card-top">Seleziona un curriculum</p>
                       <div class="float-xs-right">
                         <button type="button" class="icon-control rotate " data-toggle="collapse" href="#collapse-first" aria-expanded="false" aria-controls="collapse-first">
                           <span class="icon-arrow-up" aria-hidden="true"></span>
@@ -75,44 +75,42 @@
                             <thead>
                               <tr>
                                 <th class="table-check" id="check"></th>
-                                <th class="table-code" id="code">Cod.</th>
-                                <th class="table-subject" id="subject">Materia</th>
-                                <th class="table-credits" id="credits">Cred</th>
-                                <th class="table-course" id="course">Corso</th>
+                                <th class="table-code" id="curriculum">Curriculum</th>
+                                <th class="table-subject" id="course">Corso</th>
+                                <th class="table-subject hidden-md-down" id="description">Esami</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php
                                 //Risultato query di esami_studente
-                                $sql = "SELECT e.id, e.subject, e.credits
-                                        FROM exams e, courses c, students s
+                                $sql = "SELECT c.name AS course_name, cur.name AS curriculum, cur.description AS description
+                                        FROM curriculum cur, courses c, students s
                                         WHERE s.student_id='" . $_SESSION['student_id'] ."'
                                         AND c.id=s.course_id
-                                        AND c.id=e.course_id
-                                        AND e.optional='1'";
+                                        AND cur.course_id=c.id
+                                        AND s.curriculum IS NULL";
 
                                 $result = $mysqli->query($sql);
 
                                 if ($result->num_rows > 0) {
 
                                   while($row = $result->fetch_assoc()) {
-                                    $exam_id = $row['id'];
-                                    $exam_subject = $row['subject'];
-                                    $exam_credits = $row['credits'];
+                                    $course_name = $row['course_name'];
+                                    $curriculum = $row['curriculum'];
+                                    $description = $row['description'];
 
                                     echo '
                                         <tr>
                                           <td class="table-check" headers="check">
                                             <label class="custom-control custom-checkbox">
-                                              <input type="checkbox" name="exam[]" data-credits="'. $exam_credits .'" value="'. $exam_id .'" class="custom-control-input"/>
+                                              <input type="checkbox" name="curriculum[]" value="'. $curriculum .'" class="custom-control-input"/>
                                               <span class="custom-control-indicator"></span>
                                               <span class="custom-control-description"></p></span>
                                             </label>
                                           </td>
-                                          <td class="table-code" headers="code">' . $exam_id . '</td>
-                                          <td class="table-subject" headers="subject">' . $exam_subject . '</td>
-                                          <td class="table-credits text-muted" headers="credits">' . $exam_credits . '</td>
-                                          <td class="table-course" headers="course">INF</td>
+                                          <td class="table-code" headers="curriculum">' . $curriculum . '</td>
+                                          <td class="table-subject" headers="course">' . $course_name . '</td>
+                                          <td class="table-subjecth hidden-md-down" headers="description">' . $description . '</td>
                                         </tr>';
                                   }
                                 }
@@ -168,28 +166,6 @@
             $('#mycalendar').monthly();
             document.getElementById("submit").disabled = true;
         });
-    </script>
-    <script type="text/javascript">
-
-      $(':checkbox').change(function(){
-        var selected = [];
-
-        $(':checkbox:checked').each(function() {
-          selected.push($(this).attr('data-credits'));
-        });
-
-        var total = 0;
-        for (i = 0; i < selected.length; ++i) {
-             total += parseInt(selected[i]); // add each element in an array to total
-        }
-
-        if(total>6 || total==0){
-          alert(total);
-          document.getElementById("submit").disabled = true
-        } else{
-          document.getElementById("submit").disabled = false;
-        }
-      });
     </script>
   </body>
 </html>
