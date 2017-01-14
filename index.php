@@ -54,9 +54,20 @@ if(login_check($mysqli) == false) {
 
             <?php
             //Favorites
-            $sql = "SELECT c.name, c.URL, c.icon, c.description, sc.favorite
+            $sql = "SELECT cats.name, cats.URL, cats.icon, cats.description, cats.favorite, nots.counter
+                    FROM (
+                    SELECT c.name AS name, c.URL, c.icon, c.description, sc.favorite
                     FROM categories c, student_categories sc
-                    WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '1' AND c.name = sc.category_name";
+                    WHERE sc.student_id = '" . $student_id ."'
+                    AND sc.favorite = '1'
+                    AND c.name = sc.category_name
+                    ) AS cats
+                    LEFT JOIN (
+                    SELECT COUNT( n.id ) AS counter, c.name AS name
+                    FROM notifications n, categories c
+                    WHERE n.category_name = c.name
+                    GROUP BY n.category_name
+                  ) AS nots ON cats.name = nots.name";
             $result = $mysqli->query($sql);
 
             if ($result->num_rows > 0) {
@@ -68,6 +79,7 @@ if(login_check($mysqli) == false) {
                 $url = $row['URL'];
                 $icon = $row['icon'];
                 $description = $row['description'];
+                $counter = $row['counter'];
 
                 switch ($i) {
                   case 0:
@@ -86,7 +98,12 @@ if(login_check($mysqli) == false) {
                     <div class="card card-block">
 
                       <button type="button" class="icon-button w-100">
-                        <span class="icon-homepage icon-'. $icon .' notification-badge" data-badge="15" aria-hidden="true"></span>
+                        <span class="icon-homepage icon-'. $icon .' notification-badge" ';
+
+                        if($counter>0 && $counter!=null){
+                          echo 'data-badge="'. $counter .'"';
+                        }
+                        echo ' aria-hidden="true"></span>
                       </button>
                       <h5 class="card-title">'. $name .' </h5>
                       <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
@@ -140,10 +157,19 @@ if(login_check($mysqli) == false) {
                   echo '<h5 class="section-title">' . $section . '</h5>';
 
                   //All the cards
-
-                  $sql = "SELECT c.name, c.URL, c.icon, c.section_name, sc.favorite
+                  $sql = "SELECT cats.name, cats.URL, cats.icon, cats.description, cats.favorite, nots.counter
+                          FROM (
+                          SELECT c.name AS name, c.URL, c.icon, c.description, sc.favorite
                           FROM categories c, student_categories sc
-                          WHERE (sc.student_id = '" . $student_id ."') AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='" . $section ."'";
+                          WHERE sc.student_id = '" . $student_id ."' AND sc.favorite = '0' AND c.name = sc.category_name AND c.section_name='" . $section ."'
+                          ) AS cats
+                          LEFT JOIN (
+                          SELECT COUNT( n.id ) AS counter, c.name AS name
+                          FROM notifications n, categories c
+                          WHERE n.category_name = c.name AND n.read_flag = '0'
+                          GROUP BY n.category_name
+                        ) AS nots ON cats.name = nots.name";
+
                   $result = $mysqli->query($sql);
 
                   if ($result->num_rows > 0) {
@@ -152,6 +178,7 @@ if(login_check($mysqli) == false) {
                       $name = $row['name'];
                       $url = $row['URL'];
                       $icon = $row['icon'];
+                      $counter = $row['counter'];
 
                       echo '<div class="card-side-container">';
 
@@ -159,7 +186,14 @@ if(login_check($mysqli) == false) {
 
                       echo '
                           <div class="card card-block card-side">
-                            <span class="icon-side icon-'. $icon .'" aria-hidden="true"></span>
+
+                            <span class="icon-side icon-'. $icon .' notification-badge" ';
+
+                            if($counter>0 && $counter!=null){
+                              echo 'data-badge="'. $counter .'"';
+                            }
+                            echo ' aria-hidden="true"></span>
+
                             <span>'. $name .'</span>
                           </div>
                         </a>
