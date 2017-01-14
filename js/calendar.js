@@ -21,10 +21,12 @@ $(':checkbox').change(function(){
 
 function calendarReload(){
   newid = new Date().getTime();
+  file = $('#calendarFilename').val();
+
   $('.monthly').empty().replaceWith('<div class="monthly" id="cal' + newid + '"></div>');
   $('#cal' + newid).monthly({
     weekStart: 'Mon',
     mode: 'event',
-    xmlUrl: 'events.xml'
+    xmlUrl: file
   });
 }

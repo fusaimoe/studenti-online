@@ -5,14 +5,18 @@
           AND e.student_id='" . $_SESSION['student_id'] ."'";
   $result = $mysqli->query($sql);
 
+  $xmlUrl = "xml/" . $_SESSION['student_id'] . ".xml";
+
+  echo '<input type="hidden" id="calendarFilename" value="' . $xmlUrl . '">';
+
   $xml = new XMLWriter();
-  $xml->openURI("events.xml");
+  $xml->openMemory();
   $xml->startDocument('1.0');
   $xml->setIndent(true);
   $xml->startElement('monthly');
 
   if ($result->num_rows > 0) {
-    
+
     while($row = $result->fetch_assoc()) {
 
       $startDate = date("Y-m-d", strtotime($row['start_date']));
@@ -34,6 +38,6 @@
   }
 
   $xml->endElement();
-  $xml->flush();
+  file_put_contents("$xmlUrl", $xml->flush(true));
 
 ?>
