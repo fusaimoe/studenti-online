@@ -1,7 +1,3 @@
-<?php
-include 'php/update_calendar.php';
-?>
-
 <div class="col-lg-8 sidebar-offcanvas sidebar-left">
   <h5 class="section-title hidden-lg-down">Calendario</h5>
   <div class="card card-block">

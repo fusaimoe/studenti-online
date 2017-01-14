@@ -69,17 +69,3 @@ $(document).ready(function () {
   }
 
 });
-
-$(window).on('load', function() {
-
-  $("body").removeClass("preload");
-
-  var file= $('#calendarFilename').val();
-
-  $('#mycalendar').monthly({
-    weekStart: 'Mon',
-    mode: 'event',
-    xmlUrl: file
-  });
-
-});

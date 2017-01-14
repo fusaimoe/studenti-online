@@ -7,7 +7,7 @@
 
   $xmlUrl = "xml/" . $_SESSION['student_id'] . ".xml";
 
-  echo '<input type="hidden" id="calendarFilename" value="' . $xmlUrl . '">';
+  echo '<script> calendarReload("' . $xmlUrl . '")</script>';
 
   $xml = new XMLWriter();
   $xml->openMemory();
@@ -38,6 +38,6 @@
   }
 
   $xml->endElement();
-  file_put_contents("$xmlUrl", $xml->flush(true));
+  file_put_contents(echo'../'.$xmlUrl, $xml->flush(true));
 
 ?>

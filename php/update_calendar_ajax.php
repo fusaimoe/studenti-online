@@ -4,21 +4,29 @@
   include 'functions.php';
   sec_session_start();
 
-  $categories = $_POST['categories'];
+  if( isset($_POST['categories']) ){
 
-  $in = join("','",$categories);
+    $categories = $_POST['categories'];
 
-  /*
-  // This part is to avoid injection, it's commented because it requires PHP 5.6 and mysqlnd drivers, uncomment and comment the previous line
-  $in = join(',', array_fill(0, count($categories), '?'));
-  */
+    $in = join("','",$categories);
+    /*
+    // This part is to avoid injection, it's commented because it requires PHP 5.6 and mysqlnd drivers, uncomment and comment the previous line
+    $in = join(',', array_fill(0, count($categories), '?'));
+    */
 
-  $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
-          WHERE e.category_name=c.name AND e.category_name IN ('$in')
-          AND e.student_id='" . $_SESSION['student_id'] . "'";
+    $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
+            WHERE e.category_name=c.name AND e.category_name IN ('$in')
+            AND e.student_id='" . $_SESSION['student_id'] . "'";
+
+  } else {
+
+    $sql = "SELECT e.id, e.name, e.start_date, e.end_date, e.URL, e.category_name, c.color FROM calendar_events e, categories c
+            WHERE e.category_name=c.name
+            AND e.student_id='" . $_SESSION['student_id'] . "'";
+
+  }
 
   $result = $mysqli->query($sql);
-
   /*
   // This part is to avoid injection, it's commented because it requires PHP 5.6 and mysqlnd drivers, uncomment and comment the previous line
   $statement = $mysqli->prepare($sql);
@@ -26,11 +34,13 @@
   $statement->execute();
   $result = $statement->get_result();
   */
+  $fileName =  $_SESSION['student_id'] . '.xml';
+  $xmlUrl = '../xml/' . $fileName ;
 
-  $xmlUrl = "xml/" . $_SESSION['student_id'] . ".xml";
+  echo 'xml/' . $fileName;
 
   $xml = new XMLWriter();
-  $xml->openURI("../" . $xmlUrl);
+  $xml->openURI($xmlUrl);
   $xml->startDocument('1.0');
   $xml->setIndent(true);
   $xml->startElement('monthly');
@@ -58,6 +68,7 @@
   }
 
   $xml->endElement();
-  file_put_contents("$xmlUrl", $xml->flush(true));
+
+  file_put_contents("$xmlUrl" . $_SESSION['student_id'] . ".xml", $xml->flush(true));
 
 ?>

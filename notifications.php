@@ -3,7 +3,7 @@
   <div class="card card-block">
     <?php
 
-    $sql = "SELECT n.id, n.student_id, n.pub_date, n.category_name, n.subject, n.description, n.read_flag, c.color, c.URL, c.icon FROM notifications n, categories c WHERE (student_id = '" . $_SESSION['student_id'] ."') AND n.category_name = c.name";
+    $sql = "SELECT n.id, n.student_id, n.pub_date, n.category_name, n.subject, n.description, n.read_flag, c.color, c.URL, c.icon FROM notifications n, categories c WHERE (student_id = '" . $_SESSION['student_id'] ."') AND n.category_name = c.name ORDER BY n.PUB_DATE";
     $result = $mysqli->query($sql);
 
       if ($result->num_rows > 0) {

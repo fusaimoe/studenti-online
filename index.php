@@ -83,13 +83,13 @@ if(login_check($mysqli) == false) {
 
                 switch ($i) {
                   case 0:
-                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home-left">';
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-left">';
                     break;
                   case 1:
-                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home">';
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding">';
                     break;
                   case 2:
-                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-home-right">';
+                    echo '<div class="col-lg-4 col-xs-4 col-nopadding-right">';
                     break;
                 }
                 echo ($url!=null) ? '<a href="' . $url . '" class="toggable-link">' : '<a href="#" data-toggle="popover" data-placement="top" data-content="Service not available at the moment" class="toggable-link">';
@@ -109,7 +109,7 @@ if(login_check($mysqli) == false) {
                       <p class="card-text text-muted hidden-xs-down">'. $description .'</p>
                     </div>
                   </a>
-                  <a href="php/favorite.php?name=' . urlencode($name) . '&student=' .  $student_id . '&add=0" class="addremove-badge" aria-hidden="true">-</a>
+                  <a href="index.php?settings=true" onclick="sendFavorites(&#39;' . urlencode($name) . '&#39;,&#39;' .  $student_id . '&#39;,0)" class="addremove-badge" aria-hidden="true">-</a>
                 </div>
                 ';
 
@@ -197,7 +197,7 @@ if(login_check($mysqli) == false) {
                             <span>'. $name .'</span>
                           </div>
                         </a>
-                        <a href="php/favorite.php?name=' . urlencode($name) . '&student=' .  $student_id . '&add=1" class="addremove-badge" aria-hidden="true">+</a>
+                        <a href="index.php?settings=true" onclick="sendFavorites(&#39;' . urlencode($name) . '&#39;,&#39;' .  $student_id . '&#39;,1)" class="addremove-badge" aria-hidden="true">+</a>
                       </div>
                       ';
                     }

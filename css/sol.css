@@ -160,25 +160,25 @@ footer {
   }
 }
 
+.col-nopadding {
+  padding-right: 7px;
+  padding-left: 7px;
+}
+.col-nopadding-left {
+  padding-left: 15px;
+  padding-right: 7px;
+}
+.col-nopadding-right {
+  padding-left: 7px;
+  padding-right: 15px;
+}
+
 @media (min-width: 991px) {
 
   .col-nopadding-side {
     padding-left: 0;
   }
 
-}
-
-.col-nopadding-home {
-  padding-right: 7px;
-  padding-left: 7px;
-}
-.col-nopadding-home-left {
-  padding-left: 15px;
-  padding-right: 7px;
-}
-.col-nopadding-home-right {
-  padding-left: 7px;
-  padding-right: 15px;
 }
 
 .icon-control{
@@ -647,7 +647,7 @@ label.custom-control.custom-checkbox {
   display: inline !important;
 }
 
-.col-nopadding-home-left .addremove-badge, .col-nopadding-home .addremove-badge {
+.col-nopadding-left .addremove-badge, .col-nopadding .addremove-badge {
   right: -1px;
 }
 

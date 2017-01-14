@@ -22,3 +22,16 @@ $('#settings').click(function () {
 $(document).ready(function () {
   if(getUrlParameter('settings')) $('#settings').click() ;
 });
+
+function sendFavorites(name, student, add) {
+  $.ajax({
+    type: "POST",
+    url: "php/favorite.php",
+    data: { name: name,
+            student: student,
+            add: add },
+    success: function(response){
+      //location.href = "index.php?settings=true";
+    }
+  });
+}

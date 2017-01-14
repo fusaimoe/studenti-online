@@ -16,24 +16,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
     <title>Studenti Online - Confirmation</title>
 
     <meta name="theme-color" content="#9B1C1C">
+    <link rel="shotrcut icon" href="img/icon.png">
+    <link rel="apple-touch-icon" href="img/icon.png" type="image/png">
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="fonts/proxima-nova.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-    <link href="css/sol.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel:400,700">
+    <link rel="stylesheet" href="fonts/proxima-nova.css">
     <link rel="stylesheet" href="css/monthly.css">
+    <link rel="stylesheet" href="css/sol.css">
+
   </head>
 
   <body class="preload">
@@ -139,7 +135,7 @@
                 <div class="row">
                   <div class="col-lg-12 resizable-column">
                     <div class="float-xs-right">
-                      <button type="submit" class="btn btn-primary" onclick="sendPost()">Conferma</button>
+                      <?php echo '<button type="submit" class="btn btn-primary" onclick="sendConfirmation(' . htmlspecialchars(json_encode($checked)) . ', &#39;' . $confirmation_type . '&#39;)">Conferma</button>' ?>
                     </div>
                   </div>
                 </div>
@@ -154,45 +150,18 @@
 
     </div><!--/.container-->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-
-    <script src="js/offcanvas.js"></script>
-    <script src="js/average.js"></script>
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
-    <script src="js/career.js" type="text/javascript"></script>
+    <script src="js/favorite.js" type="text/javascript"></script>
+    <script src="js/calendar.js" type="text/javascript"></script>
+    <script src="js/history.js" type="text/javascript"></script>
+    <script src="js/confirm.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $(window).load( function() {
-            $("body").removeClass("preload");
-            $('#mycalendar').monthly();
-        });
-    </script>
-    <script>
-      function sendPost() {
-        var array=<?php echo json_encode($checked); ?>;
-        $.ajax({
-          type: "POST",
-          url: "php/update_plan.php",
-          data: { <?php echo $confirmation_type; ?>: array },
-          success: function(response){
-            location.href = "index.php";
-          }
-        });
-      }
-    </script>
 
   </body>
 </html>

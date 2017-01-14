@@ -280,7 +280,7 @@
           </div><!--/row anni-->
 
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-nopadding-left">
               <div class="card">
                 <div class="card-block">
                   <p class="card-top">Grafico Voti</p>
@@ -293,7 +293,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-nopadding-right">
               <div class="card">
                 <div class="card-block">
                   <p class="card-top">Grafico Media Ponderata</p>

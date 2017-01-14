@@ -1,3 +1,4 @@
+// Update the calendar
 $(':checkbox').change(function(){
 
   var selected = [];
@@ -13,15 +14,25 @@ $(':checkbox').change(function(){
     data: { categories: selected },
     success: function(response){
       //alert(response);//debugging purpose
-      calendarReload();
+      calendarReload(response);
     }
   });
 
 });
 
-function calendarReload(){
+// Initialize the calendar
+$.ajax({
+  type: "POST",
+  url: "../php/update_calendar_ajax.php",
+  success: function(response){
+    //alert(response);//debugging purpose
+    calendarReload(response);
+  }
+});
+
+// Redraw the calendar
+function calendarReload(file){
   newid = new Date().getTime();
-  file = $('#calendarFilename').val();
 
   $('.monthly').empty().replaceWith('<div class="monthly" id="cal' + newid + '"></div>');
   $('#cal' + newid).monthly({
