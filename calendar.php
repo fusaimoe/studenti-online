@@ -12,7 +12,7 @@ include 'php/update_calendar.php';
   <h5 class="section-title hidden-lg-down">Legenda</h5>
   <div class="card card-block">
       <?php
-        $sql = "SELECT DISTINCT c.name, c.color FROM categories c, calendar_events e WHERE c.name=e.category_name ";
+        $sql = "SELECT DISTINCT c.name, c.color FROM categories c, calendar_events e WHERE c.name=e.category_name AND e.student_id='" . $_SESSION['student_id'] ."' ";
         $result = $mysqli->query($sql);
         if ($result->num_rows > 0) {
           echo '<ul class="list-group">';
@@ -22,7 +22,7 @@ include 'php/update_calendar.php';
             echo '
                 <li class="list-group-item">
                   <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="'. $name .'">
+                    <input type="checkbox" class="custom-control-input" name="'. $name .'" checked>
                     <style type="text/css" scoped>
                       .custom-control-input:checked ~ .custom-control-indicator {
                         background-color: '. $color .';
