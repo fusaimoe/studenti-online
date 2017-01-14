@@ -336,6 +336,7 @@
     <script src="js/monthly.js" type="text/javascript"></script>
     <script src="js/favorite.js" type="text/javascript"></script>
     <script src="js/calendar.js" type="text/javascript"></script>
+    <script src="js/history.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script src="js/career.js" type="text/javascript"></script>

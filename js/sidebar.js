@@ -78,8 +78,4 @@ $(window).on('load', function() {
     xmlUrl: 'events.xml'
   });
 
-  $( ".notification-unread" ).click(function() {
-    $(this).removeClass("notification-unread");
-  });
-
 });

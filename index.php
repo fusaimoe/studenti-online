@@ -65,7 +65,7 @@ if(login_check($mysqli) == false) {
                     LEFT JOIN (
                     SELECT COUNT( n.id ) AS counter, c.name AS name
                     FROM notifications n, categories c
-                    WHERE n.category_name = c.name
+                    WHERE n.category_name = c.name AND n.read_flag = '0' AND n.student_id = '" . $student_id ."'
                     GROUP BY n.category_name
                   ) AS nots ON cats.name = nots.name";
             $result = $mysqli->query($sql);
@@ -166,7 +166,7 @@ if(login_check($mysqli) == false) {
                           LEFT JOIN (
                           SELECT COUNT( n.id ) AS counter, c.name AS name
                           FROM notifications n, categories c
-                          WHERE n.category_name = c.name AND n.read_flag = '0'
+                          WHERE n.category_name = c.name AND n.read_flag = '0' AND n.student_id = '" . $student_id ."'
                           GROUP BY n.category_name
                         ) AS nots ON cats.name = nots.name";
 
@@ -225,6 +225,7 @@ if(login_check($mysqli) == false) {
     <script src="js/monthly.js" type="text/javascript"></script>
     <script src="js/favorite.js" type="text/javascript"></script>
     <script src="js/calendar.js" type="text/javascript"></script>
+    <script src="js/history.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
