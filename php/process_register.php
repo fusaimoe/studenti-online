@@ -31,10 +31,16 @@
          // Esegui la query ottenuta.
          $insert_stmt->execute();
       }
+      $insert_stmt->close();
      }
 
     include 'student_categories.php';
     include 'student_initializer.php';
+
+    $result->close();
+    $stmt->close();
+    $mysqli->close();
+
     header('Location: ../login.php');
   }
 
