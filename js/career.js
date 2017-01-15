@@ -1,5 +1,8 @@
 $('.resize').click(function() {
-    $('.resizable-column').toggleClass("col-lg-4").toggleClass("col-nopadding").toggleClass("col-lg-12");
+    $('.resizable-column').toggleClass("col-lg-4").toggleClass("col-lg-12");
+    $('.resizable-column').first().toggleClass("col-nopadding-left");
+    $('.resizable-column').first().next().toggleClass("col-nopadding");
+    $('.resizable-column').last().toggleClass("col-nopadding-right");
     $('.table-code').toggleClass("hidden");
     $('.table-record').toggleClass("hidden");
 
@@ -10,21 +13,25 @@ $('.resize').click(function() {
     }
 });
 
-$(".rotate").click(function(){
-   $(this).toggleClass("down");
-});
-
-/*
 $('[id^=collapse-]').each(function() {
-  var thisCollapsableDiv = "#" + this.id;
 
-  $(thisCollapsableDiv).on('hidden.bs.collapse', function() {
-    $(thisCollapsableDiv).prev().find('.icon-arrow-up').toggleClass('icon-arrow-up icon-arrow-down');
+  console.log($(this).prev().children().is("button"));
+
+  $(this).on('show.bs.collapse', function() {
+    $(this).prev().is("button") ? $(this).prev().toggleClass("down") : $(this).prev().children().toggleClass("down");
+    $(this).prev().is("button") ? $(this).prev().prop('disabled', true)  : $(this).prev().children().prop('disabled', true);
   });
-  $(thisCollapsableDiv).on('shown.bs.collapse', function() {
-    $(thisCollapsableDiv).prev().find('.icon-arrow-down').toggleClass('icon-arrow-down icon-arrow-up');
+  $(this).on('shown.bs.collapse', function() {
+    $(this).prev().is("button") ? $(this).prev().prop('disabled', false)  : $(this).prev().children().prop('disabled', false);
   });
-});*/
+  $(this).on('hide.bs.collapse', function() {
+    $(this).prev().is("button") ? $(this).prev().toggleClass("down") : $(this).prev().children().toggleClass("down");
+    $(this).prev().is("button") ? $(this).prev().prop('disabled', true)  : $(this).prev().children().prop('disabled', true);
+  });
+  $(this).on('hidden.bs.collapse', function() {
+    $(this).prev().is("button") ? $(this).prev().prop('disabled', false)  : $(this).prev().children().prop('disabled', false);
+  });
+});
 
 $('[data-notification-id]').on('close.bs.alert', function () {
 

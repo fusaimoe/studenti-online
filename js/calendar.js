@@ -1,3 +1,13 @@
+// Initialize the calendar
+$.ajax({
+  type: "POST",
+  url: "../php/update_calendar_ajax.php",
+  success: function(response){
+    //alert(response);//debugging purpose
+    calendarReload(response);
+  }
+});
+
 // Update the calendar
 $('[name]:checkbox').change(function(){
 
@@ -5,7 +15,7 @@ $('[name]:checkbox').change(function(){
 
   $('[name]:checkbox:checked').each(function() {
     selected.push($(this).attr('name'));
-    //console.log(selected);
+    //console.log(selected);//debugging purpose
   });
 
   $.ajax({
@@ -18,16 +28,6 @@ $('[name]:checkbox').change(function(){
     }
   });
 
-});
-
-// Initialize the calendar
-$.ajax({
-  type: "POST",
-  url: "../php/update_calendar_ajax.php",
-  success: function(response){
-    //alert(response);//debugging purpose
-    calendarReload(response);
-  }
 });
 
 // Redraw the calendar

@@ -351,6 +351,7 @@ footer {
   transition: -webkit-transform 0.2s linear;
   transition: transform 0.2s linear;
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+  cursor: pointer!important;
 }
 
 .rotate.down{
