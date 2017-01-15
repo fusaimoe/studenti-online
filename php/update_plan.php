@@ -5,12 +5,15 @@
   sec_session_start();
 
   if(isset($_POST['exam'])) {
+
     $var = $_POST['exam'];
-    $arr = join("','",$var);
+
+    $array = explode(',', $var);
+
     $modification_type='Piano di Studi';
 
     //Inserisco gli esami nella tabella esame_studente
-    foreach ($var as &$value) {
+    foreach ($array as &$value) {
       $null_var;
       $boolean=0;
       if ($insert_stmt = $mysqli->prepare("INSERT INTO student_exams (exam_id, student_id, record_date, result, honour) VALUES (?, ?, ?, ?, ?)")) {
@@ -20,13 +23,13 @@
     }
 
   } else if(isset($_POST['curriculum'])) {
+
     $var = $_POST['curriculum'];
-    $in = join("','",$var);
     $modification_type='Curriculum';
 
     //Inserisco il curriculum nella tabella studente
     if ($insert_stmt = $mysqli->prepare("UPDATE students SET curriculum=? WHERE student_id=?")) {
-      $insert_stmt->bind_param('si', $in, $_SESSION['student_id']);
+      $insert_stmt->bind_param('si', $var, $_SESSION['student_id']);
       $insert_stmt->execute();
     }
 

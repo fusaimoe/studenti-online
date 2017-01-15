@@ -1,5 +1,5 @@
 <?php
-  $sql = "SELECT id FROM exams WHERE course_id='" . $course_id ."'";
+  $sql = "SELECT id FROM exams WHERE course_id='" . $course_id ."' AND optional='0'";
   $result = $mysqli->query($sql);
 
   if ($result->num_rows > 0) {

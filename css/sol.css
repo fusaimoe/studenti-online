@@ -573,6 +573,12 @@ label.custom-control.custom-checkbox {
 
 /* HISTORY */
 
+/*Confirm*/
+.list-group-no-border {
+  border-left:none;
+  border-right:none;
+}
+
 .list-group-notification {
   padding: .75rem;
   border-left: none;
@@ -581,11 +587,11 @@ label.custom-control.custom-checkbox {
   min-width: 100%;
 }
 
-.list-group-notification:first-child {
+.list-group-notification:first-child, .list-group-no-border:first-child {
   border-top: none;
 }
 
-.list-group-notification:last-child {
+.list-group-notification:last-child, .list-group-no-border:last-child {
   border-bottom: none;
 }
 
@@ -654,18 +660,4 @@ label.custom-control.custom-checkbox {
 .toggle-link {
   pointer-events: none;
   cursor: default;
-}
-
-/*Confirm*/
-.list-group-no-border {
-  border-left:none;
-  border-right:none;
-}
-
-.list-group:first-child .list-group-item:first-child {
-  border-top:none;
-}
-
-.list-group:last-child .list-group-item:last-child {
-  border-bottom:none;
 }

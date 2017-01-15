@@ -9,28 +9,25 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Studenti Online - Login</title>
+  <title>Studenti Online - Login</title>
 
-    <meta name="theme-color" content="#9B1C1C">
+  <meta name="theme-color" content="#9B1C1C">
+  <link rel="shotrcut icon" href="img/icon.png">
+  <link rel="apple-touch-icon" href="img/icon.png" type="image/png">
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel:400,700">
+  <link rel="stylesheet" href="fonts/proxima-nova.css">
+  <link rel="stylesheet" href="css/sol.css">
 
-    <!-- Custom styles for this template -->
-    <link href="fonts/proxima-nova.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-    <link href="css/sol.css" rel="stylesheet">
-  </head>
+</head>
+
   <body class="login-body">
     <div class="container">
       <div class="row">
@@ -75,13 +72,6 @@
                         <input type="password" name="password" id="password" class="form-control" placeholder="Password" type="text">
                       </div>
                     </div>
-
-                    <!-- CHECKBOX -->
-                    <label class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input">
-                      <span class="custom-control-indicator"></span>
-                      <span class="custom-control-description text-muted">Ricordami</span>
-                    </label>
 
                     <!-- BUTTON -->
                     <div class="form-group no-padding">

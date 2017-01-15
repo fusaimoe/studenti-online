@@ -59,7 +59,7 @@
         <div class="col-lg-12 main-offcanvas">
 
           <nav class="breadcrumb">
-              <a class="breadcrumb-item" href="index.php">Libretto Online</a>
+              <a class="breadcrumb-item" href="career.php">Carriera</a>
               <span class="breadcrumb-item active">Piano di Studi</span>
           </nav>
 
@@ -72,7 +72,7 @@
                 <div class="form-group">
                   <div class="card">
                     <div class="card-block">
-                      <p class="card-top">Seleziona 6 CFU tra i consigliati</p>
+                      <p class="card-top">Seleziona 12 CFU tra i consigliati</p>
                       <div class="float-xs-right">
                         <button type="button" class="icon-control rotate " data-toggle="collapse" href="#collapse-first" aria-expanded="false" aria-controls="collapse-first">
                           <span class="icon-arrow-up" aria-hidden="true"></span>
@@ -94,10 +94,15 @@
                                 //Risultato query di esami_studente
                                 $sql = "SELECT e.id, e.subject, e.credits
                                         FROM exams e, courses c, students s
-                                        WHERE s.student_id='" . $_SESSION['student_id'] ."'
-                                        AND c.id=s.course_id
-                                        AND c.id=e.course_id
-                                        AND e.optional='1'";
+                                        WHERE s.student_id ='" . $_SESSION['student_id'] ."'
+                                        AND c.id = s.course_id
+                                        AND c.id = e.course_id
+                                        AND e.optional = '1'
+                                        AND e.id NOT IN (
+                                          SELECT exam_id
+                                          FROM student_exams
+                                          WHERE student_id ='" . $_SESSION['student_id'] ."'
+                                        )";
 
                                 $result = $mysqli->query($sql);
 
@@ -159,32 +164,9 @@
     <script src="js/favorite.js" type="text/javascript"></script>
     <script src="js/calendar.js" type="text/javascript"></script>
     <script src="js/history.js" type="text/javascript"></script>
+    <script src="js/plan.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-
-      document.getElementById("submit").disabled = true;
-
-      $(':checkbox').change(function(){
-        var selected = [];
-
-        $(':checkbox:checked').each(function() {
-          selected.push($(this).attr('data-credits'));
-        });
-
-        var total = 0;
-        for (i = 0; i < selected.length; ++i) {
-             total += parseInt(selected[i]); // add each element in an array to total
-        }
-
-        if(total>6 || total==0){
-          alert(total);
-          document.getElementById("submit").disabled = true
-        } else{
-          document.getElementById("submit").disabled = false;
-        }
-      });
-    </script>
   </body>
 </html>
 

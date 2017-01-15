@@ -1,9 +1,9 @@
 // Update the calendar
-$(':checkbox').change(function(){
+$('[name]:checkbox').change(function(){
 
   var selected = [];
 
-  $(':checkbox:checked').each(function() {
+  $('[name]:checkbox:checked').each(function() {
     selected.push($(this).attr('name'));
     //console.log(selected);
   });

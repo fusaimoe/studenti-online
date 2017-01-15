@@ -63,7 +63,7 @@
         <div class="col-lg-12 main-offcanvas">
 
           <nav class="breadcrumb">
-              <a class="breadcrumb-item" href="index.php">Libretto Online</a>
+              <a class="breadcrumb-item" href="career.php">Carriera</a>
               <span class="breadcrumb-item active">Curriculum</span>
           </nav>
 
@@ -114,8 +114,8 @@
                                     echo '
                                         <tr>
                                           <td class="table-check" headers="check">
-                                            <label class="custom-control custom-checkbox">
-                                              <input type="checkbox" name="curriculum[]" value="'. $curriculum .'" class="custom-control-input"/>
+                                            <label class="custom-control custom-radio">
+                                              <input type="radio" name="curriculum[]" value="'. $curriculum .'" class="custom-control-input"/>
                                               <span class="custom-control-indicator"></span>
                                               <span class="custom-control-description"></p></span>
                                             </label>
@@ -152,32 +152,20 @@
 
     </div><!--/.container-->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-
-    <script src="js/offcanvas.js"></script>
-    <script src="js/average.js"></script>
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
-    <script src="js/career.js" type="text/javascript"></script>
+    <script src="js/favorite.js" type="text/javascript"></script>
+    <script src="js/calendar.js" type="text/javascript"></script>
+    <script src="js/history.js" type="text/javascript"></script>
+    <script src="js/curriculum.js" type="text/javascript"></script>
     <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(window).load( function() {
-            $("body").removeClass("preload");
-            $('#mycalendar').monthly();
-            document.getElementById("submit").disabled = true;
-        });
+
     </script>
   </body>
 </html>

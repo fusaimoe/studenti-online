@@ -46,9 +46,19 @@
 
         <div class="col-lg-12 main-offcanvas">
 
+
+
           <nav class="breadcrumb">
-              <a class="breadcrumb-item" href="index.php">Libretto Online</a>
-              <span class="breadcrumb-item active">Piano di Studi</span>
+              <a class="breadcrumb-item" href="career.php">Carriera</a>
+              <?php if(isset($_POST['exam'])){
+                $confirmation_type='exam';
+                echo '<a class="breadcrumb-item" href="plan.php">Piano di Studi</a>';
+              }else if(isset($_POST['curriculum'])){
+                $confirmation_type='curriculum';
+                echo '<a class="breadcrumb-item" href="curriculum.php">Curriculum</a>';
+              } ?>
+              <span class="breadcrumb-item active">Confirmation</span>
+
           </nav>
 
           <hr>
@@ -59,10 +69,9 @@
               <div class="card">
                 <div class="card-block">
                   <div>
+                    <ul class="list-group">
                       <?php
-                        echo '<ul class="list-group">';
-                        if(isset($_POST['exam'])){
-                          $confirmation_type='exam';
+                        if($confirmation_type=='exam'){
 
                           $checked=$_POST['exam'];
                           for($i=0;$i<count($checked);$i++){
@@ -86,8 +95,7 @@
                                   </li>';
                             }
                           }
-                        }else if(isset($_POST['curriculum'])){
-                          $confirmation_type='curriculum';
+                        }else if($confirmation_type=='curriculum'){
 
                           $checked=$_POST['curriculum'];
                           $sql="SELECT cur.name AS curriculum, c.id, c.name AS course, cur.description AS description
@@ -126,9 +134,9 @@
                                 </span>';
                           }
                         }
-                        echo '</ul>';
 
                       ?>
+                      </ul>
                     </div>
                   </div>
                 </div>

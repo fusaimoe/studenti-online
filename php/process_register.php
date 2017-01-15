@@ -34,7 +34,7 @@
      }
 
     include 'student_categories.php';
-    include 'student_exams.php';
+    include 'student_initializer.php';
     header('Location: ../login.php');
   }
 
