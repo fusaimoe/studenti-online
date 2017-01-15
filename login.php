@@ -60,18 +60,18 @@
                 <div class="card-block">
                   <form action="login.php" method="post" name="login_form">
                     <!-- FIELDS -->
-                    <div class="form-group">
-                      <div class="left-inner-addon">
-                        <i class="icon-envelope"></i>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" type="text">
+                      <div class="form-group">
+                        <div class="left-inner-addon">
+                          <i class="icon-envelope"></i>
+                          <input type="email" name="email" aria-label="Email" id="email" class="form-control" placeholder="Email" type="text">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="left-inner-addon">
-                        <i class="icon-lock"></i>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" type="text">
+                      <div class="form-group">
+                        <div class="left-inner-addon">
+                          <i class="icon-lock"></i>
+                          <input type="password" name="password" aria-label="Password" id="password" class="form-control" placeholder="Password" type="text">
+                        </div>
                       </div>
-                    </div>
 
                     <!-- BUTTON -->
                     <div class="form-group no-padding">

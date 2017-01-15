@@ -220,8 +220,8 @@
                   </div>
                   <div class="collapse in" id="collapse-year'.$i.'">
 
-
-                  <table class="table table-striped card-content">
+                  <div class="card-content">
+                  <table class="table table-striped">
                       <thead>
                         <tr>
                           <th class="table-code mobile-view" id="code">Cod.</th>
@@ -270,11 +270,13 @@
                     echo '
                       </tbody>
                       </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div><!--/col lg 12-->';
           }
+
           ?>
 
           </div><!--/row anni-->
@@ -319,9 +321,12 @@
             </div>
           </div>
         </div>
-
       </div>
-
+      <?php
+        $result->close();
+        $mysqli->close();
+      ?>
+      
       <hr>
 
       <?php include 'footer.php'; ?>
@@ -331,6 +336,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
     <script src="js/sidebar.js" type="text/javascript"></script>
     <script src="js/monthly.js" type="text/javascript"></script>
@@ -368,6 +374,7 @@ function get_avg($mysqli) {
   }else{
     echo '0';
   }
+
 }
 
 function get_credits($mysqli) {
@@ -386,6 +393,7 @@ function get_credits($mysqli) {
   }else{
     echo '0';
   }
+
 }
 
 function get_exam_info($mysqli){

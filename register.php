@@ -40,23 +40,23 @@
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-user"></i>
-                        <input name="name" id="name" class="form-control" placeholder="Nome" type="text">
+                        <input name="name" aria-label="Name" id="name" class="form-control" placeholder="Nome" type="text">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-user"></i>
-                        <input name="surname" id="surname" class="form-control" placeholder="Cognome" type="text">
+                        <input name="surname" aria-label="Surname" id="surname" class="form-control" placeholder="Cognome" type="text">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-envelope"></i>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" type="text">
+                        <input type="email" name="email" aria-label="Email" id="email" class="form-control" placeholder="Email" type="text">
                       </div>
                     </div>
                     <div class="form-group">
-                      <select type="select" name="course_id" id="course" class="form-control" placeholder="Corso" type="text">
+                      <select type="select" name="course_id" aria-label="Course" id="course" class="form-control" placeholder="Corso" type="text">
                         <?php
                           $sql = "SELECT name, id FROM courses";
                           $result = $mysqli->query($sql);
@@ -74,19 +74,19 @@
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-lock"></i>
-                        <input type="number" name="student_id" id="student_id" class="form-control" placeholder="Matricola" type="text">
+                        <input type="number" name="student_id" aria-label="StudentID" id="student_id" class="form-control" placeholder="Matricola" type="text">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-lock"></i>
-                        <input type="number" name="matriculation_year" id="matriculation_year" class="form-control" placeholder="Anno di immatricolazione" min="2000" max=<?php echo date("Y"); ?>>
+                        <input type="number" name="matriculation_year" aria-label="Matriculation Year" id="matriculation_year" class="form-control" placeholder="Anno di immatricolazione" min="2000" max=<?php echo date("Y"); ?>>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
                         <i class="icon-lock"></i>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" type="text">
+                        <input type="password" name="password" aria-label="Password" id="password" class="form-control" placeholder="Password" type="text">
                       </div>
                     </div>
 
@@ -117,11 +117,8 @@
       </div> <!-- Row -->
     </div><!-- Cointainer -->
     <?php
-      if(isset($_GET['error'])) {
-         echo 'Error Registering In!';
-      }
+      $result->close();
+      $mysqli->close();
     ?>
-    <script type="text/javascript" src="sha512.js"></script>
-    <script type="text/javascript" src="forms.js"></script>
   </body>
 </html>

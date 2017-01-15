@@ -210,7 +210,10 @@ if(login_check($mysqli) == false) {
           </div>
         </div>
       </div>
-
+      <?php
+        $result->close();
+        $mysqli->close();
+      ?>
       <hr>
 
       <?php include 'footer.php'; ?>

@@ -148,7 +148,10 @@
           </div><!--/row-->
         </div>
       </div>
-
+      <?php
+        $result->close();
+        $mysqli->close();
+      ?>
       <hr>
 
       <?php include 'footer.php'; ?>
