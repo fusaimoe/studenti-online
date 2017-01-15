@@ -14,58 +14,32 @@
 
   function login($email,$password,$mysqli){
 
+    if($stmt = $mysqli->prepare("SELECT student_id, name, surname, matriculation_year, course_id, email, password, salt FROM students WHERE email = ? LIMIT 1")){
+    	$stmt->bind_param('s', $email);
+    	$stmt->execute();
+    	$stmt->store_result();
+    	$stmt->bind_result($student_id, $name, $surname, $matriculation_year, $course_id, $email, $db_password, $salt);
+    	$stmt->fetch();
 
-	if($stmt = $mysqli->prepare("SELECT student_id, name, surname, matriculation_year, course_id, email, password, salt FROM students WHERE email = ? LIMIT 1")){
-		$stmt->bind_param('s', $email);
-		$stmt->execute();
-		$stmt->store_result();
-		$stmt->bind_result($student_id, $name, $surname, $matriculation_year, $course_id, $email, $db_password, $salt);
-		$stmt->fetch();
+    	$password = hash('sha512',$password.$salt);
 
-		$password = hash('sha512',$password.$salt);
-
-		if($stmt->num_rows == 1){
-			if(checkbrute($student_id, $mysqli) == true){
-
-				return false;
-			}else{
-				if($db_password == $password){
-					$ip_adress = $_SERVER['REMOTE_ADDR'];
-					$user_browser = $_SERVER['HTTP_USER_AGENT'];
-					$student_id = preg_replace("/[^0-9]+/", "", $student_id);
-					$_SESSION['student_id'] = $student_id;
-					$_SESSION['login_string'] = hash('sha512', $password.$ip_adress.$user_browser);
-					return true;
-				}else{
-					//Password not corretta, aggiungo un tentativo al database
-          echo 'ciao';
-					$now = time();
-					$mysqli->query("INSERT INTO login_attempts (student_id, time) VALUES ('$student_id', '$now')");
-					return false;
-				}
-			}
-		}else{
-			return false;
-		}
-	 }
- }
-
- function checkbrute($student_id, $mysqli) {
-
-   $now = time();
-   // Vengono analizzati tutti i tentativi di login a partire dalle ultime due ore.
-   $valid_attempts = $now - (2 * 60 * 60);
-   if ($stmt = $mysqli->prepare("SELECT time FROM login_attempts WHERE student_id = ? AND time > '$valid_attempts'")) {
-      $stmt->bind_param('i', $student_id);
-      $stmt->execute();
-      $stmt->store_result();
-      if($stmt->num_rows > 5) {
-         return true;
-      } else {
-         return false;
-      }
-   }
- }
+    	if($stmt->num_rows == 1){
+    		if($db_password == $password){
+    			$ip_adress = $_SERVER['REMOTE_ADDR'];
+    			$user_browser = $_SERVER['HTTP_USER_AGENT'];
+    			$student_id = preg_replace("/[^0-9]+/", "", $student_id);
+    			$_SESSION['student_id'] = $student_id;
+    			$_SESSION['login_string'] = hash('sha512', $password.$ip_adress.$user_browser);
+    			return true;
+    		}else{
+    			//Password not corretta
+    			return false;
+    		}
+    	}else{
+    		return false;
+    	}
+    }
+  }
 
  function login_check($mysqli) {
 

@@ -17,7 +17,7 @@
       }
 
       if($done){
-          header('Location: access_denied.htm');
+          header('Location: plan_error.php');
       } else{
 
 ?>

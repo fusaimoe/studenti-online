@@ -391,6 +391,10 @@ label.custom-control.custom-checkbox {
   border-bottom: none;
 }
 
+.table-subject {
+  width: 40%;
+}
+
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -554,9 +558,9 @@ label.custom-control.custom-checkbox {
   color: #818a91;
 }
 
-/* DENIED ACCESS */
+/* PLAN ERROR */
 
-.big-ghost-icon {
+.big-grey-icon {
   margin-left: auto;
   margin-right: auto;
   font-size: 30px;

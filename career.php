@@ -175,7 +175,7 @@
                           <?php
                             if($editable_plan){
                               echo '
-                                    <a  class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
+                                    <a class= "tag tag-default tag-pill float-xs-right" href="plan.php" aria-label="Edit">
                                       Modifica<span class="icon-tag icon-pencil" aria-hidden="true"></span>
                                     </a>
                               ';
