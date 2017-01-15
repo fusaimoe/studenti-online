@@ -1,5 +1,5 @@
 <footer class="text-xs-center">
-  <button type="button" class="icon-button float-xs-left">
+  <button type="button" class="icon-button float-xs-left" disabled>
     <a role="button" aria-label="Search">
       <span class="icon-footer icon-magnifier" aria-hidden="true"></span>
     </a>
