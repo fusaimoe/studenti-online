@@ -47,7 +47,7 @@ a, a:hover, a:active, a:focus, button, button:hover, button:active, button:focus
 }
 
 button:disabled {
-    cursor:default;
+    cursor:not-allowed;
 }
 
 a {
@@ -120,6 +120,7 @@ footer {
 
 .icon-button-disabled{
   visibility: hidden;
+  cursor: default;
 }
 
 .icon-button:hover{
