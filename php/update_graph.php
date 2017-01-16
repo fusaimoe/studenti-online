@@ -100,4 +100,7 @@ echo'
 
 }
 
+$result->close();
+$mysqli->close();
+
  ?>
