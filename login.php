@@ -17,7 +17,7 @@
   <title>Studenti Online - Login</title>
 
   <meta name="theme-color" content="#9B1C1C">
-  <link rel="shotrcut icon" href="img/icon.png">
+  <link rel="shortcut icon" href="img/icon.png">
   <link rel="apple-touch-icon" href="img/icon.png" type="image/png">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
@@ -63,13 +63,13 @@
                       <div class="form-group">
                         <div class="left-inner-addon">
                           <i class="icon-envelope"></i>
-                          <input type="email" name="email" aria-label="Email" id="email" class="form-control" placeholder="Email" type="text">
+                          <input type="email" name="email" aria-label="Email" id="email" class="form-control" placeholder="Email">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="left-inner-addon">
                           <i class="icon-lock"></i>
-                          <input type="password" name="password" aria-label="Password" id="password" class="form-control" placeholder="Password" type="text">
+                          <input type="password" name="password" aria-label="Password" id="password" class="form-control" placeholder="Password">
                         </div>
                       </div>
 
