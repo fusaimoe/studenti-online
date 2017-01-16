@@ -99,7 +99,7 @@
           //Check the unread notifications
           $sql = "SELECT subject, description, id
                   FROM notifications
-                  WHERE student_id = '" . $_SESSION['student_id'] ."' AND read_flag='0' AND category_name IN ('Carriera','Piano di Studi') ";
+                  WHERE student_id = '" . $_SESSION['student_id'] ."' AND read_flag='0' AND category_name = 'Carriera' ";
 
           $result = $mysqli->query($sql);
 
