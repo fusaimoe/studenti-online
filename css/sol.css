@@ -155,11 +155,7 @@ footer {
   vertical-align: middle;
 }
 
-@media (max-width: 992px) {
-  .icon-side {
-    margin: 0 8px;
-  }
-}
+
 
 .col-nopadding {
   padding-right: 7px;
@@ -180,6 +176,17 @@ footer {
     padding-left: 0;
   }
 
+}
+
+@media (max-width: 992px) {
+  .icon-side {
+    margin: 0 8px;
+  }
+
+  .col-lg-6.col-nopadding-left, .col-lg-6.col-nopadding-right, .resizable-column.col-lg-4.col-nopadding-left, .resizable-column.col-lg-4.col-nopadding-right, .resizable-column.col-lg-4.col-nopadding {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 .icon-control{
