@@ -30,6 +30,9 @@
     			$student_id = preg_replace("/[^0-9]+/", "", $student_id);
     			$_SESSION['student_id'] = $student_id;
     			$_SESSION['login_string'] = hash('sha512', $password.$ip_adress.$user_browser);
+
+          $stmt->close();
+          $mysqli->close();
     			return true;
     		}else{
     			//Password not corretta

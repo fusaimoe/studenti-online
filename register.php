@@ -56,30 +56,31 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <select type="select" name="course_id" aria-label="Course" id="course" class="form-control" placeholder="Corso" type="text">
-                        <?php
-                          $sql = "SELECT name, id FROM courses";
-                          $result = $mysqli->query($sql);
-                          if ($result->num_rows > 0) {
+                        <select type="select" name="course_id" aria-label="Course" id="course" class="form-control" placeholder="Corso" type="text">
+                          <option value="" disabled selected >Select your course</option>
+                          <?php
+                            $sql = "SELECT name, id FROM courses";
+                            $result = $mysqli->query($sql);
+                            if ($result->num_rows > 0) {
 
-                            while($row = $result->fetch_assoc()) {
-                              $name = $row['name'];
-                              $id = $row['id'];
-                              echo '<option value="'. $id .'">'. $name .'</option>';
+                              while($row = $result->fetch_assoc()) {
+                                $name = $row['name'];
+                                $id = $row['id'];
+                                echo '<option value="'. $id .'">'. $name .'</option>';
+                              }
                             }
-                          }
                         ?>
-                      <select>
+                      </select>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
-                        <i class="icon-lock"></i>
+                        <i class="icon-graduation"></i>
                         <input type="number" name="student_id" aria-label="StudentID" id="student_id" class="form-control" placeholder="Matricola" type="text">
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="left-inner-addon">
-                        <i class="icon-lock"></i>
+                        <i class="icon-calendar"></i>
                         <input type="number" name="matriculation_year" aria-label="Matriculation Year" id="matriculation_year" class="form-control" placeholder="Anno di immatricolazione" min="2000" max=<?php echo date("Y"); ?>>
                       </div>
                     </div>
