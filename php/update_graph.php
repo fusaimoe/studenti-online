@@ -1,16 +1,17 @@
 <?php
 
-include 'php/db_connect.php';
-include 'php/functions.php';
+include 'db_connect.php';
+include 'functions.php';
 sec_session_start();
 
 //Risultato query di esami_studente
 $sql = "SELECT result, record_date
         FROM student_exams
-        WHERE result != NULL AND student_id = '" . $student_id ."'";
+        WHERE result IS NOT NULL AND student_id = '" . $_SESSION['student_id'] ."' ORDER BY record_date";
 $result = $mysqli->query($sql);
+$result2 = $mysqli->query($sql);
 
-echo'console.log('.$sql.')';
+//echo'console.log('.$sql.');';
 
 if ($result->num_rows > 0) {
 
@@ -50,30 +51,39 @@ echo'
           },
           series: [{
               name: "Voto",
-              data: ['
+              data: [
+
+                ';
 
                   while($row = $result->fetch_assoc()) {
-                    $result = $row['result'];
+                    $vote = $row['result'];
                     $record = $row['record_date'];
 
-                    echo' [' . $record_date . ', ' . $result . '],'
+                    $timestamp = strtotime($record);
+
+                    echo' [' . $timestamp . '000, ' . $vote . '],';
 
                   }
 
               echo ' ]
           }, {
               name: "Media",
-              data: ['
-                  $media = 0;
+              data: [';
+
+
+                  $avr = 0;
                   $counter = 0;
-                  while($row = $result->fetch_assoc()) {
-                    $result = $row['result'];
+
+                  while($row = $result2->fetch_assoc()) {
+                    $vote = $row['result'];
                     $record = $row['record_date'];
 
-                    $media+=$result;
+                    $avr+=$vote;
                     $counter++;
 
-                    echo' [' . $record_date . ', ' . $media/$counter .'],'
+                    $timestamp = strtotime($record);
+
+                    echo' [' . $timestamp . '000, ' . $avr/$counter .'],';
 
                   }
 
@@ -86,6 +96,8 @@ echo'
       });
   });
 
-'}
+';
+
+}
 
  ?>

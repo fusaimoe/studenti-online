@@ -298,12 +298,12 @@
             <div class="col-lg-6 col-nopadding-right">
               <div class="card">
                 <div class="card-block">
-                  <p class="card-top">Grafico Media Ponderata</p>
+                  <p class="card-top">Grafico Media Ponderata (non disponibile)</p>
                   <button type="button" class="icon-control float-xs-right rotate" data-toggle="collapse" href="#collapse-graph" aria-expanded="false" aria-controls="collapse-graph">
                     <span class="icon-arrow-down" aria-hidden="true"></span>
                   </button>
                   <div class="collapse" id="collapse-graph">
-                    <div class="card-content">ciao</div>
+                    <div class="card-content"></div>
                   </div>
                 </div>
               </div>
@@ -326,7 +326,7 @@
         $result->close();
         $mysqli->close();
       ?>
-      
+
       <hr>
 
       <?php include 'footer.php'; ?>
@@ -343,9 +343,10 @@
     <script src="js/favorite.js" type="text/javascript"></script>
     <script src="js/calendar.js" type="text/javascript"></script>
     <script src="js/history.js" type="text/javascript"></script>
-    <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
-
+    <script src="js/history.js" type="text/javascript"></script>
     <script src="js/career.js" type="text/javascript"></script>
+    <script src="php/update_graph.php" type="text/javascript"></script>
+    <script src="js/jquery.touchSwipe.min.js" type="text/javascript"></script>
 
   </body>
 </html>
