@@ -48,3 +48,5 @@ $('[data-notification-id]').on('close.bs.alert', function () {
     }
   });
 })
+
+$("#settings").prop('disabled',true)
