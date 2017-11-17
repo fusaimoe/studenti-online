@@ -8,4 +8,4 @@
 ![student:Andrea-Colombo](https://img.shields.io/badge/student-Andrea%20Colombo-blue.svg)
 
 
-Bootstrap 4 based redesign of Università di Bologna "Studenti Online" web app. A link will be added in the future.
+Bootstrap 4 based redesign of Università di Bologna "Studenti Online" web app.
